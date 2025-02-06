@@ -96,6 +96,7 @@ export function Outer({
       nativeSnapPoint: 0,
       disableDrag: false,
       setDisableDrag: () => {},
+      isWithinDialog: true,
     }),
     [close],
   )
