@@ -32,11 +32,13 @@ export function KnownFollowers({
   moderationOpts,
   onLinkPress,
   minimal,
+  showIfEmpty,
 }: {
   profile: AppBskyActorDefs.ProfileViewDetailed
   moderationOpts: ModerationOpts
   onLinkPress?: LinkProps['onPress']
   minimal?: boolean
+  showIfEmpty?: boolean
 }) {
   const cache = React.useRef<Map<string, AppBskyActorDefs.KnownFollowers>>(
     new Map(),
@@ -63,11 +65,12 @@ export function KnownFollowers({
         moderationOpts={moderationOpts}
         onLinkPress={onLinkPress}
         minimal={minimal}
+        showIfEmpty={showIfEmpty}
       />
     )
   }
 
-  return null
+  return <EmptyFallback show={showIfEmpty} />
 }
 
 function KnownFollowersInner({
@@ -76,12 +79,14 @@ function KnownFollowersInner({
   cachedKnownFollowers,
   onLinkPress,
   minimal,
+  showIfEmpty,
 }: {
   profile: AppBskyActorDefs.ProfileViewDetailed
   moderationOpts: ModerationOpts
   cachedKnownFollowers: AppBskyActorDefs.KnownFollowers
   onLinkPress?: LinkProps['onPress']
   minimal?: boolean
+  showIfEmpty?: boolean
 }) {
   const t = useTheme()
   const {_} = useLingui()
@@ -114,7 +119,7 @@ function KnownFollowersInner({
    * We check above too, but here for clarity and a reminder to _check for
    * valid indices_
    */
-  if (slice.length === 0) return null
+  if (slice.length === 0) return <EmptyFallback show={showIfEmpty} />
 
   const SIZE = minimal ? AVI_SIZE_SMALL : AVI_SIZE
 
@@ -240,5 +245,23 @@ function KnownFollowersInner({
         </>
       )}
     </Link>
+  )
+}
+
+function EmptyFallback({show}: {show?: boolean}) {
+  const t = useTheme()
+
+  if (!show) return null
+
+  return (
+    <Text
+      style={[
+        a.flex_1,
+        a.text_sm,
+        a.leading_snug,
+        t.atoms.text_contrast_medium,
+      ]}>
+      <Trans>Not followed by anyone you're following</Trans>
+    </Text>
   )
 }
