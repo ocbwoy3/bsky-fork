@@ -57,6 +57,7 @@ export type CommonNavigatorParams = {
   Topic: {topic: string}
   MessagesConversation: {conversation: string; embed?: string}
   MessagesSettings: undefined
+  MessagesInbox: undefined
   NotificationSettings: undefined
   Feeds: undefined
   Start: {name: string; rkey: string}

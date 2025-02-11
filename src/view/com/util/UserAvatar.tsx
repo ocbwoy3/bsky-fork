@@ -243,13 +243,7 @@ let UserAvatar = ({
           onLoad={onLoad}
         />
       )}
-      <MediaInsetBorder
-        style={[
-          {
-            borderRadius: aviStyle.borderRadius,
-          },
-        ]}
-      />
+      <MediaInsetBorder style={[{borderRadius: aviStyle.borderRadius}]} />
       {alert}
     </View>
   ) : (
