@@ -535,7 +535,7 @@ msgstr "Aggiungi feed"
 
 #: src/view/com/profile/ProfileMenu.tsx:253
 #: src/view/com/profile/ProfileMenu.tsx:256
-msgid "Add to Lists"
+msgid "Add to lists"
 msgstr "Aggiungi alle liste"
 
 #: src/view/com/feeds/FeedSourceCard.tsx:269
@@ -983,7 +983,7 @@ msgstr "Blocca account"
 
 #: src/view/com/profile/ProfileMenu.tsx:290
 #: src/view/com/profile/ProfileMenu.tsx:297
-msgid "Block Account"
+msgid "Block account"
 msgstr "Blocca account"
 
 #: src/view/com/profile/ProfileMenu.tsx:359
@@ -4183,7 +4183,7 @@ msgstr "Silenzia {tag}"
 
 #: src/view/com/profile/ProfileMenu.tsx:269
 #: src/view/com/profile/ProfileMenu.tsx:276
-msgid "Mute Account"
+msgid "Mute account"
 msgstr "Silenzia account"
 
 #: src/view/screens/ProfileList.tsx:627
@@ -5656,7 +5656,7 @@ msgstr "Segnala"
 
 #: src/view/com/profile/ProfileMenu.tsx:309
 #: src/view/com/profile/ProfileMenu.tsx:312
-msgid "Report Account"
+msgid "Report account"
 msgstr "Segnala account"
 
 #: src/components/dms/ConvoMenu.tsx:258
@@ -7440,7 +7440,7 @@ msgstr "Sblocca account"
 
 #: src/view/com/profile/ProfileMenu.tsx:289
 #: src/view/com/profile/ProfileMenu.tsx:295
-msgid "Unblock Account"
+msgid "Unblock account"
 msgstr "Sblocca account"
 
 #: src/screens/Profile/Header/ProfileHeaderStandard.tsx:277
@@ -7500,7 +7500,7 @@ msgstr "Riattiva {tag}"
 
 #: src/view/com/profile/ProfileMenu.tsx:268
 #: src/view/com/profile/ProfileMenu.tsx:274
-msgid "Unmute Account"
+msgid "Unmute account"
 msgstr "Riattiva questo account"
 
 #: src/components/dms/ConvoMenu.tsx:239
@@ -8600,4 +8600,3 @@ msgstr "La tua risposta è stata pubblicata"
 #: src/components/dms/ReportDialog.tsx:198
 msgid "Your report will be sent to the Bluesky Moderation Service"
 msgstr "La tua segnalazione verrà inviata al servizio moderazione di Bluesky"
-

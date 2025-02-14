@@ -535,7 +535,7 @@ msgstr "Dodaj do swoich kanałów"
 
 #: src/view/com/profile/ProfileMenu.tsx:253
 #: src/view/com/profile/ProfileMenu.tsx:256
-msgid "Add to Lists"
+msgid "Add to lists"
 msgstr "Dodaj do swoich list"
 
 #: src/view/com/feeds/FeedSourceCard.tsx:269
@@ -983,7 +983,7 @@ msgstr "Blokuj konto"
 
 #: src/view/com/profile/ProfileMenu.tsx:290
 #: src/view/com/profile/ProfileMenu.tsx:297
-msgid "Block Account"
+msgid "Block account"
 msgstr "Blokuj konto"
 
 #: src/view/com/profile/ProfileMenu.tsx:359
@@ -4183,7 +4183,7 @@ msgstr "Wycisz {tag}"
 
 #: src/view/com/profile/ProfileMenu.tsx:269
 #: src/view/com/profile/ProfileMenu.tsx:276
-msgid "Mute Account"
+msgid "Mute account"
 msgstr "Wycisz konto"
 
 #: src/view/screens/ProfileList.tsx:627
@@ -5656,7 +5656,7 @@ msgstr "Zgłoś"
 
 #: src/view/com/profile/ProfileMenu.tsx:309
 #: src/view/com/profile/ProfileMenu.tsx:312
-msgid "Report Account"
+msgid "Report account"
 msgstr "Zgłoś konto"
 
 #: src/components/dms/ConvoMenu.tsx:258
@@ -7440,7 +7440,7 @@ msgstr "Odblokuj konto"
 
 #: src/view/com/profile/ProfileMenu.tsx:289
 #: src/view/com/profile/ProfileMenu.tsx:295
-msgid "Unblock Account"
+msgid "Unblock account"
 msgstr "Odblokuj konto"
 
 #: src/screens/Profile/Header/ProfileHeaderStandard.tsx:277
@@ -7500,7 +7500,7 @@ msgstr "Anuluj wyciszenie {tag}"
 
 #: src/view/com/profile/ProfileMenu.tsx:268
 #: src/view/com/profile/ProfileMenu.tsx:274
-msgid "Unmute Account"
+msgid "Unmute account"
 msgstr "Anuluj wyciszenie"
 
 #: src/components/dms/ConvoMenu.tsx:239
@@ -8600,4 +8600,3 @@ msgstr "Twoja odpowiedź została opublikowana"
 #: src/components/dms/ReportDialog.tsx:198
 msgid "Your report will be sent to the Bluesky Moderation Service"
 msgstr "Twoje zgłoszenie zostanie przesłane do moderacji Bluesky"
-

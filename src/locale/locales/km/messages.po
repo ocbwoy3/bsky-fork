@@ -535,7 +535,7 @@ msgstr "បញ្ចូលព័ត៌មាននេះទៅក្នុងម
 
 #: src/view/com/profile/ProfileMenu.tsx:253
 #: src/view/com/profile/ProfileMenu.tsx:256
-msgid "Add to Lists"
+msgid "Add to lists"
 msgstr "បន្ថែមទៅបញ្ជី"
 
 #: src/view/com/feeds/FeedSourceCard.tsx:269
@@ -983,7 +983,7 @@ msgstr "បិទគណនី"
 
 #: src/view/com/profile/ProfileMenu.tsx:290
 #: src/view/com/profile/ProfileMenu.tsx:297
-msgid "Block Account"
+msgid "Block account"
 msgstr "បិទគណនី"
 
 #: src/view/com/profile/ProfileMenu.tsx:359
@@ -4183,7 +4183,7 @@ msgstr ""
 
 #: src/view/com/profile/ProfileMenu.tsx:269
 #: src/view/com/profile/ProfileMenu.tsx:276
-msgid "Mute Account"
+msgid "Mute account"
 msgstr "បិទគណនី"
 
 #: src/view/screens/ProfileList.tsx:627
@@ -5656,7 +5656,7 @@ msgstr "រាយការណ៍"
 
 #: src/view/com/profile/ProfileMenu.tsx:309
 #: src/view/com/profile/ProfileMenu.tsx:312
-msgid "Report Account"
+msgid "Report account"
 msgstr "រាយការណ៍គណនី"
 
 #: src/components/dms/ConvoMenu.tsx:258
@@ -7440,7 +7440,7 @@ msgstr "បិទគណនី"
 
 #: src/view/com/profile/ProfileMenu.tsx:289
 #: src/view/com/profile/ProfileMenu.tsx:295
-msgid "Unblock Account"
+msgid "Unblock account"
 msgstr "បិទគណនី"
 
 #: src/screens/Profile/Header/ProfileHeaderStandard.tsx:277
@@ -7500,7 +7500,7 @@ msgstr ""
 
 #: src/view/com/profile/ProfileMenu.tsx:268
 #: src/view/com/profile/ProfileMenu.tsx:274
-msgid "Unmute Account"
+msgid "Unmute account"
 msgstr "បើកគណនី"
 
 #: src/components/dms/ConvoMenu.tsx:239
@@ -8600,4 +8600,3 @@ msgstr "ការឆ្លើយតបរបស់អ្នកត្រូវប
 #: src/components/dms/ReportDialog.tsx:198
 msgid "Your report will be sent to the Bluesky Moderation Service"
 msgstr "របាយការណ៍របស់អ្នកនឹងត្រូវបានផ្ញើទៅកាន់សេវាសម្របសម្រួល Bluesky"
-

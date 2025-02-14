@@ -225,10 +225,10 @@ let ProfileMenu = ({
             </Menu.Item>
             <Menu.Item
               testID="profileHeaderDropdownSearchBtn"
-              label={_(msg`Search Posts`)}
+              label={_(msg`Search posts`)}
               onPress={onPressSearch}>
               <Menu.ItemText>
-                <Trans>Search Posts</Trans>
+                <Trans>Search posts</Trans>
               </Menu.ItemText>
               <Menu.ItemIcon icon={SearchIcon} />
             </Menu.Item>
@@ -267,10 +267,10 @@ let ProfileMenu = ({
                 )}
                 <Menu.Item
                   testID="profileHeaderDropdownListAddRemoveBtn"
-                  label={_(msg`Add to Lists`)}
+                  label={_(msg`Add to lists`)}
                   onPress={onPressAddRemoveLists}>
                   <Menu.ItemText>
-                    <Trans>Add to Lists</Trans>
+                    <Trans>Add to lists</Trans>
                   </Menu.ItemText>
                   <Menu.ItemIcon icon={List} />
                 </Menu.Item>
@@ -282,15 +282,15 @@ let ProfileMenu = ({
                           testID="profileHeaderDropdownMuteBtn"
                           label={
                             profile.viewer?.muted
-                              ? _(msg`Unmute Account`)
-                              : _(msg`Mute Account`)
+                              ? _(msg`Unmute account`)
+                              : _(msg`Mute account`)
                           }
                           onPress={onPressMuteAccount}>
                           <Menu.ItemText>
                             {profile.viewer?.muted ? (
-                              <Trans>Unmute Account</Trans>
+                              <Trans>Unmute account</Trans>
                             ) : (
-                              <Trans>Mute Account</Trans>
+                              <Trans>Mute account</Trans>
                             )}
                           </Menu.ItemText>
                           <Menu.ItemIcon
@@ -303,15 +303,15 @@ let ProfileMenu = ({
                         testID="profileHeaderDropdownBlockBtn"
                         label={
                           profile.viewer
-                            ? _(msg`Unblock Account`)
-                            : _(msg`Block Account`)
+                            ? _(msg`Unblock account`)
+                            : _(msg`Block account`)
                         }
                         onPress={() => blockPromptControl.open()}>
                         <Menu.ItemText>
                           {profile.viewer?.blocking ? (
-                            <Trans>Unblock Account</Trans>
+                            <Trans>Unblock account</Trans>
                           ) : (
-                            <Trans>Block Account</Trans>
+                            <Trans>Block account</Trans>
                           )}
                         </Menu.ItemText>
                         <Menu.ItemIcon
@@ -323,10 +323,10 @@ let ProfileMenu = ({
                     )}
                     <Menu.Item
                       testID="profileHeaderDropdownReportBtn"
-                      label={_(msg`Report Account`)}
+                      label={_(msg`Report account`)}
                       onPress={onPressReportAccount}>
                       <Menu.ItemText>
-                        <Trans>Report Account</Trans>
+                        <Trans>Report account</Trans>
                       </Menu.ItemText>
                       <Menu.ItemIcon icon={Flag} />
                     </Menu.Item>

@@ -535,8 +535,8 @@ msgstr "Add this feed to your feeds"
 
 #: src/view/com/profile/ProfileMenu.tsx:253
 #: src/view/com/profile/ProfileMenu.tsx:256
-msgid "Add to Lists"
-msgstr "Add to Lists"
+msgid "Add to lists"
+msgstr "Add to lists"
 
 #: src/view/com/feeds/FeedSourceCard.tsx:269
 msgid "Add to my feeds"
@@ -983,8 +983,8 @@ msgstr "Block account"
 
 #: src/view/com/profile/ProfileMenu.tsx:290
 #: src/view/com/profile/ProfileMenu.tsx:297
-msgid "Block Account"
-msgstr "Block Account"
+msgid "Block account"
+msgstr "Block account"
 
 #: src/view/com/profile/ProfileMenu.tsx:359
 #: src/view/com/util/forms/PostDropdownBtnMenuItems.tsx:771
@@ -4183,8 +4183,8 @@ msgstr "Mute {tag}"
 
 #: src/view/com/profile/ProfileMenu.tsx:269
 #: src/view/com/profile/ProfileMenu.tsx:276
-msgid "Mute Account"
-msgstr "Mute Account"
+msgid "Mute account"
+msgstr "Mute account"
 
 #: src/view/screens/ProfileList.tsx:627
 msgid "Mute accounts"
@@ -5656,8 +5656,8 @@ msgstr "Report"
 
 #: src/view/com/profile/ProfileMenu.tsx:309
 #: src/view/com/profile/ProfileMenu.tsx:312
-msgid "Report Account"
-msgstr "Report Account"
+msgid "Report account"
+msgstr "Report account"
 
 #: src/components/dms/ConvoMenu.tsx:258
 #: src/components/dms/ConvoMenu.tsx:261
@@ -7440,8 +7440,8 @@ msgstr "Unblock account"
 
 #: src/view/com/profile/ProfileMenu.tsx:289
 #: src/view/com/profile/ProfileMenu.tsx:295
-msgid "Unblock Account"
-msgstr "Unblock Account"
+msgid "Unblock account"
+msgstr "Unblock account"
 
 #: src/screens/Profile/Header/ProfileHeaderStandard.tsx:277
 #: src/view/com/profile/ProfileMenu.tsx:358
@@ -7500,8 +7500,8 @@ msgstr "Unmute {tag}"
 
 #: src/view/com/profile/ProfileMenu.tsx:268
 #: src/view/com/profile/ProfileMenu.tsx:274
-msgid "Unmute Account"
-msgstr "Unmute Account"
+msgid "Unmute account"
+msgstr "Unmute account"
 
 #: src/components/dms/ConvoMenu.tsx:239
 msgid "Unmute conversation"
@@ -8600,4 +8600,3 @@ msgstr "Your reply has been published"
 #: src/components/dms/ReportDialog.tsx:198
 msgid "Your report will be sent to the Bluesky Moderation Service"
 msgstr "Your report will be sent to the Bluesky Moderation Service"
-
