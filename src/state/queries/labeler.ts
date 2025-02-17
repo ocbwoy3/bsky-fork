@@ -110,18 +110,22 @@ export function useLabelerSubscriptionMutation() {
       ).map(l => l.did)
       const invalidLabelers: string[] = []
       if (labelerDids.length) {
-        const profiles = await agent.getProfiles({actors: labelerDids})
-        if (profiles.data) {
-          for (const did of labelerDids) {
-            const exists = profiles.data.profiles.find(p => p.did === did)
-            if (exists) {
-              // profile came back but it's not a valid labeler
-              if (exists.associated && !exists.associated.labeler) {
+        for (let i = 0; i < labelerDids.length; i += 20) {
+          const profiles = await agent.getProfiles({
+            actors: labelerDids.slice(i, i + 20),
+          })
+          if (profiles.data) {
+            for (const did of labelerDids.slice(i, i + 20)) {
+              const exists = profiles.data.profiles.find(p => p.did === did)
+              if (exists) {
+                // profile came back but it's not a valid labeler
+                if (exists.associated && !exists.associated.labeler) {
+                  invalidLabelers.push(did)
+                }
+              } else {
+                // no response came back, might be deactivated or takendown
                 invalidLabelers.push(did)
               }
-            } else {
-              // no response came back, might be deactivated or takendown
-              invalidLabelers.push(did)
             }
           }
         }
