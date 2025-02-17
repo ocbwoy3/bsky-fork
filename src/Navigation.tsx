@@ -81,6 +81,7 @@ import {ProfileFollowsScreen} from '#/screens/Profile/ProfileFollows'
 import {ProfileLabelerLikedByScreen} from '#/screens/Profile/ProfileLabelerLikedBy'
 import {AppearanceSettingsScreen} from '#/screens/Settings/AppearanceSettings'
 import {AppIconSettingsScreen} from '#/screens/Settings/AppIconSettings'
+import {BskyHackSettingsScreen} from '#/screens/Settings/BskyHackSettings'
 import {NotificationSettingsScreen} from '#/screens/Settings/NotificationSettings'
 import {
   StarterPackScreen,
@@ -347,6 +348,14 @@ function commonScreens(Stack: typeof HomeTab, unreadCountLabel?: string) {
         getComponent={() => AppearanceSettingsScreen}
         options={{
           title: title(msg`Appearance`),
+          requireAuth: true,
+        }}
+      />
+      <Stack.Screen
+        name="BskyHackSettings"
+        getComponent={() => BskyHackSettingsScreen}
+        options={{
+          title: title(msg`OCbwoy3 Super Dev Settings`),
           requireAuth: true,
         }}
       />

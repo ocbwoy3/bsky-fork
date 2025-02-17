@@ -10,6 +10,10 @@ export type Device = {
   }
   trendingBetaEnabled: boolean
   devMode: boolean
+  ocbwoy3?: {
+    disableForcedLabelers?: boolean
+    disableBlueskyLabeler?: boolean
+  }
 }
 
 export type Account = {

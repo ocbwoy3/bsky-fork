@@ -47,6 +47,7 @@ import {
   PersonX_Stroke2_Corner0_Rounded as PersonXIcon,
 } from '#/components/icons/Person'
 import {RaisingHand4Finger_Stroke2_Corner2_Rounded as HandIcon} from '#/components/icons/RaisingHand'
+import {Star_Stroke2_Corner0_Rounded as StarIcon} from '#/components/icons/Star'
 import {Window_Stroke2_Corner2_Rounded as WindowIcon} from '#/components/icons/Window'
 import * as Layout from '#/components/Layout'
 import {Loader} from '#/components/Loader'
@@ -216,6 +217,12 @@ export function SettingsScreen({}: Props) {
             <SettingsList.ItemIcon icon={BubbleInfoIcon} />
             <SettingsList.ItemText>
               <Trans>About</Trans>
+            </SettingsList.ItemText>
+          </SettingsList.LinkItem>
+          <SettingsList.LinkItem to="/settings/ocbwoy3" label={_(msg``)}>
+            <SettingsList.ItemIcon icon={StarIcon} />
+            <SettingsList.ItemText>
+              <Trans>OCbwoy3's Super Dev Settings</Trans>
             </SettingsList.ItemText>
           </SettingsList.LinkItem>
           <SettingsList.Divider />
