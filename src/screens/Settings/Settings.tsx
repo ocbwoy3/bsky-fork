@@ -50,9 +50,11 @@ import {RaisingHand4Finger_Stroke2_Corner2_Rounded as HandIcon} from '#/componen
 import {Star_Stroke2_Corner0_Rounded as StarIcon} from '#/components/icons/Star'
 import {Window_Stroke2_Corner2_Rounded as WindowIcon} from '#/components/icons/Window'
 import * as Layout from '#/components/Layout'
+import {InlineLinkText} from '#/components/Link'
 import {Loader} from '#/components/Loader'
 import * as Menu from '#/components/Menu'
 import * as Prompt from '#/components/Prompt'
+import {Text} from '#/components/Typography'
 
 type Props = NativeStackScreenProps<CommonNavigatorParams, 'Settings'>
 export function SettingsScreen({}: Props) {
@@ -222,7 +224,7 @@ export function SettingsScreen({}: Props) {
           <SettingsList.LinkItem to="/settings/ocbwoy3" label={_(msg``)}>
             <SettingsList.ItemIcon icon={StarIcon} />
             <SettingsList.ItemText>
-              <Trans>OCbwoy3's Super Dev Settings</Trans>
+              OCbwoy3's Super Dev Settings
             </SettingsList.ItemText>
           </SettingsList.LinkItem>
           <SettingsList.Divider />
@@ -253,6 +255,14 @@ export function SettingsScreen({}: Props) {
                 </SettingsList.ItemText>
               </SettingsList.PressableItem>
               {showDevOptions && <DevOptions />}
+              <Text style={[a.pt_xl, a.text_center]}>
+                This is a fork of{' '}
+                <InlineLinkText
+                  label="Bluesky's Social App"
+                  to="https://github.com/bluesky-social/social-app">
+                  Bluesky's Social App
+                </InlineLinkText>
+              </Text>
             </>
           )}
         </SettingsList.Container>

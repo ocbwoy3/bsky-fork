@@ -13,6 +13,8 @@ export type Device = {
   ocbwoy3?: {
     disableForcedLabelers?: boolean
     disableBlueskyLabeler?: boolean
+    remove20LabelerLimit?: boolean
+    postingClientInRecord?: boolean
   }
 }
 

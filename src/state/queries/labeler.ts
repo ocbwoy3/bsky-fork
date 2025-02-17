@@ -2,7 +2,12 @@ import {AppBskyLabelerDefs} from '@atproto/api'
 import {useMutation, useQuery, useQueryClient} from '@tanstack/react-query'
 import {z} from 'zod'
 
-import {MAX_LABELERS} from '#/lib/constants'
+// import {MAX_LABELERS} from '#/lib/constants'
+
+const MAX_LABELERS =
+  getOCbwoy3Settings().remove20LabelerLimit === true ? 100 : 20
+
+import {getOCbwoy3Settings} from '#/lib/constants'
 import {labelersDetailedInfoQueryKeyRoot} from '#/lib/react-query'
 import {STALE} from '#/state/queries'
 import {

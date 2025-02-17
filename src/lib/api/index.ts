@@ -38,6 +38,7 @@ import {
   PostDraft,
   ThreadDraft,
 } from '#/view/com/composer/state/composer'
+import {getOCbwoy3Settings} from '../constants'
 import {createGIFDescription} from '../gif-alt-text'
 import {uploadBlob} from './upload-blob'
 
@@ -110,6 +111,10 @@ export async function post(
     const rt = await rtPromise
     const embed = await embedPromise
     const reply = await replyPromise
+    let applyWritesAdditions: any = {}
+    if (getOCbwoy3Settings().postingClientInRecord === true) {
+      applyWritesAdditions.posting_client = 'Bluesky Social'
+    }
     const record: AppBskyFeedPost.Record = {
       // IMPORTANT: $type has to exist, CID is calculated with the `$type` field
       // present and will produce the wrong CID if you omit it.
@@ -121,6 +126,7 @@ export async function post(
       embed,
       langs,
       labels,
+      ...applyWritesAdditions,
     }
     writes.push({
       $type: 'com.atproto.repo.applyWrites#create',

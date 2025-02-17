@@ -1,6 +1,14 @@
 import {Insets, Platform} from 'react-native'
 import {AppBskyActorDefs} from '@atproto/api'
 
+import {device} from '#/storage'
+
+export function getOCbwoy3Settings() {
+  return device.get(['ocbwoy3']) || {}
+}
+
+const forkSettings = getOCbwoy3Settings()
+
 export const LOCAL_DEV_SERVICE =
   Platform.OS === 'android' ? 'http://10.0.2.2:2583' : 'http://localhost:2583'
 export const STAGING_SERVICE = 'https://staging.bsky.dev'
@@ -163,7 +171,9 @@ export const GIF_SEARCH = (params: string) =>
 export const GIF_FEATURED = (params: string) =>
   `${GIF_SERVICE}/tenor/v2/featured?${params}`
 
-export const MAX_LABELERS = 20
+// 20 max default
+export const MAX_LABELERS =
+  forkSettings.remove20LabelerLimit === true ? 100 : 20
 
 export const VIDEO_SERVICE = 'https://video.bsky.app'
 export const VIDEO_SERVICE_DID = 'did:web:video.bsky.app'

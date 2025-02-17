@@ -352,14 +352,6 @@ function commonScreens(Stack: typeof HomeTab, unreadCountLabel?: string) {
         }}
       />
       <Stack.Screen
-        name="BskyHackSettings"
-        getComponent={() => BskyHackSettingsScreen}
-        options={{
-          title: title(msg`OCbwoy3 Super Dev Settings`),
-          requireAuth: true,
-        }}
-      />
-      <Stack.Screen
         name="AccountSettings"
         getComponent={() => AccountSettingsScreen}
         options={{
@@ -388,6 +380,14 @@ function commonScreens(Stack: typeof HomeTab, unreadCountLabel?: string) {
         getComponent={() => AboutSettingsScreen}
         options={{
           title: title(msg`About`),
+          requireAuth: true,
+        }}
+      />
+      <Stack.Screen
+        name="BskyHackSettings"
+        getComponent={() => BskyHackSettingsScreen}
+        options={{
+          title: title(`OCbwoy3's Super Dev Settings`),
           requireAuth: true,
         }}
       />

@@ -30,6 +30,18 @@ export function configureAdditionalModerationAuthorities() {
     logger.info(`no geolocation, cannot apply mod authorities`)
   }
 
+  const ocbwoy3_settings = device.get(['ocbwoy3']) || {}
+
+  if (ocbwoy3_settings.disableBlueskyLabeler) {
+    logger.info(`[ocbwoy3] Disabled BskyAgent.appLabelers`)
+    BskyAgent.appLabelers = []
+  }
+
+  if (ocbwoy3_settings.disableForcedLabelers) {
+    logger.info(`[ocbwoy3] Disabled additional country-specific labelers`)
+    additionalLabelers = []
+  }
+
   const appLabelers = Array.from(
     new Set([...BskyAgent.appLabelers, ...additionalLabelers]),
   )

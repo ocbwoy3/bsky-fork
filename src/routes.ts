@@ -67,4 +67,6 @@ export const router = new Router({
   StarterPackShort: '/starter-pack-short/:code',
   StarterPackWizard: '/starter-pack/create',
   VideoFeed: '/video-feed',
+  // ocbwoy3 bluesky fork
+  BskyHackSettings: '/settings/ocbwoy3',
 })

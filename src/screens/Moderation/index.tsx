@@ -457,6 +457,13 @@ export function ModerationScreenInner({
           })}
         </View>
       )}
+      {labelers ? (
+        <Text style={[a.pt_xl]}>
+          You are subscribed to {labelers?.length} labelers.
+        </Text>
+      ) : (
+        <></>
+      )}
       <View style={{height: 150}} />
     </View>
   )
