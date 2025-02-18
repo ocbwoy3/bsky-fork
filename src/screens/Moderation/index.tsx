@@ -5,7 +5,7 @@ import {msg, Trans} from '@lingui/macro'
 import {useLingui} from '@lingui/react'
 import {useFocusEffect} from '@react-navigation/native'
 
-import {getOCbwoy3Settings} from '#/lib/constants'
+import {getOCbwoy3Settings, MAX_LABELERS} from '#/lib/constants'
 import {getLabelingServiceTitle} from '#/lib/moderation'
 import {CommonNavigatorParams, NativeStackScreenProps} from '#/lib/routes/types'
 import {logger} from '#/logger'
@@ -169,7 +169,7 @@ export function ModerationScreenInner({
   )
 
   const bypassAgeGate =
-    getOCbwoy3Settings().bypass18PlusAgeRestriction === true ? true : false
+    getOCbwoy3Settings().skipModSettingAgeCheck === true ? true : false
 
   const ageNotSet = !preferences.userAge
   const isUnderage = bypassAgeGate ? false : (preferences.userAge || 0) < 18
@@ -464,7 +464,7 @@ export function ModerationScreenInner({
       )}
       {labelers ? (
         <Text style={[a.pt_xl]}>
-          You are subscribed to {labelers?.length} labelers.
+          You are subscribed to {labelers?.length}/{MAX_LABELERS} labelers.
         </Text>
       ) : (
         <></>

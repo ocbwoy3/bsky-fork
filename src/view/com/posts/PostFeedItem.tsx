@@ -152,6 +152,7 @@ let FeedItemInner = ({
   const {openComposer} = useComposerControls()
   const pal = usePalette('default')
   const {_} = useLingui()
+  const oc3settings = getOCbwoy3Settings()
 
   const href = useMemo(() => {
     const urip = new AtUri(post.uri)
@@ -396,7 +397,7 @@ let FeedItemInner = ({
             author={post.author}
             moderation={moderation}
             timestamp={
-              getOCbwoy3Settings().useSelfIdentifiedTimestamp
+              oc3settings.restoreBackdatedPosts
                 ? (post.record as any).createdAt || post.indexedAt
                 : post.indexedAt
             }
@@ -546,11 +547,6 @@ function ReplyToLabel({
   let label
   if (blocked) {
     label = <Trans context="description">Reply to a blocked post</Trans>
-    if (getOCbwoy3Settings().ignoreBlockRelationships === true) {
-      label = (
-        <Trans context="description">Reply to a bypassed blocked post</Trans>
-      )
-    }
   } else if (notFound) {
     label = <Trans context="description">Reply to a post</Trans>
   } else if (profile != null) {

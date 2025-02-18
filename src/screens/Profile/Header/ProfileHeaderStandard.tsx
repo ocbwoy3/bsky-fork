@@ -34,6 +34,7 @@ import {
 } from '#/components/KnownFollowers'
 import * as Prompt from '#/components/Prompt'
 import {RichText} from '#/components/RichText'
+import {OCbwoy3DiscordStatus} from '#/ocbwoy3BskyHack/components/DiscordStatus'
 import {ProfileHeaderDisplayName} from './DisplayName'
 import {EditProfileDialog} from './EditProfileDialog'
 import {ProfileHeaderHandle} from './Handle'
@@ -258,6 +259,14 @@ let ProfileHeaderStandard = ({
                 />
               </View>
             ) : undefined}
+
+            {profile.did === 'did:plc:s7cesz7cr6ybltaryy4meb6y' ? (
+              <OCbwoy3DiscordStatus
+                allowedApplicationIds={['886578863147192350']}
+              />
+            ) : (
+              <></>
+            )}
 
             {!isMe &&
               !isBlockedUser &&

@@ -184,7 +184,7 @@ function PostInner({
             author={post.author}
             moderation={moderation}
             timestamp={
-              getOCbwoy3Settings().useSelfIdentifiedTimestamp
+              getOCbwoy3Settings().restoreBackdatedPosts
                 ? (post.record as any).createdAt || post.indexedAt
                 : post.indexedAt
             }

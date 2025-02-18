@@ -340,22 +340,17 @@ function CantSubscribePrompt({
   const {_} = useLingui()
   return (
     <Prompt.Outer control={control}>
-      {MAX_LABELERS > 20 ? (
-        <Prompt.TitleText>Too many labelers!</Prompt.TitleText>
-      ) : (
-        <Prompt.TitleText>"Unable to subscribe"</Prompt.TitleText>
-      )}
+      <Prompt.TitleText>Unable to subscribe</Prompt.TitleText>
       <Prompt.DescriptionText>
         {MAX_LABELERS > 20 ? (
-          <Text>
-            Whoops... You're subscribed to too many labels with a forked version
-            of Bluesky's social app. I'm pretty sure the AppView isn't happy
-            anymore.
-          </Text>
+          <Trans>
+            We're sorry! You can only subscribe up to a hundred labelers with
+            OCbwoy3 Bluesky Hack, and you've already reached the limit.
+          </Trans>
         ) : (
           <Trans>
-            We're sorry! You can only subscribe to twenty labelers, and you've
-            reached your limit of twenty.
+            We're sorry! You can only subscribe up to twenty labelers, and
+            you've already reached the limit.
           </Trans>
         )}
       </Prompt.DescriptionText>

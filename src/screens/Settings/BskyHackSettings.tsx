@@ -2,6 +2,7 @@ import {Fragment} from 'react'
 import {View} from 'react-native'
 
 import {CommonNavigatorParams, NativeStackScreenProps} from '#/lib/routes/types'
+import * as persisted from '#/state/persisted'
 import {atoms as a, useBreakpoints, useTheme} from '#/alf/index'
 import {Divider} from '#/components/Divider'
 import * as Layout from '#/components/Layout'
@@ -18,6 +19,7 @@ enum SettingType {
 type Setting = {
   name: string
   type: SettingType
+  settingId: string
   onUpdate: (v: string | boolean) => any
   getState: () => string | boolean
 }
@@ -32,13 +34,33 @@ type SettingCategory = {
   settings: Setting[]
 }
 
-function createToggleOption(
+type BskyPersistedStateContext = persisted.Schema
+
+function createToggleOptionBluesky(
   name: string,
-  value: keyof typeof DummyOCbwoy3SettingsSchema,
-) {
+  value: keyof BskyPersistedStateContext,
+): Setting {
   return {
     name,
     type: SettingType.ON_OFF,
+    settingId: value,
+    getState: () => {
+      return (persisted.get(value) as boolean) || false
+    },
+    onUpdate: (v: string | boolean) => {
+      persisted.write(value, v as boolean)
+    },
+  }
+}
+
+function createToggleOption(
+  name: string,
+  value: keyof typeof DummyOCbwoy3SettingsSchema,
+): Setting {
+  return {
+    name,
+    type: SettingType.ON_OFF,
+    settingId: value,
     getState: () => {
       return (device.get(['ocbwoy3']) || {})[value] || false
     },
@@ -50,13 +72,15 @@ function createToggleOption(
   }
 }
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 function createTextOption(
   name: string,
   value: keyof typeof DummyOCbwoy3SettingsSchema,
-) {
+): Setting {
   return {
     name,
     type: SettingType.STRING,
+    settingId: value,
     getState: () => {
       return (device.get(['ocbwoy3']) || {})[value] || false
     },
@@ -74,39 +98,35 @@ const AllSettings: SettingCategory[] = [
     type: SettingCategoryType.GROUP,
     settings: [
       createToggleOption(
-        'Unsubscribe from Bluesky Moderation (Germany/Brazil)',
-        'disableForcedLabelers',
+        'Disable Region-specific labelers',
+        'disableAppLabelers',
       ),
       createToggleOption(
-        'Unsubscribe from Bluesky Moderation',
-        'disableBlueskyLabeler',
+        'Disable Bluesky Moderation',
+        'disableBlueskyLabelerAtproto',
       ),
-      createToggleOption('Bypass 20 labeler limit', 'remove20LabelerLimit'),
+      createToggleOption('Increase labeler limit', 'increaseLabelerLimit'),
     ],
-  },
-  {
-    title: 'AT Protocol',
-    type: SettingCategoryType.GROUP,
-    settings: [createToggleOption('Ignore !hide label', 'defyAtprotoRules')],
   },
   {
     title: 'Bluesky',
     type: SettingCategoryType.GROUP,
     settings: [
-      createToggleOption(
-        'Add posting_client ("Bluesky for X") attribute',
-        'postingClientInRecord',
-      ),
-      createToggleOption(
-        'Use self-identified timestamp in post view',
-        'useSelfIdentifiedTimestamp',
-      ),
-      createToggleOption(
-        'Bypass age check in moderation settings',
-        'bypass18PlusAgeRestriction',
-      ),
+      createToggleOption('"Bluesky for X" in posts', 'blueskyForWeb'),
+      createToggleOption('Use createdAt timestamp', 'restoreBackdatedPosts'),
+      createToggleOption('Bypass age check', 'skipModSettingAgeCheck'),
+      createToggleOption('Bypass !hide warnings', 'bypassHideWarning'),
     ],
   },
+  {
+    title: 'Bluesky Settings',
+    type: SettingCategoryType.GROUP,
+    settings: [
+      createToggleOptionBluesky('Disable Trending', 'trendingDisabled'),
+      createToggleOptionBluesky('Kawaii', 'kawaii'),
+    ],
+  },
+  /*
   {
     title: 'AI',
     type: SettingCategoryType.GROUP,
@@ -118,13 +138,14 @@ const AllSettings: SettingCategory[] = [
       createTextOption('Gemini API Key', 'geminiApiKey'),
     ],
   },
+  */
 ]
 
 type Props = NativeStackScreenProps<CommonNavigatorParams, 'BskyHackSettings'>
 export function BskyHackSettingsScreen({}: Props) {
   const t = useTheme()
 
-  console.log(AllSettings)
+  // console.log(AllSettings);
 
   const {gtMobile} = useBreakpoints()
   return (
@@ -144,7 +165,7 @@ export function BskyHackSettingsScreen({}: Props) {
           <InlineLinkText
             style={[a.text_2xl]}
             label="@ocbwoy3.dev"
-            to="/profile/ocbwoy3.dev">
+            to="/profile/did:plc:s7cesz7cr6ybltaryy4meb6y">
             @ocbwoy3.dev
           </InlineLinkText>
         </Text>
@@ -176,6 +197,7 @@ export function BskyHackSettingsScreen({}: Props) {
                       <OCbwoy3BskyHackSettingToggle
                         key={idx2}
                         name={s.name}
+                        settingId={s.settingId}
                         getState={s.getState}
                         onUpdate={s.onUpdate}
                       />

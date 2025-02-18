@@ -173,7 +173,7 @@ export const GIF_FEATURED = (params: string) =>
 
 // 20 max default
 export const MAX_LABELERS =
-  forkSettings.remove20LabelerLimit === true ? 100 : 20
+  forkSettings.increaseLabelerLimit === true ? 100 : 20
 
 export const VIDEO_SERVICE = 'https://video.bsky.app'
 export const VIDEO_SERVICE_DID = 'did:web:video.bsky.app'

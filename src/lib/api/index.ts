@@ -113,7 +113,7 @@ export async function post(
     const embed = await embedPromise
     const reply = await replyPromise
     let applyWritesAdditions: any = {}
-    if (getOCbwoy3Settings().postingClientInRecord === true) {
+    if (getOCbwoy3Settings().blueskyForWeb === true) {
       switch (devicePlatform) {
         case 'android': {
           applyWritesAdditions.posting_client = 'Bluesky for Android'

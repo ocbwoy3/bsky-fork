@@ -32,12 +32,12 @@ export function configureAdditionalModerationAuthorities() {
 
   const ocbwoy3_settings = device.get(['ocbwoy3']) || {}
 
-  if (ocbwoy3_settings.disableBlueskyLabeler) {
+  if (ocbwoy3_settings.disableBlueskyLabelerAtproto) {
     logger.info(`[ocbwoy3] Disabled BskyAgent.appLabelers`)
     BskyAgent.appLabelers = []
   }
 
-  if (ocbwoy3_settings.disableForcedLabelers) {
+  if (ocbwoy3_settings.disableAppLabelers) {
     logger.info(`[ocbwoy3] Disabled additional country-specific labelers`)
     additionalLabelers = []
   }

@@ -13,7 +13,6 @@ import {
 import {sanitizeDisplayName} from '#/lib/strings/display-names'
 import {sanitizeHandle} from '#/lib/strings/handles'
 import {AppModerationCause} from '#/components/Pills'
-import {getOCbwoy3Settings} from './constants'
 
 export const ADULT_CONTENT_LABELS = ['sexual', 'nudity', 'porn']
 export const OTHER_SELF_LABELS = ['graphic-media']
@@ -53,9 +52,7 @@ export function moduiContainsHideableOffense(modui: ModerationUI): boolean {
 export function labelIsHideableOffense(
   label: ComAtprotoLabelDefs.Label,
 ): boolean {
-  if (getOCbwoy3Settings().defyAtprotoRules !== true)
-    return ['!hide', '!takedown'].includes(label.val)
-  return false
+  return ['!hide', '!takedown'].includes(label.val)
 }
 
 export function getLabelingServiceTitle({

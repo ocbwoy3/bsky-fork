@@ -814,6 +814,8 @@ function BackdatedPostIndicator({post}: {post: AppBskyFeedDefs.PostView}) {
 
   if (!isBackdated) return null
 
+  const oc3settings = getOCbwoy3Settings()
+
   const orange = t.name === 'light' ? colors.warning.dark : colors.warning.light
 
   return (
@@ -850,7 +852,7 @@ function BackdatedPostIndicator({post}: {post: AppBskyFeedDefs.PostView}) {
                 a.leading_tight,
                 t.atoms.text_contrast_medium,
               ]}>
-              {getOCbwoy3Settings().useSelfIdentifiedTimestamp === true ? (
+              {oc3settings.restoreBackdatedPosts === true ? (
                 <Trans>Indexed at {niceDate(i18n, indexedAt)}</Trans>
               ) : (
                 <Trans>Archived from {niceDate(i18n, createdAt)}</Trans>
@@ -862,14 +864,14 @@ function BackdatedPostIndicator({post}: {post: AppBskyFeedDefs.PostView}) {
 
       <Prompt.Outer control={control}>
         <Prompt.TitleText>
-          {getOCbwoy3Settings().useSelfIdentifiedTimestamp === true ? (
+          {oc3settings.restoreBackdatedPosts === true ? (
             <Trans>Backdated post</Trans>
           ) : (
             <Trans>Archived post</Trans>
           )}
         </Prompt.TitleText>
         <Prompt.DescriptionText>
-          {getOCbwoy3Settings().useSelfIdentifiedTimestamp === true ? (
+          {oc3settings.restoreBackdatedPosts === true ? (
             <Trans>
               This post's self-identified timestamp does not match up with the
               time it was first seen on Firehose on{' '}

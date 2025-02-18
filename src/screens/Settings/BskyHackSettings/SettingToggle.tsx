@@ -8,12 +8,14 @@ import * as Toggle from '#/components/forms/Toggle'
 
 interface SettingToggleProps {
   name: string
+  settingId: string
   onUpdate: (value: boolean) => void
   getState: () => string | boolean
 }
 
 export const OCbwoy3BskyHackSettingToggle: React.FC<SettingToggleProps> = ({
   name,
+  settingId,
   onUpdate,
   getState,
 }) => {
@@ -27,9 +29,19 @@ export const OCbwoy3BskyHackSettingToggle: React.FC<SettingToggleProps> = ({
   return (
     <View
       style={[a.py_lg, a.px_lg, a.flex_row, a.align_center, a.justify_between]}>
-      <Text style={[a.font_bold, t.atoms.text_contrast_high]}>{name}</Text>
+      <View style={[a.flex]}>
+        <Text style={[a.font_bold, t.atoms.text_contrast_high]}>{name}</Text>
+        <Text
+          style={[
+            a.text_xs,
+            t.atoms.text_contrast_medium,
+            {fontFamily: 'monospace'},
+          ]}>
+          {settingId}
+        </Text>
+      </View>
       <Toggle.Item
-        enabled={toggleValue}
+        label={settingId}
         name={name}
         value={toggleValue as boolean}
         onChange={handleToggleChange}>

@@ -4,18 +4,18 @@
 
 export const DummyOCbwoy3SettingsSchema = {
   // LABELER OPTS
-  disableForcedLabelers: false,
-  disableBlueskyLabeler: false,
-  remove20LabelerLimit: false,
+  disableAppLabelers: false,
+  disableBlueskyLabelerAtproto: false,
+  increaseLabelerLimit: false,
 
   // ATPROTO HACKS
-  postingClientInRecord: false,
-  useSelfIdentifiedTimestamp: false,
+  blueskyForWeb: false,
+  restoreBackdatedPosts: false,
   ignoreBlockRelationships: false,
 
   // BLUESKY
-  bypass18PlusAgeRestriction: false,
-  defyAtprotoRules: false,
+  skipModSettingAgeCheck: false,
+  bypassHideWarning: false,
 
   // AI
   enableGenaiFeatures: false,

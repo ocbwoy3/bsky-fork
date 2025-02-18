@@ -165,7 +165,7 @@ export function ScreenHider({
           </ButtonText>
         </Button>
         {(!modui.noOverride ||
-          getOCbwoy3Settings().defyAtprotoRules === true) && (
+          getOCbwoy3Settings().bypassHideWarning === true) && (
           <Button
             variant="solid"
             color="secondary"

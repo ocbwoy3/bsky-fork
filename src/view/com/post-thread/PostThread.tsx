@@ -102,6 +102,8 @@ export function PostThread({uri}: {uri: string | undefined}) {
   )
   const headerRef = React.useRef<View | null>(null)
 
+  const oc3settings = getOCbwoy3Settings()
+
   const {data: preferences} = usePreferencesQuery()
   const {
     isFetching,
@@ -263,7 +265,7 @@ export function PostThread({uri}: {uri: string | undefined}) {
       }
     } else if (
       skeleton?.highlightedPost.type === 'blocked' &&
-      getOCbwoy3Settings().ignoreBlockRelationships !== true
+      oc3settings.ignoreBlockRelationships !== true
     ) {
       return {
         title: _(msg`Post hidden`),
@@ -283,7 +285,14 @@ export function PostThread({uri}: {uri: string | undefined}) {
     }
 
     return null
-  }, [thread, skeleton?.highlightedPost, isThreadError, _, threadError])
+  }, [
+    thread,
+    skeleton?.highlightedPost,
+    isThreadError,
+    oc3settings.ignoreBlockRelationships,
+    _,
+    threadError,
+  ])
 
   // construct content
   const posts = React.useMemo(() => {
