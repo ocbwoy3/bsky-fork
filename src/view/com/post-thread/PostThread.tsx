@@ -7,7 +7,7 @@ import {AppBskyFeedDefs, AppBskyFeedThreadgate} from '@atproto/api'
 import {msg, Trans} from '@lingui/macro'
 import {useLingui} from '@lingui/react'
 
-import {HITSLOP_10} from '#/lib/constants'
+import {getOCbwoy3Settings, HITSLOP_10} from '#/lib/constants'
 import {useInitialNumToRender} from '#/lib/hooks/useInitialNumToRender'
 import {useMinimalShellFabTransform} from '#/lib/hooks/useMinimalShellTransform'
 import {useSetTitle} from '#/lib/hooks/useSetTitle'
@@ -261,7 +261,10 @@ export function PostThread({uri}: {uri: string | undefined}) {
         title: _(msg`Post not found`),
         message: _(msg`The post may have been deleted.`),
       }
-    } else if (skeleton?.highlightedPost.type === 'blocked') {
+    } else if (
+      skeleton?.highlightedPost.type === 'blocked' &&
+      getOCbwoy3Settings().ignoreBlockRelationships !== true
+    ) {
       return {
         title: _(msg`Post hidden`),
         message: _(

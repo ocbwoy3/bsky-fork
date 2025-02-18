@@ -25,6 +25,7 @@ import {EventStopper} from '#/view/com/util/EventStopper'
 import * as Toast from '#/view/com/util/Toast'
 import {Button, ButtonIcon} from '#/components/Button'
 import {ArrowOutOfBox_Stroke2_Corner0_Rounded as Share} from '#/components/icons/ArrowOutOfBox'
+import {CodeBrackets_Stroke2_Corner0_Rounded} from '#/components/icons/CodeBrackets'
 import {DotGrid_Stroke2_Corner0_Rounded as Ellipsis} from '#/components/icons/DotGrid'
 import {Flag_Stroke2_Corner0_Rounded as Flag} from '#/components/icons/Flag'
 import {ListSparkle_Stroke2_Corner0_Rounded as List} from '#/components/icons/ListSparkle'
@@ -274,8 +275,32 @@ let ProfileMenu = ({
                   </Menu.ItemText>
                   <Menu.ItemIcon icon={List} />
                 </Menu.Item>
+                <Menu.Divider />
+                <Menu.Item
+                  testID="profileHeaderDropdownCopyDidBtn"
+                  label={_(msg`Copy DID`)}
+                  onPress={() => {
+                    navigator.clipboard.writeText(profile.did)
+                  }}>
+                  <Menu.ItemText>
+                    <Trans>Copy DID</Trans>
+                  </Menu.ItemText>
+                  <Menu.ItemIcon icon={CodeBrackets_Stroke2_Corner0_Rounded} />
+                </Menu.Item>
+                <Menu.Item
+                  testID="profileHeaderDropdownViewAtprotoRepoBtn"
+                  label={_(msg`View Repo`)}
+                  onPress={() => {
+                    open(`https://pdsls.dev/at/${profile.did}`)
+                  }}>
+                  <Menu.ItemText>
+                    <Trans>View Repo</Trans>
+                  </Menu.ItemText>
+                  <Menu.ItemIcon icon={CodeBrackets_Stroke2_Corner0_Rounded} />
+                </Menu.Item>
                 {!isSelf && (
                   <>
+                    <Menu.Divider />
                     {!profile.viewer?.blocking &&
                       !profile.viewer?.mutedByList && (
                         <Menu.Item

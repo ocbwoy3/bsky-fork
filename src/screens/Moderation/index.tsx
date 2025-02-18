@@ -5,6 +5,7 @@ import {msg, Trans} from '@lingui/macro'
 import {useLingui} from '@lingui/react'
 import {useFocusEffect} from '@react-navigation/native'
 
+import {getOCbwoy3Settings} from '#/lib/constants'
 import {getLabelingServiceTitle} from '#/lib/moderation'
 import {CommonNavigatorParams, NativeStackScreenProps} from '#/lib/routes/types'
 import {logger} from '#/logger'
@@ -166,8 +167,12 @@ export function ModerationScreenInner({
     (optimisticAdultContent && optimisticAdultContent.enabled) ||
     (!optimisticAdultContent && preferences.moderationPrefs.adultContentEnabled)
   )
+
+  const bypassAgeGate =
+    getOCbwoy3Settings().bypass18PlusAgeRestriction === true ? true : false
+
   const ageNotSet = !preferences.userAge
-  const isUnderage = (preferences.userAge || 0) < 18
+  const isUnderage = bypassAgeGate ? false : (preferences.userAge || 0) < 18
 
   const onToggleAdultContentEnabled = useCallback(
     async (selected: boolean) => {
@@ -288,7 +293,7 @@ export function ModerationScreenInner({
       </Text>
 
       <View style={[a.gap_md]}>
-        {ageNotSet && (
+        {ageNotSet && !bypassAgeGate && (
           <>
             <Button
               label={_(msg`Confirm your birthdate`)}
@@ -317,7 +322,7 @@ export function ModerationScreenInner({
             a.overflow_hidden,
             t.atoms.bg_contrast_25,
           ]}>
-          {!ageNotSet && !isUnderage && (
+          {!isUnderage && (
             <>
               <View
                 style={[

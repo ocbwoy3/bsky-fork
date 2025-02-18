@@ -16,7 +16,7 @@ import {
 import {msg, Plural, Trans} from '@lingui/macro'
 import {useLingui} from '@lingui/react'
 
-import {MAX_POST_LINES} from '#/lib/constants'
+import {getOCbwoy3Settings, MAX_POST_LINES} from '#/lib/constants'
 import {useOpenLink} from '#/lib/hooks/useOpenLink'
 import {usePalette} from '#/lib/hooks/usePalette'
 import {makeProfileLink} from '#/lib/routes/links'
@@ -757,9 +757,23 @@ function ExpandedPostDetails({
   return (
     <View style={[a.gap_md, a.pt_md, a.align_start]}>
       <BackdatedPostIndicator post={post} />
+      {(post.record as any).posting_client ? (
+        <Text>
+          <Trans>
+            {`${(post.record as any).posting_client}`.startsWith('Bluesky for ')
+              ? ''
+              : 'Posted with '}
+            <Text style={[a.font_bold]}>
+              {((post.record as any).posting_client as string) || ''}
+            </Text>
+          </Trans>
+        </Text>
+      ) : (
+        <></>
+      )}
       <View style={[a.flex_row, a.align_center, a.flex_wrap, a.gap_sm]}>
         <Text style={[a.text_sm, t.atoms.text_contrast_medium]}>
-          {niceDate(i18n, post.indexedAt)}
+          {niceDate(i18n, (post.record as any).createdAt || post.indexedAt)}
         </Text>
         {isRootPost && (
           <WhoCanReply post={post} isThreadAuthor={isThreadAuthor} />
@@ -836,7 +850,11 @@ function BackdatedPostIndicator({post}: {post: AppBskyFeedDefs.PostView}) {
                 a.leading_tight,
                 t.atoms.text_contrast_medium,
               ]}>
-              <Trans>Archived from {niceDate(i18n, createdAt)}</Trans>
+              {getOCbwoy3Settings().useSelfIdentifiedTimestamp === true ? (
+                <Trans>Indexed at {niceDate(i18n, indexedAt)}</Trans>
+              ) : (
+                <Trans>Archived from {niceDate(i18n, createdAt)}</Trans>
+              )}
             </Text>
           </View>
         )}
@@ -844,15 +862,29 @@ function BackdatedPostIndicator({post}: {post: AppBskyFeedDefs.PostView}) {
 
       <Prompt.Outer control={control}>
         <Prompt.TitleText>
-          <Trans>Archived post</Trans>
+          {getOCbwoy3Settings().useSelfIdentifiedTimestamp === true ? (
+            <Trans>Backdated post</Trans>
+          ) : (
+            <Trans>Archived post</Trans>
+          )}
         </Prompt.TitleText>
         <Prompt.DescriptionText>
-          <Trans>
-            This post claims to have been created on{' '}
-            <RNText style={[a.font_bold]}>{niceDate(i18n, createdAt)}</RNText>,
-            but was first seen by Bluesky on{' '}
-            <RNText style={[a.font_bold]}>{niceDate(i18n, indexedAt)}</RNText>.
-          </Trans>
+          {getOCbwoy3Settings().useSelfIdentifiedTimestamp === true ? (
+            <Trans>
+              This post's self-identified timestamp does not match up with the
+              time it was first seen on Firehose on{' '}
+              <RNText style={[a.font_bold]}>{niceDate(i18n, indexedAt)}</RNText>
+              .
+            </Trans>
+          ) : (
+            <Trans>
+              This post claims to have been created on{' '}
+              <RNText style={[a.font_bold]}>{niceDate(i18n, createdAt)}</RNText>
+              , but was first seen by Bluesky on{' '}
+              <RNText style={[a.font_bold]}>{niceDate(i18n, indexedAt)}</RNText>
+              .
+            </Trans>
+          )}
         </Prompt.DescriptionText>
         <Text
           style={[

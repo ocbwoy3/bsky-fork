@@ -10,7 +10,6 @@ import {
 import {msg, Plural, plural, Trans} from '@lingui/macro'
 import {useLingui} from '@lingui/react'
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import {MAX_LABELERS} from '#/lib/constants'
 import {useHaptics} from '#/lib/haptics'
 import {isAppLabeler} from '#/lib/moderation'
@@ -341,12 +340,24 @@ function CantSubscribePrompt({
   const {_} = useLingui()
   return (
     <Prompt.Outer control={control}>
-      <Prompt.TitleText>Unable to subscribe</Prompt.TitleText>
+      {MAX_LABELERS > 20 ? (
+        <Prompt.TitleText>Too many labelers!</Prompt.TitleText>
+      ) : (
+        <Prompt.TitleText>"Unable to subscribe"</Prompt.TitleText>
+      )}
       <Prompt.DescriptionText>
-        <Trans>
-          We're sorry! You can only subscribe to twenty labelers, and you've
-          reached your limit of twenty.
-        </Trans>
+        {MAX_LABELERS > 20 ? (
+          <Text>
+            Whoops... You're subscribed to too many labels with a forked version
+            of Bluesky's social app. I'm pretty sure the AppView isn't happy
+            anymore.
+          </Text>
+        ) : (
+          <Trans>
+            We're sorry! You can only subscribe to twenty labelers, and you've
+            reached your limit of twenty.
+          </Trans>
+        )}
       </Prompt.DescriptionText>
       <Prompt.Actions>
         <Prompt.Action onPress={() => control.close()} cta={_(msg`OK`)} />

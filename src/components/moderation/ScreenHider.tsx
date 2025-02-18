@@ -10,6 +10,7 @@ import {msg, Trans} from '@lingui/macro'
 import {useLingui} from '@lingui/react'
 import {useNavigation} from '@react-navigation/native'
 
+import {getOCbwoy3Settings} from '#/lib/constants'
 import {useWebMediaQueries} from '#/lib/hooks/useWebMediaQueries'
 import {useModerationCauseDescription} from '#/lib/moderation/useModerationCauseDescription'
 import {NavigationProp} from '#/lib/routes/types'
@@ -163,7 +164,8 @@ export function ScreenHider({
             <Trans>Go back</Trans>
           </ButtonText>
         </Button>
-        {!modui.noOverride && (
+        {(!modui.noOverride ||
+          getOCbwoy3Settings().defyAtprotoRules === true) && (
           <Button
             variant="solid"
             color="secondary"

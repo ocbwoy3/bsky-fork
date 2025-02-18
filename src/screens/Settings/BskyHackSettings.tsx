@@ -5,12 +5,14 @@ import {CommonNavigatorParams, NativeStackScreenProps} from '#/lib/routes/types'
 import {atoms as a, useBreakpoints, useTheme} from '#/alf/index'
 import {Divider} from '#/components/Divider'
 import * as Layout from '#/components/Layout'
+import {InlineLinkText} from '#/components/Link'
 import {Text} from '#/components/Typography'
-import {device} from '#/storage/index'
+import {device, DummyOCbwoy3SettingsSchema} from '#/storage/index'
 import {OCbwoy3BskyHackSettingToggle} from './BskyHackSettings/SettingToggle'
 
 enum SettingType {
   ON_OFF = 1,
+  STRING = 2,
 }
 
 type Setting = {
@@ -30,91 +32,90 @@ type SettingCategory = {
   settings: Setting[]
 }
 
+function createToggleOption(
+  name: string,
+  value: keyof typeof DummyOCbwoy3SettingsSchema,
+) {
+  return {
+    name,
+    type: SettingType.ON_OFF,
+    getState: () => {
+      return (device.get(['ocbwoy3']) || {})[value] || false
+    },
+    onUpdate: (v: string | boolean) => {
+      let b: any = device.get(['ocbwoy3']) || {}
+      b[value] = v as boolean
+      device.set(['ocbwoy3'], b)
+    },
+  }
+}
+
+function createTextOption(
+  name: string,
+  value: keyof typeof DummyOCbwoy3SettingsSchema,
+) {
+  return {
+    name,
+    type: SettingType.STRING,
+    getState: () => {
+      return (device.get(['ocbwoy3']) || {})[value] || false
+    },
+    onUpdate: (v: string | boolean) => {
+      let b: any = device.get(['ocbwoy3']) || {}
+      b[value] = v as boolean
+      device.set(['ocbwoy3'], b)
+    },
+  }
+}
+
 const AllSettings: SettingCategory[] = [
   {
     title: 'Labelers',
     type: SettingCategoryType.GROUP,
     settings: [
-      {
-        name: 'Remove region requirement for labelers',
-        type: SettingType.ON_OFF,
-        getState: () => {
-          return (device.get(['ocbwoy3']) || {}).disableForcedLabelers || false
-        },
-        onUpdate: (v: string | boolean) => {
-          let b = device.get(['ocbwoy3']) || {}
-          b.disableForcedLabelers = v as boolean
-          device.set(['ocbwoy3'], b)
-        },
-      },
-      {
-        name: 'Remove Bluesky Moderation',
-        type: SettingType.ON_OFF,
-        getState: () => {
-          return (device.get(['ocbwoy3']) || {}).disableBlueskyLabeler || false
-        },
-        onUpdate: (v: string | boolean) => {
-          let b = device.get(['ocbwoy3']) || {}
-          b.disableBlueskyLabeler = v as boolean
-          device.set(['ocbwoy3'], b)
-        },
-      },
+      createToggleOption(
+        'Unsubscribe from Bluesky Moderation (Germany/Brazil)',
+        'disableForcedLabelers',
+      ),
+      createToggleOption(
+        'Unsubscribe from Bluesky Moderation',
+        'disableBlueskyLabeler',
+      ),
+      createToggleOption('Bypass 20 labeler limit', 'remove20LabelerLimit'),
     ],
   },
   {
     title: 'AT Protocol',
     type: SettingCategoryType.GROUP,
-    settings: [
-      {
-        name: 'Remove 20 labeler limit',
-        type: SettingType.ON_OFF,
-        getState: () => {
-          return (device.get(['ocbwoy3']) || {}).remove20LabelerLimit || false
-        },
-        onUpdate: (v: string | boolean) => {
-          let b = device.get(['ocbwoy3']) || {}
-          b.remove20LabelerLimit = v as boolean
-          device.set(['ocbwoy3'], b)
-        },
-      },
-      {
-        name: 'Client-Side Ignore Blocks (TBD)',
-        type: SettingType.ON_OFF,
-        getState: () => {
-          return false
-        },
-        onUpdate: (v: string | boolean) => {
-          return v
-        },
-      },
-    ],
+    settings: [createToggleOption('Ignore !hide label', 'defyAtprotoRules')],
   },
   {
     title: 'Bluesky',
     type: SettingCategoryType.GROUP,
     settings: [
-      {
-        name: 'Post posting_client record attribute',
-        type: SettingType.ON_OFF,
-        getState: () => {
-          return (device.get(['ocbwoy3']) || {}).postingClientInRecord || false
-        },
-        onUpdate: (v: string | boolean) => {
-          let b = device.get(['ocbwoy3']) || {}
-          b.postingClientInRecord = v as boolean
-          device.set(['ocbwoy3'], b)
-        },
-      },
-      {
-        name: 'Use self-identified timestamps in place of indexedAt',
-        type: SettingType.ON_OFF,
-        getState: () => {
-          return false
-        },
-        onUpdate: (v: string | boolean) => {
-          return v
-        },
-      },
+      createToggleOption(
+        'Add posting_client ("Bluesky for X") attribute',
+        'postingClientInRecord',
+      ),
+      createToggleOption(
+        'Use self-identified timestamp in post view',
+        'useSelfIdentifiedTimestamp',
+      ),
+      createToggleOption(
+        'Bypass age check in moderation settings',
+        'bypass18PlusAgeRestriction',
+      ),
+    ],
+  },
+  {
+    title: 'AI',
+    type: SettingCategoryType.GROUP,
+    settings: [
+      createToggleOption(
+        'Enable Generative AI Features',
+        'enableGenaiFeatures',
+      ),
+      createTextOption('Gemini API Key', 'geminiApiKey'),
     ],
   },
 ]
@@ -138,6 +139,15 @@ export function BskyHackSettingsScreen({}: Props) {
         <Layout.Header.Slot />
       </Layout.Header.Outer>
       <Layout.Content>
+        <Text style={[a.text_2xl, a.pt_xl, a.text_center]}>
+          Made by{' '}
+          <InlineLinkText
+            style={[a.text_2xl]}
+            label="@ocbwoy3.dev"
+            to="/profile/ocbwoy3.dev">
+            @ocbwoy3.dev
+          </InlineLinkText>
+        </Text>
         <View style={[a.pt_2xl, a.px_lg, gtMobile && a.px_2xl]}>
           {AllSettings.map((item, idx) => (
             <Fragment key={idx}>
@@ -176,6 +186,14 @@ export function BskyHackSettingsScreen({}: Props) {
             </Fragment>
           ))}
         </View>
+        <Text style={[a.pt_xl, a.text_center]}>
+          This is a fork of{' '}
+          <InlineLinkText
+            label="Bluesky's Social App"
+            to="https://github.com/bluesky-social/social-app">
+            Bluesky's Social App
+          </InlineLinkText>
+        </Text>
       </Layout.Content>
     </Layout.Screen>
   )

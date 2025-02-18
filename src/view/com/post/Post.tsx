@@ -12,7 +12,7 @@ import {msg, Trans} from '@lingui/macro'
 import {useLingui} from '@lingui/react'
 import {useQueryClient} from '@tanstack/react-query'
 
-import {MAX_POST_LINES} from '#/lib/constants'
+import {getOCbwoy3Settings, MAX_POST_LINES} from '#/lib/constants'
 import {usePalette} from '#/lib/hooks/usePalette'
 import {moderatePost_wrapped as moderatePost} from '#/lib/moderatePost_wrapped'
 import {makeProfileLink} from '#/lib/routes/links'
@@ -183,7 +183,11 @@ function PostInner({
           <PostMeta
             author={post.author}
             moderation={moderation}
-            timestamp={post.indexedAt}
+            timestamp={
+              getOCbwoy3Settings().useSelfIdentifiedTimestamp
+                ? (post.record as any).createdAt || post.indexedAt
+                : post.indexedAt
+            }
             postHref={itemHref}
           />
           {replyAuthorDid !== '' && (

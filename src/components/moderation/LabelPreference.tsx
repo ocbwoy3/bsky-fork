@@ -13,7 +13,6 @@ import {
 } from '#/state/queries/preferences'
 import {atoms as a, useBreakpoints, useTheme} from '#/alf'
 import * as ToggleButton from '#/components/forms/ToggleButton'
-import {InlineLinkText} from '#/components/Link'
 import {Text} from '#/components/Typography'
 import {CircleInfo_Stroke2_Corner0_Rounded as CircleInfo} from '../icons/CircleInfo'
 
@@ -175,7 +174,7 @@ export function LabelerLabelPreference({
   disabled?: boolean
   labelerDid?: string
 }) {
-  const {_, i18n} = useLingui()
+  const {i18n} = useLingui()
   const t = useTheme()
   const {gtPhone} = useBreakpoints()
 
@@ -242,14 +241,17 @@ export function LabelerLabelPreference({
                 <Trans>Adult content is disabled.</Trans>
               ) : isGlobalLabel ? (
                 <Trans>
-                  Configured in{' '}
-                  <InlineLinkText
-                    label={_(msg`moderation settings`)}
-                    to="/moderation"
-                    style={a.text_sm}>
-                    moderation settings
-                  </InlineLinkText>
-                  .
+                  Global{' '}
+                  <Text
+                    style={[
+                      {fontFamily: 'monospace'},
+                      t.atoms.text_contrast_high,
+                      a.font_bold,
+                      a.italic,
+                    ]}>
+                    {labelDefinition.identifier}
+                  </Text>{' '}
+                  label value.
                 </Trans>
               ) : null}
             </Text>

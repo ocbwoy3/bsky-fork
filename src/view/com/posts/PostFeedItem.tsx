@@ -18,7 +18,7 @@ import {useLingui} from '@lingui/react'
 import {useQueryClient} from '@tanstack/react-query'
 
 import {isReasonFeedSource, ReasonFeedSource} from '#/lib/api/feed/types'
-import {MAX_POST_LINES} from '#/lib/constants'
+import {getOCbwoy3Settings, MAX_POST_LINES} from '#/lib/constants'
 import {usePalette} from '#/lib/hooks/usePalette'
 import {makeProfileLink} from '#/lib/routes/links'
 import {sanitizeDisplayName} from '#/lib/strings/display-names'
@@ -395,7 +395,11 @@ let FeedItemInner = ({
           <PostMeta
             author={post.author}
             moderation={moderation}
-            timestamp={post.indexedAt}
+            timestamp={
+              getOCbwoy3Settings().useSelfIdentifiedTimestamp
+                ? (post.record as any).createdAt || post.indexedAt
+                : post.indexedAt
+            }
             postHref={href}
             onOpenAuthor={onOpenAuthor}
           />
@@ -542,6 +546,11 @@ function ReplyToLabel({
   let label
   if (blocked) {
     label = <Trans context="description">Reply to a blocked post</Trans>
+    if (getOCbwoy3Settings().ignoreBlockRelationships === true) {
+      label = (
+        <Trans context="description">Reply to a bypassed blocked post</Trans>
+      )
+    }
   } else if (notFound) {
     label = <Trans context="description">Reply to a post</Trans>
   } else if (profile != null) {

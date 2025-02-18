@@ -16,18 +16,20 @@ export function useGlobalLabelStrings(): GlobalLabelStrings {
     () => ({
       '!hide': {
         name: _(msg`Content Blocked`),
-        description: _(msg`This content has been hidden by the moderators.`),
+        description: _(
+          msg`This content has been labeled with the !hide global label value defined by the AT Protocol. You cannot see this content.`,
+        ),
       },
       '!warn': {
         name: _(msg`Content Warning`),
         description: _(
-          msg`This content has received a general warning from moderators.`,
+          msg`This content has been labeled with the !warn global label value defined by the AT Protocol. You will recieve a content warning before opening this content.`,
         ),
       },
       '!no-unauthenticated': {
         name: _(msg`Sign-in Required`),
         description: _(
-          msg`This user has requested that their content only be shown to signed-in users.`,
+          msg`This user has given themselves the !no-unauthenticated label, therefore you must log in to see the user's posts.`,
         ),
       },
       porn: {
