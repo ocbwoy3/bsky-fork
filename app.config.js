@@ -44,9 +44,9 @@ module.exports = function (config) {
     expo: {
       version: VERSION,
       name: 'Bluesky',
-      slug: 'bluesky',
+      slug: 'bsky-fork',
       scheme: 'bluesky',
-      owner: 'blueskysocial',
+      owner: 'ocbwoy3',
       runtimeVersion: {
         policy: 'appVersion',
       },
@@ -55,7 +55,7 @@ module.exports = function (config) {
       primaryColor: '#1083fe',
       ios: {
         supportsTablet: false,
-        bundleIdentifier: 'xyz.blueskyweb.app',
+        bundleIdentifier: 'dev.ocbwoy3.bskyfork',
         config: {
           usesNonExemptEncryption: false,
         },
@@ -156,7 +156,7 @@ module.exports = function (config) {
           backgroundColor: '#1185FE',
         },
         googleServicesFile: './google-services.json',
-        package: 'xyz.blueskyweb.app',
+        package: 'dev.ocbwoy3.bskyfork',
         intentFilters: [
           {
             action: 'VIEW',
@@ -360,7 +360,7 @@ module.exports = function (config) {
                 appExtensions: [
                   {
                     targetName: 'Share-with-Bluesky',
-                    bundleIdentifier: 'xyz.blueskyweb.app.Share-with-Bluesky',
+                    bundleIdentifier: 'dev.ocbwoy3.bskyfork.Share-with-Bluesky',
                     entitlements: {
                       'com.apple.security.application-groups': [
                         'group.app.bsky',
@@ -369,7 +369,7 @@ module.exports = function (config) {
                   },
                   {
                     targetName: 'BlueskyNSE',
-                    bundleIdentifier: 'xyz.blueskyweb.app.BlueskyNSE',
+                    bundleIdentifier: 'dev.ocbwoy3.bskyfork.BlueskyNSE',
                     entitlements: {
                       'com.apple.security.application-groups': [
                         'group.app.bsky',
@@ -378,13 +378,13 @@ module.exports = function (config) {
                   },
                   {
                     targetName: 'BlueskyClip',
-                    bundleIdentifier: 'xyz.blueskyweb.app.AppClip',
+                    bundleIdentifier: 'dev.ocbwoy3.bskyfork.AppClip',
                   },
                 ],
               },
             },
           },
-          projectId: '55bd077a-d905-4184-9c7f-94789ba0f302',
+          projectId: '2f185c51-6fd2-44f7-8654-3cdaa538caf4',
         },
       },
       hooks: {
