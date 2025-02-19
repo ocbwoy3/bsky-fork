@@ -142,6 +142,10 @@ msgstr ""
 msgid "{0}'s starter pack"
 msgstr ""
 
+#: src/view/com/post-thread/PostThreadItem.tsx:762
+msgid "{0}<0>{1}</0>"
+msgstr ""
+
 #. How many days have passed, displayed in a narrow form
 #: src/lib/hooks/useTimeAgo.ts:158
 msgid "{0}d"
@@ -388,16 +392,16 @@ msgstr ""
 msgid "Account"
 msgstr ""
 
-#: src/view/com/profile/ProfileMenu.tsx:138
+#: src/view/com/profile/ProfileMenu.tsx:139
 #: src/view/com/util/forms/PostDropdownBtnMenuItems.tsx:362
 msgid "Account blocked"
 msgstr ""
 
-#: src/view/com/profile/ProfileMenu.tsx:151
+#: src/view/com/profile/ProfileMenu.tsx:152
 msgid "Account followed"
 msgstr ""
 
-#: src/view/com/profile/ProfileMenu.tsx:114
+#: src/view/com/profile/ProfileMenu.tsx:115
 msgid "Account muted"
 msgstr ""
 
@@ -418,16 +422,16 @@ msgstr ""
 msgid "Account removed from quick access"
 msgstr ""
 
-#: src/screens/Profile/Header/ProfileHeaderStandard.tsx:137
-#: src/view/com/profile/ProfileMenu.tsx:128
+#: src/screens/Profile/Header/ProfileHeaderStandard.tsx:138
+#: src/view/com/profile/ProfileMenu.tsx:129
 msgid "Account unblocked"
 msgstr ""
 
-#: src/view/com/profile/ProfileMenu.tsx:163
+#: src/view/com/profile/ProfileMenu.tsx:164
 msgid "Account unfollowed"
 msgstr ""
 
-#: src/view/com/profile/ProfileMenu.tsx:104
+#: src/view/com/profile/ProfileMenu.tsx:105
 msgid "Account unmuted"
 msgstr ""
 
@@ -532,8 +536,8 @@ msgstr ""
 msgid "Add this feed to your feeds"
 msgstr ""
 
-#: src/view/com/profile/ProfileMenu.tsx:270
-#: src/view/com/profile/ProfileMenu.tsx:273
+#: src/view/com/profile/ProfileMenu.tsx:271
+#: src/view/com/profile/ProfileMenu.tsx:274
 msgid "Add to Lists"
 msgstr ""
 
@@ -555,17 +559,17 @@ msgid "Adult"
 msgstr ""
 
 #: src/components/moderation/ContentHider.tsx:113
-#: src/lib/moderation/useGlobalLabelStrings.ts:34
+#: src/lib/moderation/useGlobalLabelStrings.ts:36
 #: src/lib/moderation/useModerationCauseDescription.ts:144
 #: src/view/com/composer/labels/LabelsBtn.tsx:128
 msgid "Adult Content"
 msgstr ""
 
-#: src/screens/Moderation/index.tsx:355
+#: src/screens/Moderation/index.tsx:360
 msgid "Adult content can only be enabled via the Web at <0>bsky.app</0>."
 msgstr ""
 
-#: src/components/moderation/LabelPreference.tsx:242
+#: src/components/moderation/LabelPreference.tsx:241
 msgid "Adult content is disabled."
 msgstr ""
 
@@ -574,7 +578,7 @@ msgstr ""
 msgid "Adult Content labels"
 msgstr ""
 
-#: src/screens/Moderation/index.tsx:399
+#: src/screens/Moderation/index.tsx:404
 msgid "Advanced"
 msgstr ""
 
@@ -844,12 +848,12 @@ msgstr ""
 msgid "Apply default recommended feeds"
 msgstr ""
 
-#: src/view/com/post-thread/PostThreadItem.tsx:839
+#: src/view/com/post-thread/PostThreadItem.tsx:858
 msgid "Archived from {0}"
 msgstr ""
 
-#: src/view/com/post-thread/PostThreadItem.tsx:808
-#: src/view/com/post-thread/PostThreadItem.tsx:847
+#: src/view/com/post-thread/PostThreadItem.tsx:824
+#: src/view/com/post-thread/PostThreadItem.tsx:870
 msgid "Archived post"
 msgstr ""
 
@@ -938,6 +942,10 @@ msgstr ""
 msgid "Back"
 msgstr ""
 
+#: src/view/com/post-thread/PostThreadItem.tsx:868
+msgid "Backdated post"
+msgstr ""
+
 #: src/view/screens/Lists.tsx:81
 #: src/view/screens/ModerationModlists.tsx:81
 msgid "Before creating a list, you must first verify your email."
@@ -967,8 +975,8 @@ msgstr ""
 msgid "Birthday"
 msgstr ""
 
-#: src/screens/Profile/Header/ProfileHeaderStandard.tsx:283
-#: src/view/com/profile/ProfileMenu.tsx:393
+#: src/screens/Profile/Header/ProfileHeaderStandard.tsx:292
+#: src/view/com/profile/ProfileMenu.tsx:418
 #: src/view/com/util/forms/PostDropdownBtnMenuItems.tsx:776
 msgid "Block"
 msgstr ""
@@ -980,12 +988,12 @@ msgstr ""
 msgid "Block account"
 msgstr ""
 
-#: src/view/com/profile/ProfileMenu.tsx:307
-#: src/view/com/profile/ProfileMenu.tsx:314
+#: src/view/com/profile/ProfileMenu.tsx:332
+#: src/view/com/profile/ProfileMenu.tsx:339
 msgid "Block Account"
 msgstr ""
 
-#: src/view/com/profile/ProfileMenu.tsx:376
+#: src/view/com/profile/ProfileMenu.tsx:401
 #: src/view/com/util/forms/PostDropdownBtnMenuItems.tsx:771
 msgid "Block Account?"
 msgstr ""
@@ -1023,7 +1031,7 @@ msgstr ""
 msgid "Blocked"
 msgstr ""
 
-#: src/screens/Moderation/index.tsx:269
+#: src/screens/Moderation/index.tsx:274
 msgid "Blocked accounts"
 msgstr ""
 
@@ -1032,7 +1040,7 @@ msgstr ""
 msgid "Blocked Accounts"
 msgstr ""
 
-#: src/view/com/profile/ProfileMenu.tsx:388
+#: src/view/com/profile/ProfileMenu.tsx:413
 #: src/view/com/util/forms/PostDropdownBtnMenuItems.tsx:773
 msgid "Blocked accounts cannot reply in your threads, mention you, or otherwise interact with you."
 msgstr ""
@@ -1041,7 +1049,7 @@ msgstr ""
 msgid "Blocked accounts cannot reply in your threads, mention you, or otherwise interact with you. You will not see their content and they will be prevented from seeing yours."
 msgstr ""
 
-#: src/view/com/post-thread/PostThread.tsx:464
+#: src/view/com/post-thread/PostThread.tsx:476
 msgid "Blocked post."
 msgstr ""
 
@@ -1053,7 +1061,7 @@ msgstr ""
 msgid "Blocking is public. Blocked accounts cannot reply in your threads, mention you, or otherwise interact with you."
 msgstr ""
 
-#: src/view/com/profile/ProfileMenu.tsx:385
+#: src/view/com/profile/ProfileMenu.tsx:410
 msgid "Blocking will not prevent labels from being applied on your account, but it will stop this account from replying in your threads or interacting with you."
 msgstr ""
 
@@ -1066,7 +1074,7 @@ msgstr ""
 msgid "Bluesky"
 msgstr ""
 
-#: src/view/com/post-thread/PostThreadItem.tsx:864
+#: src/view/com/post-thread/PostThreadItem.tsx:898
 msgid "Bluesky cannot confirm the authenticity of the claimed date."
 msgstr ""
 
@@ -1574,12 +1582,8 @@ msgstr ""
 msgid "Compressing video..."
 msgstr ""
 
-#: src/components/moderation/LabelPreference.tsx:82
+#: src/components/moderation/LabelPreference.tsx:81
 msgid "Configure content filtering setting for category: {name}"
-msgstr ""
-
-#: src/components/moderation/LabelPreference.tsx:244
-msgid "Configured in <0>moderation settings</0>."
 msgstr ""
 
 #: src/components/dialogs/VerifyEmailDialog.tsx:253
@@ -1607,11 +1611,11 @@ msgstr ""
 msgid "Confirm delete account"
 msgstr ""
 
-#: src/screens/Moderation/index.tsx:303
+#: src/screens/Moderation/index.tsx:308
 msgid "Confirm your age:"
 msgstr ""
 
-#: src/screens/Moderation/index.tsx:294
+#: src/screens/Moderation/index.tsx:299
 msgid "Confirm your birthdate"
 msgstr ""
 
@@ -1657,7 +1661,7 @@ msgstr ""
 msgid "Content Blocked"
 msgstr ""
 
-#: src/screens/Moderation/index.tsx:287
+#: src/screens/Moderation/index.tsx:292
 msgid "Content filters"
 msgstr ""
 
@@ -1676,8 +1680,8 @@ msgid "Content Not Available"
 msgstr ""
 
 #: src/components/moderation/ModerationDetailsDialog.tsx:48
-#: src/components/moderation/ScreenHider.tsx:93
-#: src/lib/moderation/useGlobalLabelStrings.ts:22
+#: src/components/moderation/ScreenHider.tsx:94
+#: src/lib/moderation/useGlobalLabelStrings.ts:24
 #: src/lib/moderation/useModerationCauseDescription.ts:43
 msgid "Content Warning"
 msgstr ""
@@ -1751,8 +1755,8 @@ msgstr ""
 msgid "Copy App Password"
 msgstr ""
 
-#: src/view/com/profile/ProfileMenu.tsx:344
-#: src/view/com/profile/ProfileMenu.tsx:347
+#: src/view/com/profile/ProfileMenu.tsx:369
+#: src/view/com/profile/ProfileMenu.tsx:372
 msgid "Copy at:// URI"
 msgstr ""
 
@@ -1767,8 +1771,10 @@ msgid "Copy code"
 msgstr ""
 
 #: src/screens/Settings/components/ChangeHandleDialog.tsx:472
-#: src/view/com/profile/ProfileMenu.tsx:353
-#: src/view/com/profile/ProfileMenu.tsx:356
+#: src/view/com/profile/ProfileMenu.tsx:281
+#: src/view/com/profile/ProfileMenu.tsx:286
+#: src/view/com/profile/ProfileMenu.tsx:378
+#: src/view/com/profile/ProfileMenu.tsx:381
 msgid "Copy DID"
 msgstr ""
 
@@ -2054,7 +2060,7 @@ msgstr ""
 msgid "Deleted Account"
 msgstr ""
 
-#: src/view/com/post-thread/PostThread.tsx:450
+#: src/view/com/post-thread/PostThread.tsx:462
 msgid "Deleted post."
 msgstr ""
 
@@ -2127,8 +2133,8 @@ msgstr ""
 #: src/lib/moderation/useLabelBehaviorDescription.ts:68
 #: src/screens/Messages/Settings.tsx:139
 #: src/screens/Messages/Settings.tsx:142
-#: src/screens/Moderation/index.tsx:345
-#: src/screens/Settings/BskyHackSettings/SettingToggle.tsx:38
+#: src/screens/Moderation/index.tsx:350
+#: src/screens/Settings/BskyHackSettings/SettingToggle.tsx:50
 msgid "Disabled"
 msgstr ""
 
@@ -2217,7 +2223,7 @@ msgstr ""
 msgid "Do not apply this mute word to users you follow"
 msgstr ""
 
-#: src/lib/moderation/useGlobalLabelStrings.ts:39
+#: src/lib/moderation/useGlobalLabelStrings.ts:41
 msgid "Does not include nudity."
 msgstr ""
 
@@ -2307,7 +2313,7 @@ msgstr ""
 msgid "e.g. Artist, dog-lover, and avid reader."
 msgstr ""
 
-#: src/lib/moderation/useGlobalLabelStrings.ts:43
+#: src/lib/moderation/useGlobalLabelStrings.ts:45
 msgid "E.g. artistic nudes."
 msgstr ""
 
@@ -2391,13 +2397,13 @@ msgstr ""
 
 #: src/screens/Profile/Header/EditProfileDialog.tsx:269
 #: src/screens/Profile/Header/EditProfileDialog.tsx:275
-#: src/screens/Profile/Header/ProfileHeaderLabeler.tsx:186
-#: src/screens/Profile/Header/ProfileHeaderStandard.tsx:179
+#: src/screens/Profile/Header/ProfileHeaderLabeler.tsx:185
+#: src/screens/Profile/Header/ProfileHeaderStandard.tsx:180
 msgid "Edit profile"
 msgstr ""
 
-#: src/screens/Profile/Header/ProfileHeaderLabeler.tsx:189
-#: src/screens/Profile/Header/ProfileHeaderStandard.tsx:182
+#: src/screens/Profile/Header/ProfileHeaderLabeler.tsx:188
+#: src/screens/Profile/Header/ProfileHeaderStandard.tsx:183
 msgid "Edit Profile"
 msgstr ""
 
@@ -2500,7 +2506,7 @@ msgstr ""
 msgid "Enable {0} only"
 msgstr ""
 
-#: src/screens/Moderation/index.tsx:332
+#: src/screens/Moderation/index.tsx:337
 msgid "Enable adult content"
 msgstr ""
 
@@ -2545,8 +2551,8 @@ msgstr ""
 
 #: src/screens/Messages/Settings.tsx:130
 #: src/screens/Messages/Settings.tsx:133
-#: src/screens/Moderation/index.tsx:343
-#: src/screens/Settings/BskyHackSettings/SettingToggle.tsx:38
+#: src/screens/Moderation/index.tsx:348
+#: src/screens/Settings/BskyHackSettings/SettingToggle.tsx:50
 msgid "Enabled"
 msgstr ""
 
@@ -2711,7 +2717,7 @@ msgstr ""
 msgid "Expands or collapses the full post you are replying to"
 msgstr ""
 
-#: src/lib/api/index.ts:411
+#: src/lib/api/index.ts:428
 msgid "Expected uri to resolve to a record"
 msgstr ""
 
@@ -2728,11 +2734,11 @@ msgstr ""
 msgid "Expires {0}"
 msgstr ""
 
-#: src/lib/moderation/useGlobalLabelStrings.ts:47
+#: src/lib/moderation/useGlobalLabelStrings.ts:49
 msgid "Explicit or potentially disturbing media."
 msgstr ""
 
-#: src/lib/moderation/useGlobalLabelStrings.ts:35
+#: src/lib/moderation/useGlobalLabelStrings.ts:37
 msgid "Explicit sexual images."
 msgstr ""
 
@@ -2968,7 +2974,7 @@ msgstr ""
 #: src/components/ProfileCard.tsx:366
 #: src/components/ProfileHoverCard/index.web.tsx:449
 #: src/components/ProfileHoverCard/index.web.tsx:460
-#: src/screens/Profile/Header/ProfileHeaderStandard.tsx:234
+#: src/screens/Profile/Header/ProfileHeaderStandard.tsx:235
 #: src/screens/VideoFeed/index.tsx:823
 #: src/view/com/post-thread/PostThreadFollowBtn.tsx:132
 msgid "Follow"
@@ -2979,7 +2985,7 @@ msgctxt "action"
 msgid "Follow"
 msgstr ""
 
-#: src/screens/Profile/Header/ProfileHeaderStandard.tsx:218
+#: src/screens/Profile/Header/ProfileHeaderStandard.tsx:219
 #: src/view/com/post-thread/PostThreadFollowBtn.tsx:114
 msgid "Follow {0}"
 msgstr ""
@@ -3001,8 +3007,8 @@ msgstr ""
 msgid "Follow 7 accounts"
 msgstr ""
 
-#: src/view/com/profile/ProfileMenu.tsx:249
-#: src/view/com/profile/ProfileMenu.tsx:260
+#: src/view/com/profile/ProfileMenu.tsx:250
+#: src/view/com/profile/ProfileMenu.tsx:261
 msgid "Follow Account"
 msgstr ""
 
@@ -3011,7 +3017,7 @@ msgstr ""
 msgid "Follow all"
 msgstr ""
 
-#: src/screens/Profile/Header/ProfileHeaderStandard.tsx:232
+#: src/screens/Profile/Header/ProfileHeaderStandard.tsx:233
 #: src/view/com/post-thread/PostThreadFollowBtn.tsx:130
 msgid "Follow Back"
 msgstr ""
@@ -3054,7 +3060,7 @@ msgstr ""
 #: src/components/ProfileCard.tsx:360
 #: src/components/ProfileHoverCard/index.web.tsx:448
 #: src/components/ProfileHoverCard/index.web.tsx:459
-#: src/screens/Profile/Header/ProfileHeaderStandard.tsx:230
+#: src/screens/Profile/Header/ProfileHeaderStandard.tsx:231
 #: src/screens/VideoFeed/index.tsx:821
 #: src/view/com/post-thread/PostThreadFollowBtn.tsx:135
 #: src/view/screens/Feeds.tsx:599
@@ -3063,7 +3069,7 @@ msgid "Following"
 msgstr ""
 
 #: src/components/ProfileCard.tsx:323
-#: src/screens/Profile/Header/ProfileHeaderStandard.tsx:98
+#: src/screens/Profile/Header/ProfileHeaderStandard.tsx:99
 msgid "Following {0}"
 msgstr ""
 
@@ -3143,7 +3149,7 @@ msgstr ""
 msgid "From @{sanitizedAuthor}"
 msgstr ""
 
-#: src/view/com/posts/PostFeedItem.tsx:282
+#: src/view/com/posts/PostFeedItem.tsx:283
 msgctxt "from-feed"
 msgid "From <0/>"
 msgstr ""
@@ -3181,9 +3187,13 @@ msgstr ""
 msgid "Glaring violations of law or terms of service"
 msgstr ""
 
+#: src/components/moderation/LabelPreference.tsx:243
+msgid "Global <0>{0}</0> label value."
+msgstr ""
+
 #: src/components/Layout/Header/index.tsx:118
-#: src/components/moderation/ScreenHider.tsx:154
-#: src/components/moderation/ScreenHider.tsx:163
+#: src/components/moderation/ScreenHider.tsx:155
+#: src/components/moderation/ScreenHider.tsx:164
 #: src/screens/Profile/ProfileFeed/index.tsx:89
 #: src/screens/VideoFeed/components/Header.tsx:163
 #: src/screens/VideoFeed/index.tsx:1102
@@ -3239,7 +3249,7 @@ msgstr ""
 msgid "Go to user's profile"
 msgstr ""
 
-#: src/lib/moderation/useGlobalLabelStrings.ts:46
+#: src/lib/moderation/useGlobalLabelStrings.ts:48
 #: src/view/com/composer/labels/LabelsBtn.tsx:202
 #: src/view/com/composer/labels/LabelsBtn.tsx:205
 msgid "Graphic Media"
@@ -3320,7 +3330,7 @@ msgstr ""
 #: src/components/interstitials/Trending.tsx:131
 #: src/components/interstitials/TrendingVideos.tsx:140
 #: src/components/moderation/ContentHider.tsx:200
-#: src/components/moderation/LabelPreference.tsx:135
+#: src/components/moderation/LabelPreference.tsx:134
 #: src/components/moderation/PostHider.tsx:122
 #: src/lib/moderation/useLabelBehaviorDescription.ts:15
 #: src/lib/moderation/useLabelBehaviorDescription.ts:20
@@ -3406,7 +3416,7 @@ msgstr ""
 msgid "Hmm, we're having trouble finding this feed. It may have been deleted."
 msgstr ""
 
-#: src/screens/Moderation/index.tsx:54
+#: src/screens/Moderation/index.tsx:55
 msgid "Hmmmm, it seems we're having trouble loading this data. See below for more details. If this issue persists, please contact us."
 msgstr ""
 
@@ -3437,8 +3447,8 @@ msgstr ""
 
 #: src/screens/Settings/ThreadPreferences.tsx:67
 #: src/screens/Settings/ThreadPreferences.tsx:70
-#: src/view/com/post-thread/PostThread.tsx:652
-#: src/view/com/post-thread/PostThread.tsx:657
+#: src/view/com/post-thread/PostThread.tsx:664
+#: src/view/com/post-thread/PostThread.tsx:669
 msgid "Hot replies first"
 msgstr ""
 
@@ -3531,6 +3541,10 @@ msgstr ""
 msgid "Incorrect username or password"
 msgstr ""
 
+#: src/view/com/post-thread/PostThreadItem.tsx:856
+msgid "Indexed at {0}"
+msgstr ""
+
 #: src/screens/Login/SetNewPasswordForm.tsx:131
 msgid "Input code sent to your email for password reset"
 msgstr ""
@@ -3559,7 +3573,7 @@ msgstr ""
 msgid "Interaction limited"
 msgstr ""
 
-#: src/screens/Moderation/index.tsx:209
+#: src/screens/Moderation/index.tsx:214
 msgid "Interaction settings"
 msgstr ""
 
@@ -3706,7 +3720,7 @@ msgstr ""
 msgid "learn more"
 msgstr ""
 
-#: src/components/moderation/ScreenHider.tsx:140
+#: src/components/moderation/ScreenHider.tsx:141
 msgid "Learn More"
 msgstr ""
 
@@ -3727,7 +3741,7 @@ msgid "Learn more about the moderation applied to this content."
 msgstr ""
 
 #: src/components/moderation/PostHider.tsx:100
-#: src/components/moderation/ScreenHider.tsx:127
+#: src/components/moderation/ScreenHider.tsx:128
 msgid "Learn more about this warning"
 msgstr ""
 
@@ -3808,7 +3822,7 @@ msgstr ""
 msgid "Like feed"
 msgstr ""
 
-#: src/screens/Profile/Header/ProfileHeaderLabeler.tsx:275
+#: src/screens/Profile/Header/ProfileHeaderLabeler.tsx:274
 msgid "Like this feed"
 msgstr ""
 
@@ -3831,8 +3845,8 @@ msgstr ""
 
 #: src/components/LabelingServiceCard/index.tsx:96
 #: src/screens/Profile/components/ProfileFeedHeader.tsx:489
-#: src/screens/Profile/Header/ProfileHeaderLabeler.tsx:295
-#: src/screens/Profile/Header/ProfileHeaderLabeler.tsx:309
+#: src/screens/Profile/Header/ProfileHeaderLabeler.tsx:294
+#: src/screens/Profile/Header/ProfileHeaderLabeler.tsx:308
 msgid "Liked by {likeCount, plural, one {# user} other {# users}}"
 msgstr ""
 
@@ -3844,8 +3858,8 @@ msgstr ""
 msgid "Likes on this post"
 msgstr ""
 
-#: src/view/com/post-thread/PostThread.tsx:626
-#: src/view/com/post-thread/PostThread.tsx:631
+#: src/view/com/post-thread/PostThread.tsx:638
+#: src/view/com/post-thread/PostThread.tsx:643
 msgid "Linear"
 msgstr ""
 
@@ -4062,7 +4076,7 @@ msgid "Misleading Post"
 msgstr ""
 
 #: src/Navigation.tsx:144
-#: src/screens/Moderation/index.tsx:89
+#: src/screens/Moderation/index.tsx:90
 #: src/screens/Settings/Settings.tsx:170
 #: src/screens/Settings/Settings.tsx:173
 msgid "Moderation"
@@ -4094,7 +4108,7 @@ msgstr ""
 msgid "Moderation list updated"
 msgstr ""
 
-#: src/screens/Moderation/index.tsx:239
+#: src/screens/Moderation/index.tsx:244
 msgid "Moderation lists"
 msgstr ""
 
@@ -4103,15 +4117,11 @@ msgstr ""
 msgid "Moderation Lists"
 msgstr ""
 
-#: src/components/moderation/LabelPreference.tsx:247
-msgid "moderation settings"
-msgstr ""
-
 #: src/Navigation.tsx:270
 msgid "Moderation states"
 msgstr ""
 
-#: src/screens/Moderation/index.tsx:193
+#: src/screens/Moderation/index.tsx:198
 msgid "Moderation tools"
 msgstr ""
 
@@ -4129,7 +4139,7 @@ msgstr ""
 msgid "More feeds"
 msgstr ""
 
-#: src/view/com/profile/ProfileMenu.tsx:197
+#: src/view/com/profile/ProfileMenu.tsx:198
 #: src/view/screens/ProfileList.tsx:721
 msgid "More options"
 msgstr ""
@@ -4139,8 +4149,8 @@ msgid "Most-liked first"
 msgstr ""
 
 #: src/screens/Settings/ThreadPreferences.tsx:91
-#: src/view/com/post-thread/PostThread.tsx:682
-#: src/view/com/post-thread/PostThread.tsx:687
+#: src/view/com/post-thread/PostThread.tsx:694
+#: src/view/com/post-thread/PostThread.tsx:699
 msgid "Most-liked replies first"
 msgstr ""
 
@@ -4163,8 +4173,8 @@ msgstr ""
 msgid "Mute {tag}"
 msgstr ""
 
-#: src/view/com/profile/ProfileMenu.tsx:286
-#: src/view/com/profile/ProfileMenu.tsx:293
+#: src/view/com/profile/ProfileMenu.tsx:311
+#: src/view/com/profile/ProfileMenu.tsx:318
 msgid "Mute Account"
 msgstr ""
 
@@ -4223,7 +4233,7 @@ msgstr ""
 msgid "Mute words & tags"
 msgstr ""
 
-#: src/screens/Moderation/index.tsx:254
+#: src/screens/Moderation/index.tsx:259
 msgid "Muted accounts"
 msgstr ""
 
@@ -4240,7 +4250,7 @@ msgstr ""
 msgid "Muted by \"{0}\""
 msgstr ""
 
-#: src/screens/Moderation/index.tsx:224
+#: src/screens/Moderation/index.tsx:229
 msgid "Muted words & tags"
 msgstr ""
 
@@ -4375,8 +4385,8 @@ msgstr ""
 
 #: src/screens/Settings/ThreadPreferences.tsx:83
 #: src/screens/Settings/ThreadPreferences.tsx:86
-#: src/view/com/post-thread/PostThread.tsx:672
-#: src/view/com/post-thread/PostThread.tsx:677
+#: src/view/com/post-thread/PostThread.tsx:684
+#: src/view/com/post-thread/PostThread.tsx:689
 msgid "Newest replies first"
 msgstr ""
 
@@ -4430,7 +4440,7 @@ msgid "No likes yet"
 msgstr ""
 
 #: src/components/ProfileCard.tsx:345
-#: src/screens/Profile/Header/ProfileHeaderStandard.tsx:119
+#: src/screens/Profile/Header/ProfileHeaderStandard.tsx:120
 msgid "No longer following {0}"
 msgstr ""
 
@@ -4527,7 +4537,7 @@ msgstr ""
 msgid "Nobody was found. Try searching for someone else."
 msgstr ""
 
-#: src/lib/moderation/useGlobalLabelStrings.ts:42
+#: src/lib/moderation/useGlobalLabelStrings.ts:44
 msgid "Non-sexual Nudity"
 msgstr ""
 
@@ -4541,7 +4551,7 @@ msgstr ""
 msgid "Not right now"
 msgstr ""
 
-#: src/view/com/profile/ProfileMenu.tsx:400
+#: src/view/com/profile/ProfileMenu.tsx:425
 #: src/view/com/util/forms/PostDropdownBtnMenuItems.tsx:718
 #: src/view/com/util/post-ctrls/PostCtrls.tsx:367
 msgid "Note about sharing"
@@ -4614,21 +4624,21 @@ msgstr ""
 msgid "Oh no! Something went wrong."
 msgstr ""
 
-#: src/screens/Profile/Header/ProfileHeaderLabeler.tsx:352
+#: src/screens/Profile/Header/ProfileHeaderLabeler.tsx:358
 #: src/screens/Settings/AppIconSettings/index.tsx:48
 #: src/screens/Settings/AppIconSettings/index.tsx:229
 msgid "OK"
 msgstr ""
 
 #: src/screens/Login/PasswordUpdatedForm.tsx:37
-#: src/view/com/post-thread/PostThreadItem.tsx:869
+#: src/view/com/post-thread/PostThreadItem.tsx:903
 msgid "Okay"
 msgstr ""
 
 #: src/screens/Settings/ThreadPreferences.tsx:75
 #: src/screens/Settings/ThreadPreferences.tsx:78
-#: src/view/com/post-thread/PostThread.tsx:662
-#: src/view/com/post-thread/PostThread.tsx:667
+#: src/view/com/post-thread/PostThread.tsx:674
+#: src/view/com/post-thread/PostThread.tsx:679
 msgid "Oldest replies first"
 msgstr ""
 
@@ -4733,7 +4743,7 @@ msgstr ""
 msgid "Open moderation debug page"
 msgstr ""
 
-#: src/screens/Moderation/index.tsx:220
+#: src/screens/Moderation/index.tsx:225
 msgid "Open muted words and tags settings"
 msgstr ""
 
@@ -4976,7 +4986,7 @@ msgstr ""
 msgid "Pin to your profile"
 msgstr ""
 
-#: src/view/com/posts/PostFeedItem.tsx:363
+#: src/view/com/posts/PostFeedItem.tsx:364
 msgid "Pinned"
 msgstr ""
 
@@ -5113,7 +5123,7 @@ msgctxt "action"
 msgid "Post"
 msgstr ""
 
-#: src/view/com/post-thread/PostThread.tsx:536
+#: src/view/com/post-thread/PostThread.tsx:548
 msgctxt "description"
 msgid "Post"
 msgstr ""
@@ -5138,7 +5148,7 @@ msgstr ""
 msgid "Post deleted"
 msgstr ""
 
-#: src/lib/api/index.ts:191
+#: src/lib/api/index.ts:208
 msgid "Post failed to upload. Please check your Internet connection and try again."
 msgstr ""
 
@@ -5146,7 +5156,7 @@ msgstr ""
 msgid "Post has been deleted"
 msgstr ""
 
-#: src/view/com/post-thread/PostThread.tsx:266
+#: src/view/com/post-thread/PostThread.tsx:271
 msgid "Post hidden"
 msgstr ""
 
@@ -5177,8 +5187,8 @@ msgstr ""
 msgid "Post Languages"
 msgstr ""
 
-#: src/view/com/post-thread/PostThread.tsx:261
-#: src/view/com/post-thread/PostThread.tsx:273
+#: src/view/com/post-thread/PostThread.tsx:263
+#: src/view/com/post-thread/PostThread.tsx:278
 msgid "Post not found"
 msgstr ""
 
@@ -5271,7 +5281,7 @@ msgstr ""
 msgid "Processing video..."
 msgstr ""
 
-#: src/lib/api/index.ts:60
+#: src/lib/api/index.ts:61
 #: src/screens/Login/ForgotPasswordForm.tsx:149
 msgid "Processing..."
 msgstr ""
@@ -5353,8 +5363,8 @@ msgstr ""
 
 #: src/screens/Settings/ThreadPreferences.tsx:99
 #: src/screens/Settings/ThreadPreferences.tsx:102
-#: src/view/com/post-thread/PostThread.tsx:692
-#: src/view/com/post-thread/PostThread.tsx:697
+#: src/view/com/post-thread/PostThread.tsx:704
+#: src/view/com/post-thread/PostThread.tsx:709
 msgid "Random (aka \"Poster's Roulette\")"
 msgstr ""
 
@@ -5596,28 +5606,28 @@ msgstr ""
 msgid "Reply settings are chosen by the author of the thread"
 msgstr ""
 
-#: src/view/com/post-thread/PostThread.tsx:648
+#: src/view/com/post-thread/PostThread.tsx:660
 msgid "Reply sorting"
 msgstr ""
 
-#: src/view/com/post/Post.tsx:204
-#: src/view/com/posts/PostFeedItem.tsx:553
+#: src/view/com/post/Post.tsx:208
+#: src/view/com/posts/PostFeedItem.tsx:558
 msgctxt "description"
 msgid "Reply to <0><1/></0>"
 msgstr ""
 
-#: src/view/com/posts/PostFeedItem.tsx:544
+#: src/view/com/posts/PostFeedItem.tsx:549
 msgctxt "description"
 msgid "Reply to a blocked post"
 msgstr ""
 
-#: src/view/com/posts/PostFeedItem.tsx:546
+#: src/view/com/posts/PostFeedItem.tsx:551
 msgctxt "description"
 msgid "Reply to a post"
 msgstr ""
 
-#: src/view/com/post/Post.tsx:202
-#: src/view/com/posts/PostFeedItem.tsx:550
+#: src/view/com/post/Post.tsx:206
+#: src/view/com/posts/PostFeedItem.tsx:555
 msgctxt "description"
 msgid "Reply to you"
 msgstr ""
@@ -5636,8 +5646,8 @@ msgstr ""
 msgid "Report"
 msgstr ""
 
-#: src/view/com/profile/ProfileMenu.tsx:326
-#: src/view/com/profile/ProfileMenu.tsx:329
+#: src/view/com/profile/ProfileMenu.tsx:351
+#: src/view/com/profile/ProfileMenu.tsx:354
 msgid "Report Account"
 msgstr ""
 
@@ -5734,16 +5744,16 @@ msgstr ""
 msgid "Reposted By"
 msgstr ""
 
-#: src/view/com/posts/PostFeedItem.tsx:303
+#: src/view/com/posts/PostFeedItem.tsx:304
 msgid "Reposted by {0}"
 msgstr ""
 
-#: src/view/com/posts/PostFeedItem.tsx:322
+#: src/view/com/posts/PostFeedItem.tsx:323
 msgid "Reposted by <0><1/></0>"
 msgstr ""
 
-#: src/view/com/posts/PostFeedItem.tsx:301
-#: src/view/com/posts/PostFeedItem.tsx:320
+#: src/view/com/posts/PostFeedItem.tsx:302
+#: src/view/com/posts/PostFeedItem.tsx:321
 msgid "Reposted by you"
 msgstr ""
 
@@ -6014,8 +6024,8 @@ msgstr ""
 msgid "Search my posts"
 msgstr ""
 
-#: src/view/com/profile/ProfileMenu.tsx:228
-#: src/view/com/profile/ProfileMenu.tsx:231
+#: src/view/com/profile/ProfileMenu.tsx:229
+#: src/view/com/profile/ProfileMenu.tsx:232
 msgid "Search Posts"
 msgstr ""
 
@@ -6233,7 +6243,7 @@ msgstr ""
 msgid "Set app icon to {0}"
 msgstr ""
 
-#: src/screens/Moderation/index.tsx:306
+#: src/screens/Moderation/index.tsx:311
 msgid "Set birthdate"
 msgstr ""
 
@@ -6264,7 +6274,7 @@ msgstr ""
 msgid "Sexual activity or erotic nudity."
 msgstr ""
 
-#: src/lib/moderation/useGlobalLabelStrings.ts:38
+#: src/lib/moderation/useGlobalLabelStrings.ts:40
 msgid "Sexually Suggestive"
 msgstr ""
 
@@ -6273,8 +6283,8 @@ msgstr ""
 #: src/screens/StarterPack/StarterPackScreen.tsx:423
 #: src/screens/StarterPack/StarterPackScreen.tsx:595
 #: src/screens/Topic.tsx:102
-#: src/view/com/profile/ProfileMenu.tsx:213
-#: src/view/com/profile/ProfileMenu.tsx:222
+#: src/view/com/profile/ProfileMenu.tsx:214
+#: src/view/com/profile/ProfileMenu.tsx:223
 #: src/view/com/util/forms/PostDropdownBtnMenuItems.tsx:444
 #: src/view/com/util/forms/PostDropdownBtnMenuItems.tsx:453
 #: src/view/com/util/post-ctrls/PostCtrls.tsx:356
@@ -6295,7 +6305,7 @@ msgstr ""
 msgid "Share a fun fact!"
 msgstr ""
 
-#: src/view/com/profile/ProfileMenu.tsx:405
+#: src/view/com/profile/ProfileMenu.tsx:430
 #: src/view/com/util/forms/PostDropdownBtnMenuItems.tsx:723
 #: src/view/com/util/post-ctrls/PostCtrls.tsx:372
 msgid "Share anyway"
@@ -6346,7 +6356,7 @@ msgid "Shares the linked website"
 msgstr ""
 
 #: src/components/moderation/ContentHider.tsx:200
-#: src/components/moderation/LabelPreference.tsx:137
+#: src/components/moderation/LabelPreference.tsx:136
 #: src/components/moderation/PostHider.tsx:122
 msgid "Show"
 msgstr ""
@@ -6355,8 +6365,8 @@ msgstr ""
 msgid "Show alt text"
 msgstr ""
 
-#: src/components/moderation/ScreenHider.tsx:172
-#: src/components/moderation/ScreenHider.tsx:175
+#: src/components/moderation/ScreenHider.tsx:174
+#: src/components/moderation/ScreenHider.tsx:177
 #: src/screens/List/ListHiddenScreen.tsx:187
 #: src/screens/VideoFeed/index.tsx:609
 #: src/screens/VideoFeed/index.tsx:615
@@ -6386,8 +6396,8 @@ msgid "Show list anyway"
 msgstr ""
 
 #: src/view/com/post-thread/PostThreadItem.tsx:597
-#: src/view/com/post/Post.tsx:242
-#: src/view/com/posts/PostFeedItem.tsx:509
+#: src/view/com/post/Post.tsx:246
+#: src/view/com/posts/PostFeedItem.tsx:514
 msgid "Show More"
 msgstr ""
 
@@ -6410,7 +6420,7 @@ msgstr ""
 msgid "Show replies"
 msgstr ""
 
-#: src/view/com/post-thread/PostThread.tsx:622
+#: src/view/com/post-thread/PostThread.tsx:634
 msgid "Show replies as"
 msgstr ""
 
@@ -6445,7 +6455,7 @@ msgstr ""
 msgid "Show warning and filter from feeds"
 msgstr ""
 
-#: src/view/com/post-thread/PostThreadItem.tsx:810
+#: src/view/com/post-thread/PostThreadItem.tsx:826
 msgid "Shows information about when this post was created"
 msgstr ""
 
@@ -6504,6 +6514,9 @@ msgstr ""
 #: src/screens/Settings/Settings.tsx:234
 #: src/screens/Settings/Settings.tsx:236
 #: src/screens/Settings/Settings.tsx:276
+#: src/screens/SignupQueued.tsx:93
+#: src/screens/SignupQueued.tsx:96
+#: src/screens/Takendown.tsx:85
 #: src/view/shell/desktop/LeftNav.tsx:208
 #: src/view/shell/desktop/LeftNav.tsx:291
 #: src/view/shell/desktop/LeftNav.tsx:294
@@ -6519,8 +6532,8 @@ msgstr ""
 msgid "Sign out?"
 msgstr ""
 
-#: src/components/moderation/ScreenHider.tsx:91
-#: src/lib/moderation/useGlobalLabelStrings.ts:28
+#: src/components/moderation/ScreenHider.tsx:92
+#: src/lib/moderation/useGlobalLabelStrings.ts:30
 msgid "Sign-in Required"
 msgstr ""
 
@@ -6574,7 +6587,7 @@ msgid "Something went wrong, please try again"
 msgstr ""
 
 #: src/components/ReportDialog/index.tsx:54
-#: src/screens/Moderation/index.tsx:97
+#: src/screens/Moderation/index.tsx:98
 #: src/screens/Profile/Sections/Labels.tsx:88
 msgid "Something went wrong, please try again."
 msgstr ""
@@ -6713,11 +6726,11 @@ msgstr ""
 msgid "Subscribe to @{0} to use these labels:"
 msgstr ""
 
-#: src/screens/Profile/Header/ProfileHeaderLabeler.tsx:238
+#: src/screens/Profile/Header/ProfileHeaderLabeler.tsx:237
 msgid "Subscribe to Labeler"
 msgstr ""
 
-#: src/screens/Profile/Header/ProfileHeaderLabeler.tsx:204
+#: src/screens/Profile/Header/ProfileHeaderLabeler.tsx:203
 msgid "Subscribe to this labeler"
 msgstr ""
 
@@ -6887,8 +6900,8 @@ msgstr ""
 msgid "That's everything!"
 msgstr ""
 
-#: src/screens/Profile/Header/ProfileHeaderStandard.tsx:279
-#: src/view/com/profile/ProfileMenu.tsx:381
+#: src/screens/Profile/Header/ProfileHeaderStandard.tsx:288
+#: src/view/com/profile/ProfileMenu.tsx:406
 msgid "The account will be able to interact with you after unblocking."
 msgstr ""
 
@@ -6902,7 +6915,7 @@ msgstr ""
 msgid "The author of this thread has hidden this reply."
 msgstr ""
 
-#: src/screens/Moderation/index.tsx:358
+#: src/screens/Moderation/index.tsx:363
 msgid "The Bluesky web application"
 msgstr ""
 
@@ -6942,8 +6955,8 @@ msgstr ""
 msgid "The following settings will be used as your defaults when creating new posts. You can edit these for a specific post from the composer."
 msgstr ""
 
-#: src/view/com/post-thread/PostThread.tsx:262
-#: src/view/com/post-thread/PostThread.tsx:274
+#: src/view/com/post-thread/PostThread.tsx:264
+#: src/view/com/post-thread/PostThread.tsx:279
 msgid "The post may have been deleted."
 msgstr ""
 
@@ -6995,7 +7008,7 @@ msgid "There was an issue contacting the server"
 msgstr ""
 
 #: src/screens/Profile/components/ProfileFeedHeader.tsx:415
-#: src/screens/Profile/Header/ProfileHeaderLabeler.tsx:112
+#: src/screens/Profile/Header/ProfileHeaderLabeler.tsx:111
 msgid "There was an issue contacting the server, please check your internet connection and try again."
 msgstr ""
 
@@ -7044,17 +7057,17 @@ msgstr ""
 msgid "There was an issue updating your feeds, please check your internet connection and try again."
 msgstr ""
 
-#: src/screens/Profile/Header/ProfileHeaderStandard.tsx:107
-#: src/screens/Profile/Header/ProfileHeaderStandard.tsx:128
-#: src/screens/Profile/Header/ProfileHeaderStandard.tsx:141
+#: src/screens/Profile/Header/ProfileHeaderStandard.tsx:108
+#: src/screens/Profile/Header/ProfileHeaderStandard.tsx:129
+#: src/screens/Profile/Header/ProfileHeaderStandard.tsx:142
 #: src/view/com/post-thread/PostThreadFollowBtn.tsx:91
 #: src/view/com/post-thread/PostThreadFollowBtn.tsx:102
-#: src/view/com/profile/ProfileMenu.tsx:108
-#: src/view/com/profile/ProfileMenu.tsx:118
-#: src/view/com/profile/ProfileMenu.tsx:132
-#: src/view/com/profile/ProfileMenu.tsx:142
-#: src/view/com/profile/ProfileMenu.tsx:155
-#: src/view/com/profile/ProfileMenu.tsx:167
+#: src/view/com/profile/ProfileMenu.tsx:109
+#: src/view/com/profile/ProfileMenu.tsx:119
+#: src/view/com/profile/ProfileMenu.tsx:133
+#: src/view/com/profile/ProfileMenu.tsx:143
+#: src/view/com/profile/ProfileMenu.tsx:156
+#: src/view/com/profile/ProfileMenu.tsx:168
 #: src/view/com/util/forms/PostDropdownBtnMenuItems.tsx:366
 msgid "There was an issue! {0}"
 msgstr ""
@@ -7083,11 +7096,11 @@ msgstr ""
 msgid "These settings only apply to the Following feed."
 msgstr ""
 
-#: src/components/moderation/ScreenHider.tsx:111
+#: src/components/moderation/ScreenHider.tsx:112
 msgid "This {screenDescription} has been flagged:"
 msgstr ""
 
-#: src/components/moderation/ScreenHider.tsx:106
+#: src/components/moderation/ScreenHider.tsx:107
 msgid "This account has requested that users sign in to view their profile."
 msgstr ""
 
@@ -7107,12 +7120,12 @@ msgstr ""
 msgid "This chat was disconnected"
 msgstr ""
 
-#: src/lib/moderation/useGlobalLabelStrings.ts:19
-msgid "This content has been hidden by the moderators."
+#: src/lib/moderation/useGlobalLabelStrings.ts:20
+msgid "This content has been labeled with the !hide global label value defined by the AT Protocol. You cannot see this content."
 msgstr ""
 
-#: src/lib/moderation/useGlobalLabelStrings.ts:24
-msgid "This content has received a general warning from moderators."
+#: src/lib/moderation/useGlobalLabelStrings.ts:26
+msgid "This content has been labeled with the !warn global label value defined by the AT Protocol. You will recieve a content warning before opening this content."
 msgstr ""
 
 #: src/components/dialogs/EmbedConsent.tsx:63
@@ -7202,7 +7215,7 @@ msgstr ""
 msgid "This moderation service is unavailable. See below for more details. If this issue persists, contact us."
 msgstr ""
 
-#: src/view/com/post-thread/PostThreadItem.tsx:850
+#: src/view/com/post-thread/PostThreadItem.tsx:882
 msgid "This post claims to have been created on <0>{0}</0>, but was first seen by Bluesky on <1>{1}</1>."
 msgstr ""
 
@@ -7227,7 +7240,11 @@ msgstr ""
 msgid "This post's author has disabled quote posts."
 msgstr ""
 
-#: src/view/com/profile/ProfileMenu.tsx:402
+#: src/view/com/post-thread/PostThreadItem.tsx:875
+msgid "This post's self-identified timestamp does not match up with the time it was first seen on Firehose on <0>{0}</0>."
+msgstr ""
+
+#: src/view/com/profile/ProfileMenu.tsx:427
 msgid "This profile is only visible to logged-in users. It won't be visible to people who aren't signed in."
 msgstr ""
 
@@ -7256,8 +7273,8 @@ msgstr ""
 msgid "This user has blocked you. You cannot view their content."
 msgstr ""
 
-#: src/lib/moderation/useGlobalLabelStrings.ts:30
-msgid "This user has requested that their content only be shown to signed-in users."
+#: src/lib/moderation/useGlobalLabelStrings.ts:32
+msgid "This user has given themselves the !no-unauthenticated label, therefore you must log in to see the user's posts."
 msgstr ""
 
 #: src/components/moderation/ModerationDetailsDialog.tsx:57
@@ -7288,8 +7305,8 @@ msgstr ""
 msgid "This will remove your post from this quote post for all users, and replace it with a placeholder."
 msgstr ""
 
-#: src/view/com/post-thread/PostThread.tsx:606
-#: src/view/com/post-thread/PostThread.tsx:609
+#: src/view/com/post-thread/PostThread.tsx:618
+#: src/view/com/post-thread/PostThread.tsx:621
 msgid "Thread options"
 msgstr ""
 
@@ -7302,8 +7319,8 @@ msgstr ""
 msgid "Thread Preferences"
 msgstr ""
 
-#: src/view/com/post-thread/PostThread.tsx:636
-#: src/view/com/post-thread/PostThread.tsx:641
+#: src/view/com/post-thread/PostThread.tsx:648
+#: src/view/com/post-thread/PostThread.tsx:653
 msgid "Threaded"
 msgstr ""
 
@@ -7343,7 +7360,7 @@ msgstr ""
 msgid "Toggle dropdown"
 msgstr ""
 
-#: src/screens/Moderation/index.tsx:335
+#: src/screens/Moderation/index.tsx:340
 msgid "Toggle to enable or disable adult content"
 msgstr ""
 
@@ -7363,8 +7380,8 @@ msgstr ""
 
 #: src/components/dms/MessageMenu.tsx:103
 #: src/components/dms/MessageMenu.tsx:105
-#: src/view/com/post-thread/PostThreadItem.tsx:775
-#: src/view/com/post-thread/PostThreadItem.tsx:778
+#: src/view/com/post-thread/PostThreadItem.tsx:789
+#: src/view/com/post-thread/PostThreadItem.tsx:792
 #: src/view/com/util/forms/PostDropdownBtnMenuItems.tsx:414
 #: src/view/com/util/forms/PostDropdownBtnMenuItems.tsx:416
 msgid "Translate"
@@ -7434,14 +7451,14 @@ msgstr ""
 #: src/components/dms/MessagesListBlockedFooter.tsx:103
 #: src/components/dms/MessagesListBlockedFooter.tsx:111
 #: src/components/dms/MessagesListBlockedFooter.tsx:118
-#: src/screens/Profile/Header/ProfileHeaderStandard.tsx:197
-#: src/screens/Profile/Header/ProfileHeaderStandard.tsx:283
-#: src/view/com/profile/ProfileMenu.tsx:393
+#: src/screens/Profile/Header/ProfileHeaderStandard.tsx:198
+#: src/screens/Profile/Header/ProfileHeaderStandard.tsx:292
+#: src/view/com/profile/ProfileMenu.tsx:418
 #: src/view/screens/ProfileList.tsx:694
 msgid "Unblock"
 msgstr ""
 
-#: src/screens/Profile/Header/ProfileHeaderStandard.tsx:202
+#: src/screens/Profile/Header/ProfileHeaderStandard.tsx:203
 msgctxt "action"
 msgid "Unblock"
 msgstr ""
@@ -7451,13 +7468,13 @@ msgstr ""
 msgid "Unblock account"
 msgstr ""
 
-#: src/view/com/profile/ProfileMenu.tsx:306
-#: src/view/com/profile/ProfileMenu.tsx:312
+#: src/view/com/profile/ProfileMenu.tsx:331
+#: src/view/com/profile/ProfileMenu.tsx:337
 msgid "Unblock Account"
 msgstr ""
 
-#: src/screens/Profile/Header/ProfileHeaderStandard.tsx:277
-#: src/view/com/profile/ProfileMenu.tsx:375
+#: src/screens/Profile/Header/ProfileHeaderStandard.tsx:286
+#: src/view/com/profile/ProfileMenu.tsx:400
 msgid "Unblock Account?"
 msgstr ""
 
@@ -7475,12 +7492,12 @@ msgctxt "action"
 msgid "Unfollow"
 msgstr ""
 
-#: src/screens/Profile/Header/ProfileHeaderStandard.tsx:217
+#: src/screens/Profile/Header/ProfileHeaderStandard.tsx:218
 msgid "Unfollow {0}"
 msgstr ""
 
-#: src/view/com/profile/ProfileMenu.tsx:248
-#: src/view/com/profile/ProfileMenu.tsx:258
+#: src/view/com/profile/ProfileMenu.tsx:249
+#: src/view/com/profile/ProfileMenu.tsx:259
 msgid "Unfollow Account"
 msgstr ""
 
@@ -7511,8 +7528,8 @@ msgstr ""
 msgid "Unmute {tag}"
 msgstr ""
 
-#: src/view/com/profile/ProfileMenu.tsx:285
-#: src/view/com/profile/ProfileMenu.tsx:291
+#: src/view/com/profile/ProfileMenu.tsx:310
+#: src/view/com/profile/ProfileMenu.tsx:316
 msgid "Unmute Account"
 msgstr ""
 
@@ -7560,7 +7577,7 @@ msgstr ""
 msgid "Unpinned from your feeds"
 msgstr ""
 
-#: src/screens/Profile/Header/ProfileHeaderLabeler.tsx:236
+#: src/screens/Profile/Header/ProfileHeaderLabeler.tsx:235
 msgid "Unsubscribe"
 msgstr ""
 
@@ -7569,7 +7586,7 @@ msgstr ""
 msgid "Unsubscribe from list"
 msgstr ""
 
-#: src/screens/Profile/Header/ProfileHeaderLabeler.tsx:203
+#: src/screens/Profile/Header/ProfileHeaderLabeler.tsx:202
 msgid "Unsubscribe from this labeler"
 msgstr ""
 
@@ -7638,12 +7655,12 @@ msgstr ""
 msgid "Upload from Library"
 msgstr ""
 
-#: src/lib/api/index.ts:307
+#: src/lib/api/index.ts:324
 msgid "Uploading images..."
 msgstr ""
 
-#: src/lib/api/index.ts:361
-#: src/lib/api/index.ts:385
+#: src/lib/api/index.ts:378
+#: src/lib/api/index.ts:402
 msgid "Uploading link thumbnail..."
 msgstr ""
 
@@ -7858,7 +7875,7 @@ msgstr ""
 msgid "Videos must be less than 60 seconds long"
 msgstr ""
 
-#: src/screens/Profile/Header/Shell.tsx:168
+#: src/screens/Profile/Header/Shell.tsx:171
 msgid "View {0}'s avatar"
 msgstr ""
 
@@ -7920,6 +7937,11 @@ msgstr ""
 msgid "View profile"
 msgstr ""
 
+#: src/view/com/profile/ProfileMenu.tsx:292
+#: src/view/com/profile/ProfileMenu.tsx:297
+msgid "View Repo"
+msgstr ""
+
 #: src/view/com/profile/ProfileSubpageHeader.tsx:119
 msgid "View the avatar"
 msgstr ""
@@ -7936,11 +7958,11 @@ msgstr ""
 msgid "View video"
 msgstr ""
 
-#: src/screens/Moderation/index.tsx:264
+#: src/screens/Moderation/index.tsx:269
 msgid "View your blocked accounts"
 msgstr ""
 
-#: src/screens/Moderation/index.tsx:204
+#: src/screens/Moderation/index.tsx:209
 msgid "View your default post interaction settings"
 msgstr ""
 
@@ -7949,11 +7971,11 @@ msgstr ""
 msgid "View your feeds and explore more"
 msgstr ""
 
-#: src/screens/Moderation/index.tsx:234
+#: src/screens/Moderation/index.tsx:239
 msgid "View your moderation lists"
 msgstr ""
 
-#: src/screens/Moderation/index.tsx:249
+#: src/screens/Moderation/index.tsx:254
 msgid "View your muted accounts"
 msgstr ""
 
@@ -7975,7 +7997,7 @@ msgstr ""
 msgid "Volume"
 msgstr ""
 
-#: src/components/moderation/LabelPreference.tsx:136
+#: src/components/moderation/LabelPreference.tsx:135
 #: src/lib/moderation/useLabelBehaviorDescription.ts:17
 #: src/lib/moderation/useLabelBehaviorDescription.ts:22
 msgid "Warn"
@@ -8025,7 +8047,7 @@ msgstr ""
 msgid "We were unable to load your birth date preferences. Please try again."
 msgstr ""
 
-#: src/screens/Moderation/index.tsx:409
+#: src/screens/Moderation/index.tsx:414
 msgid "We were unable to load your configured labelers at this time."
 msgstr ""
 
@@ -8072,7 +8094,11 @@ msgid "We're sorry! We can't find the page you were looking for."
 msgstr ""
 
 #: src/screens/Profile/Header/ProfileHeaderLabeler.tsx:346
-msgid "We're sorry! You can only subscribe to twenty labelers, and you've reached your limit of twenty."
+msgid "We're sorry! You can only subscribe up to a hundred labelers with OCbwoy3 Bluesky Hack, and you've already reached the limit."
+msgstr ""
+
+#: src/screens/Profile/Header/ProfileHeaderLabeler.tsx:351
+msgid "We're sorry! You can only subscribe up to twenty labelers, and you've already reached the limit."
 msgstr ""
 
 #: src/screens/Deactivated.tsx:124
@@ -8284,7 +8310,7 @@ msgstr ""
 msgid "You don't have any saved feeds."
 msgstr ""
 
-#: src/view/com/post-thread/PostThread.tsx:268
+#: src/view/com/post-thread/PostThread.tsx:273
 msgid "You have blocked the author or you have been blocked by the author."
 msgstr ""
 
