@@ -213,12 +213,6 @@ module.exports = function (config) {
               deploymentTarget: '15.1',
               newArchEnabled: false,
             },
-            android: {
-              compileSdkVersion: 35,
-              targetSdkVersion: 35,
-              buildToolsVersion: '35.0.0',
-              newArchEnabled: false,
-            },
           },
         ],
         [
@@ -275,16 +269,6 @@ module.exports = function (config) {
                 backgroundColor: '#001429',
                 image: './assets/splash-dark.png',
                 resizeMode: 'cover',
-              },
-            },
-            android: {
-              backgroundColor: '#0c7cff',
-              image: './assets/splash-android-icon.png',
-              imageWidth: 150,
-              dark: {
-                backgroundColor: '#0c2a49',
-                image: './assets/splash-android-icon-dark.png',
-                imageWidth: 150,
               },
             },
           },

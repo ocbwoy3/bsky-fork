@@ -82,33 +82,28 @@ jobs:
       - name: 🏗️ EAS Build
         run: yarn use-build-number-with-bump eas build -p ios --profile ${{ inputs.profile || 'testflight' }} --local --output build.ipa --non-interactive
 
-      - name: 🚀 Deploy
-        run: eas submit -p ios --non-interactive --path build.ipa
-
       - name: 📚 Get version from package.json
         id: get-build-info
         run: bash scripts/setGitHubOutput.sh
 
-      - name: 🔔 Notify Slack of Production Build
-        if: ${{ inputs.profile == 'production' }}
-        uses: slackapi/slack-github-action@v1.25.0
-        with:
-          payload: |
-            {
-              "text": "iOS production build for App Store submission is ready!\n```Artifact: Check TestFlight to know when it is available\nVersion Number: ${{ steps.get-build-info.outputs.PACKAGE_VERSION }}\nBuild Number: ${{ steps.get-build-info.outputs.BSKY_IOS_BUILD_NUMBER }}```"
-            }
+      - name: 🚀 Create GitHub Release
+        if: ${{ inputs.profile == 'testflight' }}
+        id: create_release
+        uses: actions/create-release@v1
         env:
-          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_CLIENT_ALERT_WEBHOOK }}
-          SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
-
-      - name: ⬇️ Restore Cache
-        id: get-base-commit
-        uses: actions/cache@v4
-        if: ${{ inputs.profile == 'testflight' }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          path: most-recent-testflight-commit.txt
-          key: most-recent-testflight-commit
+          tag_name: ${{ github.sha }}
+          release_name: "Build ${{ github.sha }}"
+          body: "Build for commit ${{ github.sha }}"
+          draft: false
+          prerelease: true
 
-      - name: ✏️ Write commit hash to cache
+      - name: 📦 Upload IPA to GitHub Release
         if: ${{ inputs.profile == 'testflight' }}
-        run: echo ${{ github.sha }} > most-recent-testflight-commit.txt
+        uses: actions/upload-release-asset@v1
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: $PWD/build.ipa
+          asset_name: build.ipa
+          asset_content_type: application/octet-stream
