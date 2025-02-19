@@ -10,11 +10,11 @@ env:
   PASSWORD: ${{ secrets.GITHUB_TOKEN }}
 
   # github.repository as <account>/<repo>
-  IMAGE_NAME: ${{ github.repository }}
+  IMAGE_NAME: "ocbwoy3/bsky-fork"
 
 jobs:
   bskyweb-container-ghcr:
-    if: github.repository == 'bluesky-social/social-app'
+    if: github.repository == 'ocbwoy3/private-bsky-fork'
     runs-on: ubuntu-latest
     permissions:
       contents: read
