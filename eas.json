@@ -6,7 +6,7 @@
   },
   "build": {
     "base": {
-      "node": "18.18.2"
+      "node": "20.0.0"
     },
     "development": {
       "extends": "base",
@@ -14,8 +14,7 @@
       "distribution": "internal",
       "channel": "development",
       "ios": {
-        "simulator": true,
-        "resourceClass": "large"
+        "simulator": true
       },
       "env": {
         "EXPO_PUBLIC_ENV": "production"
