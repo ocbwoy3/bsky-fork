@@ -55,7 +55,7 @@ module.exports = function (config) {
       primaryColor: '#1083fe',
       ios: {
         supportsTablet: false,
-        bundleIdentifier: 'dev.ocbwoy3.bskyfork',
+        bundleIdentifier: 'xyz.blueskyweb.app',
         config: {
           usesNonExemptEncryption: false,
         },
@@ -156,7 +156,7 @@ module.exports = function (config) {
           backgroundColor: '#1185FE',
         },
         googleServicesFile: './google-services.json',
-        package: 'dev.ocbwoy3.bskyfork',
+        package: 'xyz.blueskyweb.app',
         intentFilters: [
           {
             action: 'VIEW',
@@ -360,7 +360,7 @@ module.exports = function (config) {
                 appExtensions: [
                   {
                     targetName: 'Share-with-Bluesky',
-                    bundleIdentifier: 'dev.ocbwoy3.bskyfork.Share-with-Bluesky',
+                    bundleIdentifier: 'xyz.blueskyweb.app.Share-with-Bluesky',
                     entitlements: {
                       'com.apple.security.application-groups': [
                         'group.app.bsky',
@@ -369,7 +369,7 @@ module.exports = function (config) {
                   },
                   {
                     targetName: 'BlueskyNSE',
-                    bundleIdentifier: 'dev.ocbwoy3.bskyfork.BlueskyNSE',
+                    bundleIdentifier: 'xyz.blueskyweb.app.BlueskyNSE',
                     entitlements: {
                       'com.apple.security.application-groups': [
                         'group.app.bsky',
@@ -378,13 +378,13 @@ module.exports = function (config) {
                   },
                   {
                     targetName: 'BlueskyClip',
-                    bundleIdentifier: 'dev.ocbwoy3.bskyfork.AppClip',
+                    bundleIdentifier: 'xyz.blueskyweb.app.AppClip',
                   },
                 ],
               },
             },
           },
-          projectId: '2f185c51-6fd2-44f7-8654-3cdaa538caf4',
+          projectId: '55bd077a-d905-4184-9c7f-94789ba0f302',
         },
       },
       hooks: {
