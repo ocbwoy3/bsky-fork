@@ -387,7 +387,7 @@ function commonScreens(Stack: typeof HomeTab, unreadCountLabel?: string) {
         name="BskyHackSettings"
         getComponent={() => BskyHackSettingsScreen}
         options={{
-          title: title(`OCbwoy3's Super Dev Settings`),
+          title: title(msg`OCbwoy3's Super Dev Settings`),
           requireAuth: true,
         }}
       />

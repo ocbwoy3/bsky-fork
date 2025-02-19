@@ -667,14 +667,21 @@ let PostDropdownMenuItems = ({
                     label={_(msg`Copy post at:// URI`)}
                     onPress={onShareATURI}>
                     <Menu.ItemText>{_(msg`Copy post at:// URI`)}</Menu.ItemText>
-                    <Menu.ItemIcon icon={Share} position="right" />
+                    <Menu.ItemIcon icon={CodeBrackets} position="right" />
                   </Menu.Item>
                   <Menu.Item
                     testID="postAuthorDIDShareBtn"
                     label={_(msg`Copy author DID`)}
                     onPress={onShareAuthorDID}>
                     <Menu.ItemText>{_(msg`Copy author DID`)}</Menu.ItemText>
-                    <Menu.ItemIcon icon={Share} position="right" />
+                    <Menu.ItemIcon icon={CodeBrackets} position="right" />
+                  </Menu.Item>
+                  <Menu.Item
+                    testID="postOpenRecordPdsls"
+                    label={_(msg`View Record`)}
+                    onPress={() => open(`https://pdsls.dev/${post.uri}`)}>
+                    <Menu.ItemText>{_(msg`View Record`)}</Menu.ItemText>
+                    <Menu.ItemIcon icon={CodeBrackets} position="right" />
                   </Menu.Item>
                 </Menu.Group>
               </>

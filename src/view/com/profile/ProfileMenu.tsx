@@ -280,7 +280,7 @@ let ProfileMenu = ({
                   testID="profileHeaderDropdownCopyDidBtn"
                   label={_(msg`Copy DID`)}
                   onPress={() => {
-                    navigator.clipboard.writeText(profile.did)
+                    shareText(profile.did)
                   }}>
                   <Menu.ItemText>
                     <Trans>Copy DID</Trans>

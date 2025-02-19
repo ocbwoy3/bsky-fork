@@ -20,6 +20,7 @@ import {atoms as a, useTheme} from '#/alf'
 import {Divider} from '#/components/Divider'
 import {CircleInfo_Stroke2_Corner0_Rounded as CircleInfo} from '#/components/icons/CircleInfo'
 import * as Layout from '#/components/Layout'
+import {InlineLinkText} from '#/components/Link'
 import {Loader} from '#/components/Loader'
 import {LabelerLabelPreference} from '#/components/moderation/LabelPreference'
 import {Text} from '#/components/Typography'
@@ -163,7 +164,29 @@ export function ProfileLabelsSectionInner({
           <Text style={[t.atoms.text_contrast_high, a.leading_snug, a.text_sm]}>
             <Trans>
               Labels are annotations on users and content. They can be used to
-              hide, warn, and categorize the network.
+              hide, warn, and categorize the network. Global label values are
+              defined by the{' '}
+              <InlineLinkText label="AT Protocol" to="https://atproto.com">
+                AT Protocol
+              </InlineLinkText>{' '}
+              and can only be changed in the{' '}
+              <InlineLinkText label="moderation settings" to="/moderation">
+                moderation settings
+              </InlineLinkText>
+              .{' '}
+              {(labelerInfo.creator.handle || '').endsWith('.bsky.app') ? (
+                <>
+                  Official Bluesky labelers can be disabled in the{' '}
+                  <InlineLinkText
+                    label="developer settings"
+                    to="/settings/ocbwoy3">
+                    developer settings
+                  </InlineLinkText>
+                  .
+                </>
+              ) : (
+                ''
+              )}
             </Trans>
           </Text>
           {labelerInfo.creator.viewer?.blocking ? (

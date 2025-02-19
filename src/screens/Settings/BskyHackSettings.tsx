@@ -3,6 +3,7 @@ import {View} from 'react-native'
 
 import {CommonNavigatorParams, NativeStackScreenProps} from '#/lib/routes/types'
 import * as persisted from '#/state/persisted'
+import {useDevModeEnabled} from '#/state/preferences/dev-mode'
 import {atoms as a, useBreakpoints, useTheme} from '#/alf/index'
 import {Divider} from '#/components/Divider'
 import * as Layout from '#/components/Layout'
@@ -112,18 +113,10 @@ const AllSettings: SettingCategory[] = [
     title: 'Bluesky',
     type: SettingCategoryType.GROUP,
     settings: [
-      createToggleOption('"Bluesky for X" in posts', 'blueskyForWeb'),
+      createToggleOption('Add "Bluesky for X" to posts', 'blueskyForWeb'),
       createToggleOption('Use createdAt timestamp', 'restoreBackdatedPosts'),
       createToggleOption('Bypass age check', 'skipModSettingAgeCheck'),
       createToggleOption('Bypass !hide warnings', 'bypassHideWarning'),
-    ],
-  },
-  {
-    title: 'Bluesky Settings',
-    type: SettingCategoryType.GROUP,
-    settings: [
-      createToggleOptionBluesky('Disable Trending', 'trendingDisabled'),
-      createToggleOptionBluesky('Kawaii', 'kawaii'),
     ],
   },
   /*
@@ -144,6 +137,29 @@ const AllSettings: SettingCategory[] = [
 type Props = NativeStackScreenProps<CommonNavigatorParams, 'BskyHackSettings'>
 export function BskyHackSettingsScreen({}: Props) {
   const t = useTheme()
+  const [devModeEnabled, setDevModeEnabled] = useDevModeEnabled()
+
+  const otherSettings: SettingCategory[] = [
+    {
+      title: 'Bluesky Settings',
+      type: SettingCategoryType.GROUP,
+      settings: [
+        createToggleOptionBluesky('Disable Trending', 'trendingDisabled'),
+        createToggleOptionBluesky('Kawaii', 'kawaii'),
+        {
+          name: 'Developer Mode',
+          type: SettingType.ON_OFF,
+          settingId: 'devModeEnabled',
+          getState: () => {
+            return devModeEnabled
+          },
+          onUpdate: v => {
+            setDevModeEnabled(v as boolean)
+          },
+        },
+      ],
+    },
+  ]
 
   // console.log(AllSettings);
 
@@ -170,7 +186,7 @@ export function BskyHackSettingsScreen({}: Props) {
           </InlineLinkText>
         </Text>
         <View style={[a.pt_2xl, a.px_lg, gtMobile && a.px_2xl]}>
-          {AllSettings.map((item, idx) => (
+          {[...AllSettings, ...otherSettings].map((item, idx) => (
             <Fragment key={idx}>
               {idx !== 0 ? <View style={[a.py_xl]} /> : <></>}
               <Text
