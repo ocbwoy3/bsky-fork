@@ -44,7 +44,7 @@ module.exports = function (config) {
     expo: {
       version: VERSION,
       name: 'Bluesky',
-      slug: 'bluesky',
+      slug: 'bsky-fork',
       scheme: 'bluesky',
       owner: 'ocbwoy3',
       runtimeVersion: {
