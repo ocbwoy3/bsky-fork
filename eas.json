@@ -11,11 +11,11 @@
     "development": {
       "extends": "base",
       "developmentClient": true,
-      "distribution": "adhoc",
+      "distribution": "internal",
       "channel": "development",
       "ios": {
 	"credentialsSource": "remote",
-	"distribution": "adhoc",
+	"distribution": "internal",
         "simulator": false
       },
       "env": {
