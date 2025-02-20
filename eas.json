@@ -11,10 +11,12 @@
     "development": {
       "extends": "base",
       "developmentClient": true,
-      "distribution": "internal",
+      "distribution": "adhoc",
       "channel": "development",
       "ios": {
-        "simulator": true
+	"credentialsSource": "remote",
+	"distribution": "adhoc",
+        "simulator": false
       },
       "env": {
         "EXPO_PUBLIC_ENV": "production"
