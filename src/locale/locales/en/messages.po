@@ -392,7 +392,7 @@ msgstr ""
 msgid "Account"
 msgstr ""
 
-#: src/view/com/profile/ProfileMenu.tsx:139
+#: src/view/com/profile/ProfileMenu.tsx:138
 #: src/view/com/util/forms/PostDropdownBtnMenuItems.tsx:368
 msgid "Account blocked"
 msgstr ""
@@ -401,7 +401,7 @@ msgstr ""
 msgid "Account followed"
 msgstr ""
 
-#: src/view/com/profile/ProfileMenu.tsx:115
+#: src/view/com/profile/ProfileMenu.tsx:114
 #: src/view/com/util/forms/PostDropdownBtnMenuItems.tsx:391
 msgid "Account muted"
 msgstr ""
@@ -432,7 +432,7 @@ msgstr ""
 msgid "Account unfollowed"
 msgstr ""
 
-#: src/view/com/profile/ProfileMenu.tsx:105
+#: src/view/com/profile/ProfileMenu.tsx:104
 #: src/view/com/util/forms/PostDropdownBtnMenuItems.tsx:381
 msgid "Account unmuted"
 msgstr ""
@@ -538,11 +538,11 @@ msgstr ""
 msgid "Add this feed to your feeds"
 msgstr ""
 
-#: src/view/com/profile/ProfileMenu.tsx:274
+#: src/view/com/profile/ProfileMenu.tsx:273
 msgid "Add to lists"
 msgstr ""
 
-#: src/view/com/profile/ProfileMenu.tsx:271
+#: src/view/com/profile/ProfileMenu.tsx:270
 msgid "Add to Lists"
 msgstr ""
 
@@ -980,23 +980,23 @@ msgstr ""
 msgid "Birthday"
 msgstr ""
 
-#: src/screens/Profile/Header/ProfileHeaderStandard.tsx:292
-#: src/view/com/profile/ProfileMenu.tsx:418
-#: src/view/com/util/forms/PostDropdownBtnMenuItems.tsx:833
+#: src/screens/Profile/Header/ProfileHeaderStandard.tsx:283
+#: src/view/com/profile/ProfileMenu.tsx:393
+#: src/view/com/util/forms/PostDropdownBtnMenuItems.tsx:826
 msgid "Block"
 msgstr ""
 
 #: src/components/dms/ConvoMenu.tsx:247
 #: src/components/dms/ConvoMenu.tsx:250
-#: src/view/com/profile/ProfileMenu.tsx:332
-#: src/view/com/profile/ProfileMenu.tsx:339
+#: src/view/com/profile/ProfileMenu.tsx:307
+#: src/view/com/profile/ProfileMenu.tsx:314
 #: src/view/com/util/forms/PostDropdownBtnMenuItems.tsx:662
 #: src/view/com/util/forms/PostDropdownBtnMenuItems.tsx:664
 msgid "Block account"
 msgstr ""
 
-#: src/view/com/profile/ProfileMenu.tsx:401
-#: src/view/com/util/forms/PostDropdownBtnMenuItems.tsx:828
+#: src/view/com/profile/ProfileMenu.tsx:376
+#: src/view/com/util/forms/PostDropdownBtnMenuItems.tsx:821
 msgid "Block Account?"
 msgstr ""
 
@@ -1042,8 +1042,8 @@ msgstr ""
 msgid "Blocked Accounts"
 msgstr ""
 
-#: src/view/com/profile/ProfileMenu.tsx:413
-#: src/view/com/util/forms/PostDropdownBtnMenuItems.tsx:830
+#: src/view/com/profile/ProfileMenu.tsx:388
+#: src/view/com/util/forms/PostDropdownBtnMenuItems.tsx:823
 msgid "Blocked accounts cannot reply in your threads, mention you, or otherwise interact with you."
 msgstr ""
 
@@ -1975,7 +1975,7 @@ msgstr ""
 #: src/screens/StarterPack/StarterPackScreen.tsx:592
 #: src/screens/StarterPack/StarterPackScreen.tsx:671
 #: src/screens/StarterPack/StarterPackScreen.tsx:751
-#: src/view/com/util/forms/PostDropdownBtnMenuItems.tsx:750
+#: src/view/com/util/forms/PostDropdownBtnMenuItems.tsx:743
 #: src/view/screens/ProfileList.tsx:739
 msgid "Delete"
 msgstr ""
@@ -2049,7 +2049,7 @@ msgstr ""
 msgid "Delete this list?"
 msgstr ""
 
-#: src/view/com/util/forms/PostDropdownBtnMenuItems.tsx:745
+#: src/view/com/util/forms/PostDropdownBtnMenuItems.tsx:738
 msgid "Delete this post?"
 msgstr ""
 
@@ -2092,7 +2092,7 @@ msgstr ""
 msgid "Detach quote"
 msgstr ""
 
-#: src/view/com/util/forms/PostDropdownBtnMenuItems.tsx:808
+#: src/view/com/util/forms/PostDropdownBtnMenuItems.tsx:801
 msgid "Detach quote post?"
 msgstr ""
 
@@ -3014,8 +3014,8 @@ msgstr ""
 msgid "Follow 7 accounts"
 msgstr ""
 
-#: src/view/com/profile/ProfileMenu.tsx:250
-#: src/view/com/profile/ProfileMenu.tsx:261
+#: src/view/com/profile/ProfileMenu.tsx:249
+#: src/view/com/profile/ProfileMenu.tsx:260
 msgid "Follow account"
 msgstr ""
 
@@ -3344,7 +3344,7 @@ msgstr ""
 #: src/lib/moderation/useLabelBehaviorDescription.ts:25
 #: src/lib/moderation/useLabelBehaviorDescription.ts:30
 #: src/screens/Search/components/ExploreTrendingTopics.tsx:137
-#: src/view/com/util/forms/PostDropdownBtnMenuItems.tsx:761
+#: src/view/com/util/forms/PostDropdownBtnMenuItems.tsx:754
 #: src/view/shell/desktop/SidebarTrendingTopics.tsx:110
 msgid "Hide"
 msgstr ""
@@ -3369,12 +3369,12 @@ msgstr ""
 msgid "Hide reply for me"
 msgstr ""
 
-#: src/view/com/util/forms/PostDropdownBtnMenuItems.tsx:756
+#: src/view/com/util/forms/PostDropdownBtnMenuItems.tsx:749
 msgid "Hide this post?"
 msgstr ""
 
-#: src/view/com/util/forms/PostDropdownBtnMenuItems.tsx:756
-#: src/view/com/util/forms/PostDropdownBtnMenuItems.tsx:818
+#: src/view/com/util/forms/PostDropdownBtnMenuItems.tsx:749
+#: src/view/com/util/forms/PostDropdownBtnMenuItems.tsx:811
 msgid "Hide this reply?"
 msgstr ""
 
@@ -3504,7 +3504,7 @@ msgstr ""
 msgid "If you have your own domain, you can use that as your handle. This lets you self-verify your identity. <0>Learn more here.</0>"
 msgstr ""
 
-#: src/view/com/util/forms/PostDropdownBtnMenuItems.tsx:747
+#: src/view/com/util/forms/PostDropdownBtnMenuItems.tsx:740
 msgid "If you remove this post, you won't be able to recover it."
 msgstr ""
 
@@ -4180,8 +4180,8 @@ msgstr ""
 msgid "Mute {tag}"
 msgstr ""
 
-#: src/view/com/profile/ProfileMenu.tsx:311
-#: src/view/com/profile/ProfileMenu.tsx:318
+#: src/view/com/profile/ProfileMenu.tsx:286
+#: src/view/com/profile/ProfileMenu.tsx:293
 #: src/view/com/util/forms/PostDropdownBtnMenuItems.tsx:645
 #: src/view/com/util/forms/PostDropdownBtnMenuItems.tsx:651
 msgid "Mute account"
@@ -4560,8 +4560,8 @@ msgstr ""
 msgid "Not right now"
 msgstr ""
 
-#: src/view/com/profile/ProfileMenu.tsx:425
-#: src/view/com/util/forms/PostDropdownBtnMenuItems.tsx:775
+#: src/view/com/profile/ProfileMenu.tsx:400
+#: src/view/com/util/forms/PostDropdownBtnMenuItems.tsx:768
 #: src/view/com/util/post-ctrls/PostCtrls.tsx:358
 msgid "Note about sharing"
 msgstr ""
@@ -5659,8 +5659,8 @@ msgstr ""
 msgid "Report"
 msgstr ""
 
-#: src/view/com/profile/ProfileMenu.tsx:351
-#: src/view/com/profile/ProfileMenu.tsx:354
+#: src/view/com/profile/ProfileMenu.tsx:326
+#: src/view/com/profile/ProfileMenu.tsx:329
 msgid "Report account"
 msgstr ""
 
@@ -6037,8 +6037,8 @@ msgstr ""
 msgid "Search my posts"
 msgstr ""
 
-#: src/view/com/profile/ProfileMenu.tsx:229
-#: src/view/com/profile/ProfileMenu.tsx:232
+#: src/view/com/profile/ProfileMenu.tsx:228
+#: src/view/com/profile/ProfileMenu.tsx:231
 msgid "Search posts"
 msgstr ""
 
@@ -6296,8 +6296,8 @@ msgstr ""
 #: src/screens/StarterPack/StarterPackScreen.tsx:429
 #: src/screens/StarterPack/StarterPackScreen.tsx:601
 #: src/screens/Topic.tsx:102
-#: src/view/com/profile/ProfileMenu.tsx:214
-#: src/view/com/profile/ProfileMenu.tsx:223
+#: src/view/com/profile/ProfileMenu.tsx:213
+#: src/view/com/profile/ProfileMenu.tsx:222
 #: src/view/com/util/forms/PostDropdownBtnMenuItems.tsx:474
 #: src/view/com/util/forms/PostDropdownBtnMenuItems.tsx:483
 #: src/view/com/util/post-ctrls/PostCtrls.tsx:347
@@ -6318,8 +6318,8 @@ msgstr ""
 msgid "Share a fun fact!"
 msgstr ""
 
-#: src/view/com/profile/ProfileMenu.tsx:430
-#: src/view/com/util/forms/PostDropdownBtnMenuItems.tsx:780
+#: src/view/com/profile/ProfileMenu.tsx:405
+#: src/view/com/util/forms/PostDropdownBtnMenuItems.tsx:773
 #: src/view/com/util/post-ctrls/PostCtrls.tsx:363
 msgid "Share anyway"
 msgstr ""
@@ -7076,12 +7076,12 @@ msgstr ""
 #: src/screens/Profile/Header/ProfileHeaderStandard.tsx:142
 #: src/view/com/post-thread/PostThreadFollowBtn.tsx:90
 #: src/view/com/post-thread/PostThreadFollowBtn.tsx:101
-#: src/view/com/profile/ProfileMenu.tsx:109
-#: src/view/com/profile/ProfileMenu.tsx:119
-#: src/view/com/profile/ProfileMenu.tsx:133
-#: src/view/com/profile/ProfileMenu.tsx:143
-#: src/view/com/profile/ProfileMenu.tsx:156
-#: src/view/com/profile/ProfileMenu.tsx:168
+#: src/view/com/profile/ProfileMenu.tsx:108
+#: src/view/com/profile/ProfileMenu.tsx:118
+#: src/view/com/profile/ProfileMenu.tsx:132
+#: src/view/com/profile/ProfileMenu.tsx:142
+#: src/view/com/profile/ProfileMenu.tsx:155
+#: src/view/com/profile/ProfileMenu.tsx:167
 #: src/view/com/util/forms/PostDropdownBtnMenuItems.tsx:372
 #: src/view/com/util/forms/PostDropdownBtnMenuItems.tsx:385
 #: src/view/com/util/forms/PostDropdownBtnMenuItems.tsx:395
@@ -7239,12 +7239,12 @@ msgstr ""
 msgid "This post has been deleted."
 msgstr ""
 
-#: src/view/com/util/forms/PostDropdownBtnMenuItems.tsx:777
+#: src/view/com/util/forms/PostDropdownBtnMenuItems.tsx:770
 #: src/view/com/util/post-ctrls/PostCtrls.tsx:360
 msgid "This post is only visible to logged-in users. It won't be visible to people who aren't signed in."
 msgstr ""
 
-#: src/view/com/util/forms/PostDropdownBtnMenuItems.tsx:758
+#: src/view/com/util/forms/PostDropdownBtnMenuItems.tsx:751
 msgid "This post will be hidden from feeds and threads. This cannot be undone."
 msgstr ""
 
@@ -7260,7 +7260,7 @@ msgstr ""
 msgid "This profile is only visible to logged-in users. It won't be visible to people who aren't signed in."
 msgstr ""
 
-#: src/view/com/util/forms/PostDropdownBtnMenuItems.tsx:820
+#: src/view/com/util/forms/PostDropdownBtnMenuItems.tsx:813
 msgid "This reply will be sorted into a hidden section at the bottom of your thread and will mute notifications for subsequent replies - both for yourself and others."
 msgstr ""
 
@@ -7313,7 +7313,7 @@ msgstr ""
 msgid "This will remove @{0} from the quick access list."
 msgstr ""
 
-#: src/view/com/util/forms/PostDropdownBtnMenuItems.tsx:810
+#: src/view/com/util/forms/PostDropdownBtnMenuItems.tsx:803
 msgid "This will remove your post from this quote post for all users, and replace it with a placeholder."
 msgstr ""
 
@@ -7392,8 +7392,8 @@ msgstr ""
 
 #: src/components/dms/MessageMenu.tsx:103
 #: src/components/dms/MessageMenu.tsx:105
-#: src/view/com/post-thread/PostThreadItem.tsx:790
-#: src/view/com/post-thread/PostThreadItem.tsx:793
+#: src/view/com/post-thread/PostThreadItem.tsx:776
+#: src/view/com/post-thread/PostThreadItem.tsx:779
 #: src/view/com/util/forms/PostDropdownBtnMenuItems.tsx:444
 #: src/view/com/util/forms/PostDropdownBtnMenuItems.tsx:446
 msgid "Translate"
@@ -7477,13 +7477,13 @@ msgstr ""
 
 #: src/components/dms/ConvoMenu.tsx:247
 #: src/components/dms/ConvoMenu.tsx:250
-#: src/view/com/profile/ProfileMenu.tsx:331
-#: src/view/com/profile/ProfileMenu.tsx:337
+#: src/view/com/profile/ProfileMenu.tsx:306
+#: src/view/com/profile/ProfileMenu.tsx:312
 msgid "Unblock account"
 msgstr ""
 
-#: src/screens/Profile/Header/ProfileHeaderStandard.tsx:286
-#: src/view/com/profile/ProfileMenu.tsx:400
+#: src/screens/Profile/Header/ProfileHeaderStandard.tsx:277
+#: src/view/com/profile/ProfileMenu.tsx:375
 msgid "Unblock Account?"
 msgstr ""
 
@@ -7505,8 +7505,8 @@ msgstr ""
 msgid "Unfollow {0}"
 msgstr ""
 
-#: src/view/com/profile/ProfileMenu.tsx:249
-#: src/view/com/profile/ProfileMenu.tsx:259
+#: src/view/com/profile/ProfileMenu.tsx:248
+#: src/view/com/profile/ProfileMenu.tsx:258
 msgid "Unfollow account"
 msgstr ""
 
@@ -7537,8 +7537,8 @@ msgstr ""
 msgid "Unmute {tag}"
 msgstr ""
 
-#: src/view/com/profile/ProfileMenu.tsx:310
-#: src/view/com/profile/ProfileMenu.tsx:316
+#: src/view/com/profile/ProfileMenu.tsx:285
+#: src/view/com/profile/ProfileMenu.tsx:291
 #: src/view/com/util/forms/PostDropdownBtnMenuItems.tsx:644
 #: src/view/com/util/forms/PostDropdownBtnMenuItems.tsx:650
 msgid "Unmute account"
@@ -8237,11 +8237,11 @@ msgstr ""
 msgid "Yes, delete this starter pack"
 msgstr ""
 
-#: src/view/com/util/forms/PostDropdownBtnMenuItems.tsx:813
+#: src/view/com/util/forms/PostDropdownBtnMenuItems.tsx:806
 msgid "Yes, detach"
 msgstr ""
 
-#: src/view/com/util/forms/PostDropdownBtnMenuItems.tsx:823
+#: src/view/com/util/forms/PostDropdownBtnMenuItems.tsx:816
 msgid "Yes, hide"
 msgstr ""
 
