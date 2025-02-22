@@ -10,6 +10,7 @@ import {getLabelingServiceTitle} from '#/lib/moderation'
 import {CommonNavigatorParams, NativeStackScreenProps} from '#/lib/routes/types'
 import {logger} from '#/logger'
 import {isIOS} from '#/platform/detection'
+import {useDevModeEnabled} from '#/state/preferences/dev-mode'
 import {
   useMyLabelersQuery,
   usePreferencesQuery,
@@ -40,6 +41,7 @@ import {ListMaybePlaceholder} from '#/components/Lists'
 import {Loader} from '#/components/Loader'
 import {GlobalLabelPreference} from '#/components/moderation/LabelPreference'
 import {Text} from '#/components/Typography'
+import {CopyButton} from '../Settings/components/CopyButton'
 
 function ErrorState({error}: {error: string}) {
   const t = useTheme()
@@ -154,6 +156,8 @@ export function ModerationScreenInner({
     data: labelers,
     error: labelersError,
   } = useMyLabelersQuery()
+
+  const [isDevleoper, _setIsDeveloper] = useDevModeEnabled()
 
   useFocusEffect(
     useCallback(() => {
@@ -463,9 +467,23 @@ export function ModerationScreenInner({
         </View>
       )}
       {labelers ? (
-        <Text style={[a.pt_xl]}>
-          You are subscribed to {labelers?.length}/{MAX_LABELERS} labelers.
-        </Text>
+        <>
+          <Text style={[a.pt_xl]}>
+            You are subscribed to {labelers?.length}/{MAX_LABELERS} labelers.
+          </Text>
+          {isDevleoper ? (
+            <>
+              <br />
+              <CopyButton
+                value={labelers.map(a => a.creator.did).join('\n')}
+                label="test">
+                <Text>Copy Labeler DIDs</Text>
+              </CopyButton>
+            </>
+          ) : (
+            <></>
+          )}
+        </>
       ) : (
         <></>
       )}
