@@ -1,7 +1,7 @@
-import {UITextView} from 'react-native-uitextview'
+import { UITextView } from 'react-native-uitextview'
 
-import {logger} from '#/logger'
-import {atoms, flatten, useAlf, useTheme, web} from '#/alf'
+import { logger } from '#/logger'
+import { atoms, flatten, useAlf, useTheme, web } from '#/alf'
 import {
   childHasEmoji,
   normalizeTextStyles,

@@ -14,7 +14,7 @@ on:
 jobs:
   build:
     name: Build and Submit iOS
-    runs-on: macos-14
+    runs-on: macos-15
     steps:
       - name: Check for EXPO_TOKEN
         run: >
@@ -51,7 +51,7 @@ jobs:
 
       - uses: maxim-lobanov/setup-xcode@v1
         with:
-          xcode-version: '15.3'
+          xcode-version: '16.2'
 
       - name: ☕️ Setup Cocoapods
         uses: maxim-lobanov/setup-cocoapods@v1

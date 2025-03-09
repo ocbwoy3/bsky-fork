@@ -1,26 +1,26 @@
 import React from 'react'
-import {GestureResponderEvent} from 'react-native'
-import {sanitizeUrl} from '@braintree/sanitize-url'
-import {StackActions, useLinkProps} from '@react-navigation/native'
+import { GestureResponderEvent } from 'react-native'
+import { sanitizeUrl } from '@braintree/sanitize-url'
+import { StackActions, useLinkProps } from '@react-navigation/native'
 
-import {BSKY_DOWNLOAD_URL} from '#/lib/constants'
-import {useNavigationDeduped} from '#/lib/hooks/useNavigationDeduped'
-import {useOpenLink} from '#/lib/hooks/useOpenLink'
-import {AllNavigatorParams} from '#/lib/routes/types'
-import {shareUrl} from '#/lib/sharing'
+import { BSKY_DOWNLOAD_URL } from '#/lib/constants'
+import { useNavigationDeduped } from '#/lib/hooks/useNavigationDeduped'
+import { useOpenLink } from '#/lib/hooks/useOpenLink'
+import { AllNavigatorParams } from '#/lib/routes/types'
+import { shareUrl } from '#/lib/sharing'
 import {
   convertBskyAppUrlIfNeeded,
   isBskyDownloadUrl,
   isExternalUrl,
   linkRequiresWarning,
 } from '#/lib/strings/url-helpers'
-import {isNative, isWeb} from '#/platform/detection'
-import {useModalControls} from '#/state/modals'
-import {atoms as a, flatten, TextStyleProp, useTheme, web} from '#/alf'
-import {Button, ButtonProps} from '#/components/Button'
-import {useInteractionState} from '#/components/hooks/useInteractionState'
-import {Text, TextProps} from '#/components/Typography'
-import {router} from '#/routes'
+import { isNative, isWeb } from '#/platform/detection'
+import { useModalControls } from '#/state/modals'
+import { atoms as a, flatten, TextStyleProp, useTheme, web } from '#/alf'
+import { Button, ButtonProps } from '#/components/Button'
+import { useInteractionState } from '#/components/hooks/useInteractionState'
+import { Text, TextProps } from '#/components/Typography'
+import { router } from '#/routes'
 
 /**
  * Only available within a `Link`, since that inherits from `Button`.
@@ -69,6 +69,11 @@ type BaseLinkProps = Pick<
    * Native-only attribute. If true, will open the share sheet on long press.
    */
   shareOnLongPress?: boolean
+
+  /**
+   * Whether the link should be opened through the redirect proxy.
+   */
+  shouldProxy?: boolean
 }
 
 export function useLink({
@@ -80,9 +85,11 @@ export function useLink({
   onLongPress: outerOnLongPress,
   shareOnLongPress,
   overridePresentation,
+  shouldProxy,
 }: BaseLinkProps & {
   displayText: string
   overridePresentation?: boolean
+  shouldProxy?: boolean
 }) {
   const navigation = useNavigationDeduped()
   const {href} = useLinkProps<AllNavigatorParams>({
@@ -118,7 +125,7 @@ export function useLink({
         })
       } else {
         if (isExternal) {
-          openLink(href, overridePresentation)
+          openLink(href, overridePresentation, shouldProxy)
         } else {
           const shouldOpenInNewTab = shouldClickOpenNewTab(e)
 
@@ -161,6 +168,7 @@ export function useLink({
       action,
       navigation,
       overridePresentation,
+      shouldProxy,
     ],
   )
 
@@ -219,6 +227,7 @@ export function Link({
   onPress: outerOnPress,
   onLongPress: outerOnLongPress,
   download,
+  shouldProxy,
   ...rest
 }: LinkProps) {
   const {href, isExternal, onPress, onLongPress} = useLink({
@@ -227,6 +236,7 @@ export function Link({
     action,
     onPress: outerOnPress,
     onLongPress: outerOnLongPress,
+    shouldProxy: shouldProxy,
   })
 
   return (
@@ -262,6 +272,7 @@ export type InlineLinkProps = React.PropsWithChildren<
       disableUnderline?: boolean
       title?: TextProps['title']
       overridePresentation?: boolean
+      emoji?: boolean
     }
 >
 
@@ -279,6 +290,8 @@ export function InlineLinkText({
   shareOnLongPress,
   disableUnderline,
   overridePresentation,
+  shouldProxy,
+  emoji,
   ...rest
 }: InlineLinkProps) {
   const t = useTheme()
@@ -292,6 +305,7 @@ export function InlineLinkText({
     onLongPress: outerOnLongPress,
     shareOnLongPress,
     overridePresentation,
+    shouldProxy: shouldProxy,
   })
   const {
     state: hovered,
@@ -306,6 +320,7 @@ export function InlineLinkText({
       accessibilityHint=""
       accessibilityLabel={label}
       {...rest}
+      emoji={emoji}
       style={[
         {color: t.palette.primary_500},
         hovered &&

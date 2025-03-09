@@ -5,23 +5,23 @@ import {
   View,
   ViewStyle,
 } from 'react-native'
-import {ModerationUI} from '@atproto/api'
-import {msg, Trans} from '@lingui/macro'
-import {useLingui} from '@lingui/react'
-import {useNavigation} from '@react-navigation/native'
+import { ModerationUI } from '@atproto/api'
+import { msg, Trans } from '@lingui/macro'
+import { useLingui } from '@lingui/react'
+import { useNavigation } from '@react-navigation/native'
 
-import {getOCbwoy3Settings} from '#/lib/constants'
-import {useWebMediaQueries} from '#/lib/hooks/useWebMediaQueries'
-import {useModerationCauseDescription} from '#/lib/moderation/useModerationCauseDescription'
-import {NavigationProp} from '#/lib/routes/types'
-import {CenteredView} from '#/view/com/util/Views'
-import {atoms as a, useTheme, web} from '#/alf'
-import {Button, ButtonText} from '#/components/Button'
+import { getOCbwoy3Settings } from '#/lib/constants'
+import { useWebMediaQueries } from '#/lib/hooks/useWebMediaQueries'
+import { useModerationCauseDescription } from '#/lib/moderation/useModerationCauseDescription'
+import { NavigationProp } from '#/lib/routes/types'
+import { CenteredView } from '#/view/com/util/Views'
+import { atoms as a, useTheme, web } from '#/alf'
+import { Button, ButtonText } from '#/components/Button'
 import {
   ModerationDetailsDialog,
   useModerationDetailsDialogControl,
 } from '#/components/moderation/ModerationDetailsDialog'
-import {Text} from '#/components/Typography'
+import { Text } from '#/components/Typography'
 
 export function ScreenHider({
   testID,
@@ -164,8 +164,7 @@ export function ScreenHider({
             <Trans>Go back</Trans>
           </ButtonText>
         </Button>
-        {(!modui.noOverride ||
-          getOCbwoy3Settings().bypassHideWarning === true) && (
+        {(getOCbwoy3Settings().bypassHideWarning === true) && (
           <Button
             variant="solid"
             color="secondary"

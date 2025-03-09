@@ -1,16 +1,16 @@
-import {Fragment} from 'react'
-import {View} from 'react-native'
+import { Fragment } from 'react'
+import { View } from 'react-native'
 
-import {CommonNavigatorParams, NativeStackScreenProps} from '#/lib/routes/types'
+import { CommonNavigatorParams, NativeStackScreenProps } from '#/lib/routes/types'
 import * as persisted from '#/state/persisted'
-import {useDevModeEnabled} from '#/state/preferences/dev-mode'
-import {atoms as a, useBreakpoints, useTheme} from '#/alf/index'
-import {Divider} from '#/components/Divider'
+import { useDevModeEnabled } from '#/state/preferences/dev-mode'
+import { atoms as a, useBreakpoints, useTheme } from '#/alf/index'
+import { Divider } from '#/components/Divider'
 import * as Layout from '#/components/Layout'
-import {InlineLinkText} from '#/components/Link'
-import {Text} from '#/components/Typography'
-import {device, DummyOCbwoy3SettingsSchema} from '#/storage/index'
-import {OCbwoy3BskyHackSettingToggle} from './BskyHackSettings/SettingToggle'
+import { InlineLinkText } from '#/components/Link'
+import { Text } from '#/components/Typography'
+import { device, DummyOCbwoy3SettingsSchema } from '#/storage/index'
+import { OCbwoy3BskyHackSettingToggle } from './BskyHackSettings/SettingToggle'
 
 enum SettingType {
   ON_OFF = 1,
@@ -113,12 +113,13 @@ const AllSettings: SettingCategory[] = [
     title: 'Bluesky',
     type: SettingCategoryType.GROUP,
     settings: [
-      createToggleOption('Add "Bluesky for X" to posts', 'blueskyForWeb'),
+      createToggleOption('Add "Bluesky for Web" to posts', 'blueskyForWeb'),
       createToggleOption('Use createdAt timestamp', 'restoreBackdatedPosts'),
       createToggleOption('Bypass age check', 'skipModSettingAgeCheck'),
-      createToggleOption('Bypass !hide warnings', 'bypassHideWarning'),
+      createToggleOption('Bypass !warn, !hide', 'bypassHideWarning'),
     ],
   },
+  // TODO: AI Features
   /*
   {
     title: 'AI',
@@ -170,7 +171,7 @@ export function BskyHackSettingsScreen({}: Props) {
         <Layout.Header.BackButton />
         <Layout.Header.Content>
           <Layout.Header.TitleText>
-            OCbwoy3's Super Dev Settings
+            Redsky Settings
           </Layout.Header.TitleText>
         </Layout.Header.Content>
         <Layout.Header.Slot />
@@ -225,7 +226,7 @@ export function BskyHackSettingsScreen({}: Props) {
           ))}
         </View>
         <Text style={[a.pt_xl, a.text_center]}>
-          This is a fork of{' '}
+        This is a modification of{' '}
           <InlineLinkText
             label="Bluesky's Social App"
             to="https://github.com/bluesky-social/social-app">

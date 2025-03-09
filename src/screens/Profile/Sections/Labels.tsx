@@ -1,31 +1,30 @@
 import React from 'react'
-import {findNodeHandle, View} from 'react-native'
-import {useSafeAreaFrame} from 'react-native-safe-area-context'
+import { findNodeHandle, View } from 'react-native'
+import { useSafeAreaFrame } from 'react-native-safe-area-context'
 import {
   AppBskyLabelerDefs,
   InterpretedLabelValueDefinition,
   interpretLabelValueDefinitions,
   ModerationOpts,
 } from '@atproto/api'
-import {msg, Trans} from '@lingui/macro'
-import {useLingui} from '@lingui/react'
+import { msg, Trans } from '@lingui/macro'
+import { useLingui } from '@lingui/react'
 
-import {useAnimatedScrollHandler} from '#/lib/hooks/useAnimatedScrollHandler_FIXED'
-import {isLabelerSubscribed, lookupLabelValueDefinition} from '#/lib/moderation'
-import {useScrollHandlers} from '#/lib/ScrollContext'
-import {isNative} from '#/platform/detection'
-import {ListRef} from '#/view/com/util/List'
-import {ScrollView} from '#/view/com/util/Views'
-import {atoms as a, useTheme} from '#/alf'
-import {Divider} from '#/components/Divider'
-import {CircleInfo_Stroke2_Corner0_Rounded as CircleInfo} from '#/components/icons/CircleInfo'
+import { useAnimatedScrollHandler } from '#/lib/hooks/useAnimatedScrollHandler_FIXED'
+import { isLabelerSubscribed, lookupLabelValueDefinition } from '#/lib/moderation'
+import { useScrollHandlers } from '#/lib/ScrollContext'
+import { isNative } from '#/platform/detection'
+import { ListRef } from '#/view/com/util/List'
+import { atoms as a, useTheme } from '#/alf'
+import { Divider } from '#/components/Divider'
+import { CircleInfo_Stroke2_Corner0_Rounded as CircleInfo } from '#/components/icons/CircleInfo'
 import * as Layout from '#/components/Layout'
-import {InlineLinkText} from '#/components/Link'
-import {Loader} from '#/components/Loader'
-import {LabelerLabelPreference} from '#/components/moderation/LabelPreference'
-import {Text} from '#/components/Typography'
-import {ErrorState} from '../ErrorState'
-import {SectionRef} from './types'
+import { InlineLinkText } from '#/components/Link'
+import { Loader } from '#/components/Loader'
+import { LabelerLabelPreference } from '#/components/moderation/LabelPreference'
+import { Text } from '#/components/Typography'
+import { ErrorState } from '../ErrorState'
+import { SectionRef } from './types'
 
 interface LabelsSectionProps {
   isLabelerLoading: boolean
@@ -149,8 +148,8 @@ export function ProfileLabelsSectionInner({
   }, [labelerInfo, labelValues])
 
   return (
-    <ScrollView
-      // @ts-ignore TODO fix this
+    <Layout.Content
+      // @ts-expect-error TODO fix this
       ref={scrollElRef}
       scrollEventThrottle={1}
       contentContainerStyle={{
@@ -176,11 +175,11 @@ export function ProfileLabelsSectionInner({
               .{' '}
               {(labelerInfo.creator.handle || '').endsWith('.bsky.app') ? (
                 <>
-                  Official Bluesky labelers can be disabled in the{' '}
+                  You can disable official Bluesky labelers in the{' '}
                   <InlineLinkText
-                    label="developer settings"
+                    label="Redsky settings"
                     to="/settings/ocbwoy3">
-                    developer settings
+                    Redsky settings
                   </InlineLinkText>
                   .
                 </>
@@ -251,9 +250,8 @@ export function ProfileLabelsSectionInner({
             })}
           </View>
         )}
-
-        <View style={{height: 400}} />
+        <View style={{height: 100}} />
       </View>
-    </ScrollView>
+    </Layout.Content>
   )
 }

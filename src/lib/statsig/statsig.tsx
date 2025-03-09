@@ -1,7 +1,7 @@
 import React from 'react'
 
-import {LogEvents} from './events'
-import {Gate} from './gates'
+import { LogEvents } from './events'
+import { Gate } from './gates'
 
 export const initPromise = initialize()
 

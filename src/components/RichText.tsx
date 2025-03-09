@@ -1,14 +1,14 @@
 import React from 'react'
-import {TextStyle} from 'react-native'
-import {AppBskyRichtextFacet, RichText as RichTextAPI} from '@atproto/api'
+import { TextStyle } from 'react-native'
+import { AppBskyRichtextFacet, RichText as RichTextAPI } from '@atproto/api'
 
-import {toShortUrl} from '#/lib/strings/url-helpers'
-import {atoms as a, flatten, TextStyleProp} from '#/alf'
-import {isOnlyEmoji} from '#/alf/typography'
-import {InlineLinkText, LinkProps} from '#/components/Link'
-import {ProfileHoverCard} from '#/components/ProfileHoverCard'
-import {RichTextTag} from '#/components/RichTextTag'
-import {Text, TextProps} from '#/components/Typography'
+import { toShortUrl } from '#/lib/strings/url-helpers'
+import { atoms as a, flatten, TextStyleProp } from '#/alf'
+import { isOnlyEmoji } from '#/alf/typography'
+import { InlineLinkText, LinkProps } from '#/components/Link'
+import { ProfileHoverCard } from '#/components/ProfileHoverCard'
+import { RichTextTag } from '#/components/RichTextTag'
+import { Text, TextProps } from '#/components/Typography'
 
 const WORD_WRAP = {wordWrap: 1}
 
@@ -23,6 +23,7 @@ export type RichTextProps = TextStyleProp &
     onLinkPress?: LinkProps['onPress']
     interactiveStyle?: TextStyle
     emojiMultiplier?: number
+    shouldProxyLinks?: boolean
   }
 
 export function RichText({
@@ -39,6 +40,7 @@ export function RichText({
   emojiMultiplier = 1.85,
   onLayout,
   onTextLayout,
+  shouldProxyLinks,
 }: RichTextProps) {
   const richText = React.useMemo(
     () =>
@@ -110,6 +112,7 @@ export function RichText({
             style={interactiveStyles}
             // @ts-ignore TODO
             dataSet={WORD_WRAP}
+            shouldProxy={shouldProxyLinks}
             onPress={onLinkPress}>
             {segment.text}
           </InlineLinkText>
@@ -128,6 +131,7 @@ export function RichText({
             // @ts-ignore TODO
             dataSet={WORD_WRAP}
             shareOnLongPress
+            shouldProxy={shouldProxyLinks}
             onPress={onLinkPress}
             emoji>
             {toShortUrl(segment.text)}
@@ -140,12 +144,14 @@ export function RichText({
       tag &&
       AppBskyRichtextFacet.validateTag(tag).success
     ) {
+      const special: boolean = /regretevator/i.test(tag.tag);
+
       els.push(
         <RichTextTag
           key={key}
           display={segment.text}
           tag={tag.tag}
-          textStyle={interactiveStyles}
+          textStyle={special ? [{ color: "#cba6f7" }, ...interactiveStyles] : interactiveStyles}
           authorHandle={authorHandle}
         />,
       )

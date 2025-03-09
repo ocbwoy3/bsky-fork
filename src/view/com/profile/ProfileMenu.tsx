@@ -39,8 +39,11 @@ import {
 import {PlusLarge_Stroke2_Corner0_Rounded as Plus} from '#/components/icons/Plus'
 import {SpeakerVolumeFull_Stroke2_Corner0_Rounded as Unmute} from '#/components/icons/Speaker'
 import * as Menu from '#/components/Menu'
+import {
+  ReportDialog,
+  useReportDialogControl,
+} from '#/components/moderation/ReportDialog'
 import * as Prompt from '#/components/Prompt'
-import {ReportDialog, useReportDialogControl} from '#/components/ReportDialog'
 
 let ProfileMenu = ({
   profile,
@@ -102,7 +105,7 @@ let ProfileMenu = ({
     if (profile.viewer?.muted) {
       try {
         await queueUnmute()
-        Toast.show(_(msg`Account unmuted`))
+        Toast.show(_(msg({message: 'Account unmuted', context: 'toast'})))
       } catch (e: any) {
         if (e?.name !== 'AbortError') {
           logger.error('Failed to unmute account', {message: e})
@@ -112,7 +115,7 @@ let ProfileMenu = ({
     } else {
       try {
         await queueMute()
-        Toast.show(_(msg`Account muted`))
+        Toast.show(_(msg({message: 'Account muted', context: 'toast'})))
       } catch (e: any) {
         if (e?.name !== 'AbortError') {
           logger.error('Failed to mute account', {message: e})
@@ -126,7 +129,7 @@ let ProfileMenu = ({
     if (profile.viewer?.blocking) {
       try {
         await queueUnblock()
-        Toast.show(_(msg`Account unblocked`))
+        Toast.show(_(msg({message: 'Account unblocked', context: 'toast'})))
       } catch (e: any) {
         if (e?.name !== 'AbortError') {
           logger.error('Failed to unblock account', {message: e})
@@ -136,7 +139,7 @@ let ProfileMenu = ({
     } else {
       try {
         await queueBlock()
-        Toast.show(_(msg`Account blocked`))
+        Toast.show(_(msg({message: 'Account blocked', context: 'toast'})))
       } catch (e: any) {
         if (e?.name !== 'AbortError') {
           logger.error('Failed to block account', {message: e})
@@ -149,7 +152,7 @@ let ProfileMenu = ({
   const onPressFollowAccount = React.useCallback(async () => {
     try {
       await queueFollow()
-      Toast.show(_(msg`Account followed`))
+      Toast.show(_(msg({message: 'Account followed', context: 'toast'})))
     } catch (e: any) {
       if (e?.name !== 'AbortError') {
         logger.error('Failed to follow account', {message: e})
@@ -161,7 +164,7 @@ let ProfileMenu = ({
   const onPressUnfollowAccount = React.useCallback(async () => {
     try {
       await queueUnfollow()
-      Toast.show(_(msg`Account unfollowed`))
+      Toast.show(_(msg({message: 'Account unfollowed', context: 'toast'})))
     } catch (e: any) {
       if (e?.name !== 'AbortError') {
         logger.error('Failed to unfollow account', {message: e})
@@ -189,7 +192,7 @@ let ProfileMenu = ({
   return (
     <EventStopper onKeyDown={false}>
       <Menu.Root>
-        <Menu.Trigger label={_(`More options`)}>
+        <Menu.Trigger label={_(msg`More options`)}>
           {({props}) => {
             return (
               <Button
@@ -390,7 +393,10 @@ let ProfileMenu = ({
 
       <ReportDialog
         control={reportDialogControl}
-        params={{type: 'account', did: profile.did}}
+        subject={{
+          ...profile,
+          $type: 'app.bsky.actor.defs#profileViewDetailed',
+        }}
       />
 
       <Prompt.Basic

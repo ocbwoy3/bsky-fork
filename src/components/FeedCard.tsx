@@ -1,36 +1,36 @@
 import React from 'react'
-import {GestureResponderEvent, View} from 'react-native'
+import { GestureResponderEvent, View } from 'react-native'
 import {
   AppBskyFeedDefs,
   AppBskyGraphDefs,
   AtUri,
   RichText as RichTextApi,
 } from '@atproto/api'
-import {msg, Plural, Trans} from '@lingui/macro'
-import {useLingui} from '@lingui/react'
-import {useQueryClient} from '@tanstack/react-query'
+import { msg, Plural, Trans } from '@lingui/macro'
+import { useLingui } from '@lingui/react'
+import { useQueryClient } from '@tanstack/react-query'
 
-import {sanitizeHandle} from '#/lib/strings/handles'
-import {logger} from '#/logger'
-import {precacheFeedFromGeneratorView} from '#/state/queries/feed'
+import { sanitizeHandle } from '#/lib/strings/handles'
+import { logger } from '#/logger'
+import { precacheFeedFromGeneratorView } from '#/state/queries/feed'
 import {
   useAddSavedFeedsMutation,
   usePreferencesQuery,
   useRemoveFeedMutation,
 } from '#/state/queries/preferences'
-import {useSession} from '#/state/session'
+import { useSession } from '#/state/session'
 import * as Toast from '#/view/com/util/Toast'
-import {UserAvatar} from '#/view/com/util/UserAvatar'
-import {useTheme} from '#/alf'
-import {atoms as a} from '#/alf'
-import {Button, ButtonIcon} from '#/components/Button'
-import {PlusLarge_Stroke2_Corner0_Rounded as Plus} from '#/components/icons/Plus'
-import {Trash_Stroke2_Corner0_Rounded as Trash} from '#/components/icons/Trash'
-import {Link as InternalLink, LinkProps} from '#/components/Link'
-import {Loader} from '#/components/Loader'
+import { UserAvatar } from '#/view/com/util/UserAvatar'
+import { useTheme } from '#/alf'
+import { atoms as a } from '#/alf'
+import { Button, ButtonIcon } from '#/components/Button'
+import { PlusLarge_Stroke2_Corner0_Rounded as Plus } from '#/components/icons/Plus'
+import { Trash_Stroke2_Corner0_Rounded as Trash } from '#/components/icons/Trash'
+import { Link as InternalLink, LinkProps } from '#/components/Link'
+import { Loader } from '#/components/Loader'
 import * as Prompt from '#/components/Prompt'
-import {RichText, RichTextProps} from '#/components/RichText'
-import {Text} from '#/components/Typography'
+import { RichText, RichTextProps } from '#/components/RichText'
+import { Text } from '#/components/Typography'
 import * as bsky from '#/types/bsky'
 
 type Props = {
@@ -269,9 +269,9 @@ function SaveButtonInner({
             },
           ])
         }
-        Toast.show(_(msg`Feeds updated!`))
+        Toast.show(_(msg({message: 'Feeds updated!', context: 'toast'})))
       } catch (err: any) {
-        logger.error(err, {context: `FeedCard: failed to update feeds`, pin})
+        logger.error(err, {message: `FeedCard: failed to update feeds`, pin})
         Toast.show(_(msg`Failed to update feeds`), 'xmark')
       }
     },
@@ -307,7 +307,7 @@ function SaveButtonInner({
 
       <Prompt.Basic
         control={removePromptControl}
-        title={_(msg`Remove from my feeds?`)}
+        title={_(msg`Remove from your feeds?`)}
         description={_(
           msg`Are you sure you want to remove this from your feeds?`,
         )}

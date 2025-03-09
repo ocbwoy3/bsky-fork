@@ -1,6 +1,6 @@
-import {useMemo} from 'react'
-import {msg} from '@lingui/macro'
-import {useLingui} from '@lingui/react'
+import { useMemo } from 'react'
+import { msg } from '@lingui/macro'
+import { useLingui } from '@lingui/react'
 
 export type GlobalLabelStrings = Record<
   string,
@@ -17,7 +17,7 @@ export function useGlobalLabelStrings(): GlobalLabelStrings {
       '!hide': {
         name: _(msg`Content Blocked`),
         description: _(
-          msg`This content has been labeled with the !hide global label value defined by the AT Protocol. You cannot see this content.`,
+          msg`This content has been labeled with the !hide global label value defined by the AT Protocol. You can bypass this warning with Redsky.`,
         ),
       },
       '!warn': {
@@ -45,6 +45,10 @@ export function useGlobalLabelStrings(): GlobalLabelStrings {
         description: _(msg`E.g. artistic nudes.`),
       },
       'graphic-media': {
+        name: _(msg`Graphic Media`),
+        description: _(msg`Explicit or potentially disturbing media.`),
+      },
+      gore: {
         name: _(msg`Graphic Media`),
         description: _(msg`Explicit or potentially disturbing media.`),
       },
