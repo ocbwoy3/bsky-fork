@@ -316,7 +316,7 @@ let ProfileMenu = ({
                 </Menu.Item>
                 {verification.viewer.role === 'default' && // ocbwoy3: temporary
                   !verification.profile.isViewer &&
-                  (verification.viewer.hasIssuedVerification ? (
+                  (verification.viewer.isVerified ? (
                     <Menu.Item
                       testID="profileHeaderDropdownVerificationRemoveButton"
                       label={_(msg`Remove verification`)}
