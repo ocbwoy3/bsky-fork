@@ -107,6 +107,7 @@ import { PrivacyAndSecuritySettingsScreen } from './screens/Settings/PrivacyAndS
 import { SettingsScreen } from './screens/Settings/Settings'
 import { ThreadPreferencesScreen } from './screens/Settings/ThreadPreferences'
 import TopicScreen from './screens/Topic'
+import { BskyHackSettingsScreen } from './screens/Settings/BskyHackSettings'
 
 const navigationRef = createNavigationContainerRef<AllNavigatorParams>()
 
@@ -386,6 +387,14 @@ function commonScreens(Stack: typeof HomeTab, unreadCountLabel?: string) {
         }}
       />
       <Stack.Screen
+        name="BskyHackSettings"
+        getComponent={() => BskyHackSettingsScreen}
+        options={{
+          title: title(msg`Redsky Settings`),
+          requireAuth: true,
+        }}
+      />
+      <Stack.Screen
         name="SettingsInterests"
         getComponent={() => SettingsInterests}
         options={{
@@ -398,14 +407,6 @@ function commonScreens(Stack: typeof HomeTab, unreadCountLabel?: string) {
         getComponent={() => AboutSettingsScreen}
         options={{
           title: title(msg`About`),
-          requireAuth: true,
-        }}
-      />
-      <Stack.Screen
-        name="BskyHackSettings"
-        getComponent={() => BskyHackSettingsScreen}
-        options={{
-          title: title(msg`Redsky Settings`),
           requireAuth: true,
         }}
       />

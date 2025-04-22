@@ -198,7 +198,7 @@ let ProfileMenu = ({
   const verificationCreatePromptControl = Prompt.usePromptControl()
   const verificationRemovePromptControl = Prompt.usePromptControl()
   const currentAccountVerifications =
-    profile.verification?.verifications?.filter(v => {
+    (profile as any).verification?.verifications?.filter((v: {issuer: string}) => {
       return v.issuer === currentAccount?.did
     }) ?? []
 
@@ -314,7 +314,9 @@ let ProfileMenu = ({
                   </Menu.ItemText>
                   <Menu.ItemIcon icon={CodeBrackets_Stroke2_Corner0_Rounded} />
                 </Menu.Item>
-                {verification.viewer.role === 'default' && // ocbwoy3: temporary
+                {
+                  /*
+                {verification.viewer.role === 'verifier' &&
                   !verification.profile.isViewer &&
                   (verification.viewer.isVerified ? (
                     <Menu.Item
@@ -337,6 +339,8 @@ let ProfileMenu = ({
                       <Menu.ItemIcon icon={CircleCheck} />
                     </Menu.Item>
                   ))}
+                    */
+                }
                 {!isSelf && (
                   <>
                     <Menu.Divider />

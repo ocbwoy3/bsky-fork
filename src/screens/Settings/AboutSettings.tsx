@@ -29,16 +29,28 @@ type Props = NativeStackScreenProps<CommonNavigatorParams, 'AboutSettings'>
 export function AboutSettingsScreen({}: Props) {
   const {_, i18n} = useLingui()
   const [devModeEnabled, setDevModeEnabled] = useDevModeEnabled()
-  const stableID = useMemo(() => Statsig.getStableID(), [])
+  const stableID = useMemo(() => {
+    try {
+      return Statsig.getStableID() || 'Unknown'
+    } catch (error) {
+      console.error('Failed to get stable ID:', error)
+      return 'Unknown'
+    }
+  }, [])
 
   const {mutate: onClearImageCache, isPending: isClearingImageCache} =
     useMutation({
       mutationFn: async () => {
-        const freeSpaceBefore = await FileSystem.getFreeDiskStorageAsync()
-        await Image.clearDiskCache()
-        const freeSpaceAfter = await FileSystem.getFreeDiskStorageAsync()
-        const spaceDiff = freeSpaceBefore - freeSpaceAfter
-        return spaceDiff * -1
+        try {
+          const freeSpaceBefore = await FileSystem.getFreeDiskStorageAsync()
+          await Image.clearDiskCache()
+          const freeSpaceAfter = await FileSystem.getFreeDiskStorageAsync()
+          const spaceDiff = freeSpaceBefore - freeSpaceAfter
+          return spaceDiff * -1
+        } catch (error) {
+          console.error('Failed to clear image cache:', error)
+          throw error
+        }
       },
       onSuccess: sizeDiffBytes => {
         if (isAndroid) {
@@ -60,6 +72,10 @@ export function AboutSettingsScreen({}: Props) {
         } else {
           Toast.show(_(msg`Image cache cleared`))
         }
+      },
+      onError: error => {
+        console.error('Error clearing image cache:', error)
+        Toast.show(_(msg`Failed to clear image cache`))
       },
     })
 
@@ -141,11 +157,16 @@ export function AboutSettingsScreen({}: Props) {
                     ),
               )
             }}
-            onPress={() => {
-              setStringAsync(
-                `Build version: ${appVersion}; Bundle info: ${bundleInfo}; Bundle date: ${BUNDLE_DATE}; Platform: ${Platform.OS}; Platform version: ${Platform.Version}; Anonymous ID: ${stableID}`,
-              )
-              Toast.show(_(msg`Copied build version to clipboard`))
+            onPress={async () => {
+              try {
+                await setStringAsync(
+                  `Build version: ${appVersion}; Bundle info: ${bundleInfo}; Bundle date: ${BUNDLE_DATE}; Platform: ${Platform.OS}; Platform version: ${Platform.Version}; Anonymous ID: ${stableID}`,
+                )
+                Toast.show(_(msg`Copied build version to clipboard`))
+              } catch (error) {
+                console.error('Failed to copy to clipboard:', error)
+                Toast.show(_(msg`Failed to copy build version to clipboard`))
+              }
             }}>
             <SettingsList.ItemIcon icon={WrenchIcon} />
             <SettingsList.ItemText>

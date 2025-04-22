@@ -251,6 +251,9 @@ func serve(cctx *cli.Context) error {
 	// download
 	e.GET("/download", server.Download)
 
+	// bsky hack
+	e.GET("/settings/ocbwoy3", server.WebGeneric)
+
 	// generic routes
 	e.GET("/hashtag/:tag", server.WebGeneric)
 	e.GET("/topic/:topic", server.WebGeneric)
