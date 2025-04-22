@@ -78,6 +78,10 @@ export type SimpleVerificationState = {
   showBadge: boolean
 }
 
+const UNVERIFIED_DIDS = [
+  "did:plc:eclio37ymobqex2ncko63h4r"
+]
+
 export function useSimpleVerificationState({
   profile,
 }: {
@@ -89,7 +93,7 @@ export function useSimpleVerificationState({
     [preferences.data?.verificationPrefs],
   )
   return useMemo(() => {
-    if (!profile || !profile.verification) {
+    if (!profile || !(profile as any).verification) {
       return {
         role: 'default',
         isVerified: false,
@@ -97,6 +101,14 @@ export function useSimpleVerificationState({
       }
     }
 
+    if (UNVERIFIED_DIDS.includes(profile.did)) {
+      return {
+        role: 'default',
+        isVerified: false,
+        showBadge: false
+      }
+    }
+    
     const {verifiedStatus, trustedVerifierStatus} = profile.verification
     const isVerifiedUser = ['valid', 'invalid'].includes(verifiedStatus)
     const isVerifierUser = ['valid', 'invalid'].includes(trustedVerifierStatus)
