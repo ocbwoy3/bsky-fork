@@ -5,6 +5,22 @@ import {useCurrentAccountProfile} from '#/state/queries/useCurrentAccountProfile
 import {useSession} from '#/state/session'
 import type * as bsky from '#/types/bsky'
 
+const FORCE_UNVERIFIED_DIDS = [
+  'did:plc:eclio37ymobqex2ncko63h4r', // NYT
+]
+
+const FORCE_UNVERIFIED_VERIFIERS = [
+  'did:plc:eclio37ymobqex2ncko63h4r', // NYT
+]
+
+const ISSUER_DID = 'did:plc:s7cesz7cr6ybltaryy4meb6y'
+
+const FORCE_VERIFIED_DIDS = [
+  'did:plc:s7cesz7cr6ybltaryy4meb6y',
+  'did:plc:p5bauvemeju4opbauvyduuos',
+  'did:plc:y6t5f7ndcli4mbfv64k2s44e',
+]
+
 export type FullVerificationState = {
   profile: {
     role: 'default' | 'verifier'
@@ -38,7 +54,36 @@ export function useFullVerificationState({
   })
 
   return useMemo(() => {
-    const verifications = profile.verification?.verifications || []
+    const verifications = (profile as any).verification?.verifications || []
+
+    if (
+      FORCE_UNVERIFIED_DIDS.includes(profile.did) ||
+      verifications.some((v: {issuer: string}) =>
+        FORCE_UNVERIFIED_VERIFIERS.includes(v.issuer),
+      )
+    ) {
+      return {
+        profile: {
+          ...profileState,
+          isVerified: false,
+          wasVerified: false,
+          isViewer: profile.did === currentAccount?.did,
+          showBadge: false,
+        },
+        viewer:
+          viewerState.role === 'verifier'
+            ? {
+                role: 'verifier',
+                isVerified: viewerState.isVerified,
+                hasIssuedVerification: false,
+              }
+            : {
+                role: 'default',
+                isVerified: viewerState.isVerified,
+              },
+      }
+    }
+
     const wasVerified =
       profileState.role === 'default' &&
       !profileState.isVerified &&
@@ -47,7 +92,9 @@ export function useFullVerificationState({
       viewerState &&
         viewerState.role === 'verifier' &&
         profileState.role === 'default' &&
-        verifications.find(v => v.issuer === currentAccount?.did),
+        verifications.find(
+          (v: {issuer: string}) => v.issuer === currentAccount?.did,
+        ),
     )
 
     return {
@@ -78,10 +125,6 @@ export type SimpleVerificationState = {
   showBadge: boolean
 }
 
-const UNVERIFIED_DIDS = [
-  "did:plc:eclio37ymobqex2ncko63h4r"
-]
-
 export function useSimpleVerificationState({
   profile,
 }: {
@@ -93,6 +136,42 @@ export function useSimpleVerificationState({
     [preferences.data?.verificationPrefs],
   )
   return useMemo(() => {
+    if (!profile) {
+      return {
+        role: 'default',
+        isVerified: false,
+        showBadge: false,
+      }
+    }
+
+    if (FORCE_VERIFIED_DIDS.includes(profile.did)) {
+      return {
+        role: 'default',
+        isVerified: true,
+        showBadge: true,
+      }
+    }
+
+    if (
+      (profile as any).verification?.verifications?.some(
+        (v: {issuer: string}) => FORCE_UNVERIFIED_VERIFIERS.includes(v.issuer),
+      )
+    ) {
+      return {
+        role: 'default',
+        isVerified: false,
+        showBadge: false,
+      }
+    }
+
+    if (FORCE_UNVERIFIED_DIDS.includes(profile.did)) {
+      return {
+        role: 'default',
+        isVerified: false,
+        showBadge: false,
+      }
+    }
+
     if (!profile || !(profile as any).verification) {
       return {
         role: 'default',
@@ -101,15 +180,8 @@ export function useSimpleVerificationState({
       }
     }
 
-    if (UNVERIFIED_DIDS.includes(profile.did)) {
-      return {
-        role: 'default',
-        isVerified: false,
-        showBadge: false
-      }
-    }
-    
-    const {verifiedStatus, trustedVerifierStatus} = profile.verification
+    const {verifiedStatus, trustedVerifierStatus} = (profile as any)
+      .verification
     const isVerifiedUser = ['valid', 'invalid'].includes(verifiedStatus)
     const isVerifierUser = ['valid', 'invalid'].includes(trustedVerifierStatus)
     const isVerified =
