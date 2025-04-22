@@ -117,6 +117,7 @@ const AllSettings: SettingCategory[] = [
       createToggleOption('Use createdAt timestamp', 'restoreBackdatedPosts'),
       createToggleOption('Bypass age check', 'skipModSettingAgeCheck'),
       createToggleOption('Bypass !warn, !hide', 'bypassHideWarning'),
+      createToggleOption('Unverify the New York Times', 'unverifyNyt'),
     ],
   },
   // TODO: AI Features
@@ -185,6 +186,9 @@ export function BskyHackSettingsScreen({}: Props) {
             to="/profile/did:plc:s7cesz7cr6ybltaryy4meb6y">
             @ocbwoy3.dev
           </InlineLinkText>
+        </Text>
+        <Text style={[a.text_lg, a.pt_xl, a.text_center]}>
+          Changing some settings will require an app restart.
         </Text>
         <View style={[a.pt_2xl, a.px_lg, gtMobile && a.px_2xl]}>
           {[...AllSettings, ...otherSettings].map((item, idx) => (

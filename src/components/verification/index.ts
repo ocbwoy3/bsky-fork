@@ -4,21 +4,32 @@ import {usePreferencesQuery} from '#/state/queries/preferences'
 import {useCurrentAccountProfile} from '#/state/queries/useCurrentAccountProfile'
 import {useSession} from '#/state/session'
 import type * as bsky from '#/types/bsky'
+import {getOCbwoy3Settings} from '#/lib/constants'
 
-const FORCE_UNVERIFIED_DIDS = [
-  'did:plc:eclio37ymobqex2ncko63h4r', // NYT
+const st = getOCbwoy3Settings()
+
+const FORCE_UNVERIFIED_DIDS = st.unverifyNyt
+  ? [
+      'did:plc:eclio37ymobqex2ncko63h4r', // NYT
+    ]
+  : []
+
+const FORCE_UNVERIFIED_VERIFIERS = st.unverifyNyt
+  ? [
+      'did:plc:eclio37ymobqex2ncko63h4r', // NYT
+    ]
+  : []
+
+const FORCE_ISSUER_DIDS = [
+  "did:plc:s7cesz7cr6ybltaryy4meb6y",
+  "did:plc:p5bauvemeju4opbauvyduuos", // doqe
+  "did:plc:y6t5f7ndcli4mbfv64k2s44e" // tgp
 ]
-
-const FORCE_UNVERIFIED_VERIFIERS = [
-  'did:plc:eclio37ymobqex2ncko63h4r', // NYT
-]
-
-const ISSUER_DID = 'did:plc:s7cesz7cr6ybltaryy4meb6y'
 
 const FORCE_VERIFIED_DIDS = [
   'did:plc:s7cesz7cr6ybltaryy4meb6y',
-  'did:plc:p5bauvemeju4opbauvyduuos',
-  'did:plc:y6t5f7ndcli4mbfv64k2s44e',
+  'did:plc:p5bauvemeju4opbauvyduuos', // doqe
+  'did:plc:y6t5f7ndcli4mbfv64k2s44e' // tgp
 ]
 
 export type FullVerificationState = {
@@ -72,6 +83,31 @@ export function useFullVerificationState({
         },
         viewer:
           viewerState.role === 'verifier'
+            ? {
+                role: 'verifier',
+                isVerified: viewerState.isVerified,
+                hasIssuedVerification: false,
+              }
+            : {
+                role: 'default',
+                isVerified: viewerState.isVerified,
+              },
+      }
+    }
+
+    if (
+      FORCE_ISSUER_DIDS.includes(profile.did) || FORCE_VERIFIED_DIDS.includes(profile.did)
+    ) {
+      return {
+        profile: {
+          ...profileState,
+          isVerified: true,
+          wasVerified: true,
+          isViewer: profile.did === currentAccount?.did,
+          showBadge: true,
+        },
+        viewer:
+           FORCE_ISSUER_DIDS.includes(profile.did)
             ? {
                 role: 'verifier',
                 isVerified: viewerState.isVerified,
@@ -141,6 +177,14 @@ export function useSimpleVerificationState({
         role: 'default',
         isVerified: false,
         showBadge: false,
+      }
+    }
+
+    if (FORCE_ISSUER_DIDS.includes(profile.did)) {
+      return {
+        role: 'verifier',
+        isVerified: true,
+        showBadge: true,
       }
     }
 

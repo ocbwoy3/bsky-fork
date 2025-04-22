@@ -16,10 +16,11 @@ export const DummyOCbwoy3SettingsSchema = {
   // BLUESKY
   skipModSettingAgeCheck: false,
   bypassHideWarning: false,
+  unverifyNyt: false,
 
   // AI
   enableGenaiFeatures: false,
-  geminiApiKey: '',
+  geminiApiKey: ''
 }
 
 export type Device = {
