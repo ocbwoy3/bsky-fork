@@ -61,16 +61,17 @@ import { Provider as TrendingConfigProvider } from '#/state/trending-config'
 import { TestCtrls } from '#/view/com/testing/TestCtrls'
 import { Provider as VideoVolumeProvider } from '#/view/com/util/post-embeds/VideoVolumeContext'
 import * as Toast from '#/view/com/util/Toast'
-import { Shell } from '#/view/shell'
-import { ThemeProvider as Alf } from '#/alf'
-import { useColorModeTheme } from '#/alf/util/useColorModeTheme'
-import { NuxDialogs } from '#/components/dialogs/nuxs'
-import { useStarterPackEntry } from '#/components/hooks/useStarterPackEntry'
-import { Provider as IntentDialogProvider } from '#/components/intents/IntentDialogs'
-import { Provider as PortalProvider } from '#/components/Portal'
-import { Splash } from '#/Splash'
-import { BottomSheetProvider } from '../modules/bottom-sheet'
-import { BackgroundNotificationPreferencesProvider } from '../modules/expo-background-notification-handler/src/BackgroundNotificationHandlerProvider'
+import {Shell} from '#/view/shell'
+import {ThemeProvider as Alf} from '#/alf'
+import {useColorModeTheme} from '#/alf/util/useColorModeTheme'
+import {Provider as ContextMenuProvider} from '#/components/ContextMenu'
+import {NuxDialogs} from '#/components/dialogs/nuxs'
+import {useStarterPackEntry} from '#/components/hooks/useStarterPackEntry'
+import {Provider as IntentDialogProvider} from '#/components/intents/IntentDialogs'
+import {Provider as PortalProvider} from '#/components/Portal'
+import {Splash} from '#/Splash'
+import {BottomSheetProvider} from '../modules/bottom-sheet'
+import {BackgroundNotificationPreferencesProvider} from '../modules/expo-background-notification-handler/src/BackgroundNotificationHandlerProvider'
 
 SplashScreen.preventAutoHideAsync()
 if (isIOS) {
@@ -126,55 +127,57 @@ function InnerApp() {
   return (
     <Alf theme={theme}>
       <ThemeProvider theme={theme}>
-        <Splash isReady={isReady && hasCheckedReferrer}>
-          <RootSiblingParent>
-            <VideoVolumeProvider>
-              <React.Fragment
-                // Resets the entire tree below when it changes:
-                key={currentAccount?.did}>
-                <QueryProvider currentDid={currentAccount?.did}>
-                  <ComposerProvider>
-                    <StatsigProvider>
-                      <MessagesProvider>
-                        {/* LabelDefsProvider MUST come before ModerationOptsProvider */}
-                        <LabelDefsProvider>
-                          <ModerationOptsProvider>
-                            <LoggedOutViewProvider>
-                              <SelectedFeedProvider>
-                                <HiddenRepliesProvider>
-                                  <HomeBadgeProvider>
-                                    <UnreadNotifsProvider>
-                                      <BackgroundNotificationPreferencesProvider>
-                                        <MutedThreadsProvider>
-                                          <ProgressGuideProvider>
-                                            <TrendingConfigProvider>
-                                              <GestureHandlerRootView
-                                                style={s.h100pct}>
-                                                <IntentDialogProvider>
-                                                  <TestCtrls />
-                                                  <Shell />
-                                                  <NuxDialogs />
-                                                </IntentDialogProvider>
-                                              </GestureHandlerRootView>
-                                            </TrendingConfigProvider>
-                                          </ProgressGuideProvider>
-                                        </MutedThreadsProvider>
-                                      </BackgroundNotificationPreferencesProvider>
-                                    </UnreadNotifsProvider>
-                                  </HomeBadgeProvider>
-                                </HiddenRepliesProvider>
-                              </SelectedFeedProvider>
-                            </LoggedOutViewProvider>
-                          </ModerationOptsProvider>
-                        </LabelDefsProvider>
-                      </MessagesProvider>
-                    </StatsigProvider>
-                  </ComposerProvider>
-                </QueryProvider>
-              </React.Fragment>
-            </VideoVolumeProvider>
-          </RootSiblingParent>
-        </Splash>
+        <ContextMenuProvider>
+          <Splash isReady={isReady && hasCheckedReferrer}>
+            <RootSiblingParent>
+              <VideoVolumeProvider>
+                <React.Fragment
+                  // Resets the entire tree below when it changes:
+                  key={currentAccount?.did}>
+                  <QueryProvider currentDid={currentAccount?.did}>
+                    <ComposerProvider>
+                      <StatsigProvider>
+                        <MessagesProvider>
+                          {/* LabelDefsProvider MUST come before ModerationOptsProvider */}
+                          <LabelDefsProvider>
+                            <ModerationOptsProvider>
+                              <LoggedOutViewProvider>
+                                <SelectedFeedProvider>
+                                  <HiddenRepliesProvider>
+                                    <HomeBadgeProvider>
+                                      <UnreadNotifsProvider>
+                                        <BackgroundNotificationPreferencesProvider>
+                                          <MutedThreadsProvider>
+                                            <ProgressGuideProvider>
+                                              <TrendingConfigProvider>
+                                                <GestureHandlerRootView
+                                                  style={s.h100pct}>
+                                                  <IntentDialogProvider>
+                                                    <TestCtrls />
+                                                    <Shell />
+                                                    <NuxDialogs />
+                                                  </IntentDialogProvider>
+                                                </GestureHandlerRootView>
+                                              </TrendingConfigProvider>
+                                            </ProgressGuideProvider>
+                                          </MutedThreadsProvider>
+                                        </BackgroundNotificationPreferencesProvider>
+                                      </UnreadNotifsProvider>
+                                    </HomeBadgeProvider>
+                                  </HiddenRepliesProvider>
+                                </SelectedFeedProvider>
+                              </LoggedOutViewProvider>
+                            </ModerationOptsProvider>
+                          </LabelDefsProvider>
+                        </MessagesProvider>
+                      </StatsigProvider>
+                    </ComposerProvider>
+                  </QueryProvider>
+                </React.Fragment>
+              </VideoVolumeProvider>
+            </RootSiblingParent>
+          </Splash>
+        </ContextMenuProvider>
       </ThemeProvider>
     </Alf>
   )
@@ -235,4 +238,4 @@ function App() {
   )
 }
 
-export default App
+export default Sentry.wrap(App)

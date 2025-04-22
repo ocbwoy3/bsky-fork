@@ -1,9 +1,8 @@
 import * as React from 'react'
-import { JSX } from 'react/jsx-runtime'
-import { i18n, MessageDescriptor } from '@lingui/core'
-import { msg } from '@lingui/macro'
+import {i18n, type MessageDescriptor} from '@lingui/core'
+import {msg} from '@lingui/macro'
 import {
-  BottomTabBarProps,
+  type BottomTabBarProps,
   createBottomTabNavigator,
 } from '@react-navigation/bottom-tabs'
 import {
@@ -20,71 +19,72 @@ import { useColorSchemeStyle } from '#/lib/hooks/useColorSchemeStyle'
 import { useWebScrollRestoration } from '#/lib/hooks/useWebScrollRestoration'
 import { buildStateObject } from '#/lib/routes/helpers'
 import {
-  AllNavigatorParams,
-  BottomTabNavigatorParams,
-  FlatNavigatorParams,
-  HomeTabNavigatorParams,
-  MessagesTabNavigatorParams,
-  MyProfileTabNavigatorParams,
-  NotificationsTabNavigatorParams,
-  SearchTabNavigatorParams,
+  type AllNavigatorParams,
+  type BottomTabNavigatorParams,
+  type FlatNavigatorParams,
+  type HomeTabNavigatorParams,
+  type MessagesTabNavigatorParams,
+  type MyProfileTabNavigatorParams,
+  type NotificationsTabNavigatorParams,
+  type SearchTabNavigatorParams,
 } from '#/lib/routes/types'
-import { RouteParams, State } from '#/lib/routes/types'
-import { attachRouteToLogEvents, logEvent } from '#/lib/statsig/statsig'
-import { bskyTitle } from '#/lib/strings/headings'
-import { logger } from '#/logger'
-import { isNative, isWeb } from '#/platform/detection'
-import { useModalControls } from '#/state/modals'
-import { useUnreadNotifications } from '#/state/queries/notifications/unread'
-import { useSession } from '#/state/session'
+import {type RouteParams, type State} from '#/lib/routes/types'
+import {attachRouteToLogEvents, logEvent} from '#/lib/statsig/statsig'
+import {bskyTitle} from '#/lib/strings/headings'
+import {logger} from '#/logger'
+import {isNative, isWeb} from '#/platform/detection'
+import {useModalControls} from '#/state/modals'
+import {useUnreadNotifications} from '#/state/queries/notifications/unread'
+import {useSession} from '#/state/session'
 import {
   shouldRequestEmailConfirmation,
   snoozeEmailConfirmationPrompt,
 } from '#/state/shell/reminders'
-import { CommunityGuidelinesScreen } from '#/view/screens/CommunityGuidelines'
-import { CopyrightPolicyScreen } from '#/view/screens/CopyrightPolicy'
-import { DebugModScreen } from '#/view/screens/DebugMod'
-import { FeedsScreen } from '#/view/screens/Feeds'
-import { HomeScreen } from '#/view/screens/Home'
-import { ListsScreen } from '#/view/screens/Lists'
-import { LogScreen } from '#/view/screens/Log'
-import { ModerationBlockedAccounts } from '#/view/screens/ModerationBlockedAccounts'
-import { ModerationModlistsScreen } from '#/view/screens/ModerationModlists'
-import { ModerationMutedAccounts } from '#/view/screens/ModerationMutedAccounts'
-import { NotFoundScreen } from '#/view/screens/NotFound'
-import { NotificationsScreen } from '#/view/screens/Notifications'
-import { PostThreadScreen } from '#/view/screens/PostThread'
-import { PrivacyPolicyScreen } from '#/view/screens/PrivacyPolicy'
-import { ProfileScreen } from '#/view/screens/Profile'
-import { ProfileFeedLikedByScreen } from '#/view/screens/ProfileFeedLikedBy'
-import { ProfileListScreen } from '#/view/screens/ProfileList'
-import { SavedFeeds } from '#/view/screens/SavedFeeds'
-import { SearchScreen } from '#/view/screens/Search'
-import { Storybook } from '#/view/screens/Storybook'
-import { SupportScreen } from '#/view/screens/Support'
-import { TermsOfServiceScreen } from '#/view/screens/TermsOfService'
-import { BottomBar } from '#/view/shell/bottom-bar/BottomBar'
-import { createNativeStackNavigatorWithAuth } from '#/view/shell/createNativeStackNavigatorWithAuth'
-import { SharedPreferencesTesterScreen } from '#/screens/E2E/SharedPreferencesTesterScreen'
+import {CommunityGuidelinesScreen} from '#/view/screens/CommunityGuidelines'
+import {CopyrightPolicyScreen} from '#/view/screens/CopyrightPolicy'
+import {DebugModScreen} from '#/view/screens/DebugMod'
+import {FeedsScreen} from '#/view/screens/Feeds'
+import {HomeScreen} from '#/view/screens/Home'
+import {ListsScreen} from '#/view/screens/Lists'
+import {LogScreen} from '#/view/screens/Log'
+import {ModerationBlockedAccounts} from '#/view/screens/ModerationBlockedAccounts'
+import {ModerationModlistsScreen} from '#/view/screens/ModerationModlists'
+import {ModerationMutedAccounts} from '#/view/screens/ModerationMutedAccounts'
+import {NotFoundScreen} from '#/view/screens/NotFound'
+import {NotificationsScreen} from '#/view/screens/Notifications'
+import {PostThreadScreen} from '#/view/screens/PostThread'
+import {PrivacyPolicyScreen} from '#/view/screens/PrivacyPolicy'
+import {ProfileScreen} from '#/view/screens/Profile'
+import {ProfileFeedLikedByScreen} from '#/view/screens/ProfileFeedLikedBy'
+import {ProfileListScreen} from '#/view/screens/ProfileList'
+import {SavedFeeds} from '#/view/screens/SavedFeeds'
+import {Storybook} from '#/view/screens/Storybook'
+import {SupportScreen} from '#/view/screens/Support'
+import {TermsOfServiceScreen} from '#/view/screens/TermsOfService'
+import {BottomBar} from '#/view/shell/bottom-bar/BottomBar'
+import {createNativeStackNavigatorWithAuth} from '#/view/shell/createNativeStackNavigatorWithAuth'
+import {SharedPreferencesTesterScreen} from '#/screens/E2E/SharedPreferencesTesterScreen'
 import HashtagScreen from '#/screens/Hashtag'
-import { MessagesScreen } from '#/screens/Messages/ChatList'
-import { MessagesConversationScreen } from '#/screens/Messages/Conversation'
-import { MessagesInboxScreen } from '#/screens/Messages/Inbox'
-import { MessagesSettingsScreen } from '#/screens/Messages/Settings'
-import { ModerationScreen } from '#/screens/Moderation'
-import { Screen as ModerationInteractionSettings } from '#/screens/ModerationInteractionSettings'
-import { PostLikedByScreen } from '#/screens/Post/PostLikedBy'
-import { PostQuotesScreen } from '#/screens/Post/PostQuotes'
-import { PostRepostedByScreen } from '#/screens/Post/PostRepostedBy'
-import { ProfileKnownFollowersScreen } from '#/screens/Profile/KnownFollowers'
-import { ProfileFeedScreen } from '#/screens/Profile/ProfileFeed'
-import { ProfileFollowersScreen } from '#/screens/Profile/ProfileFollowers'
-import { ProfileFollowsScreen } from '#/screens/Profile/ProfileFollows'
-import { ProfileLabelerLikedByScreen } from '#/screens/Profile/ProfileLabelerLikedBy'
-import { AppearanceSettingsScreen } from '#/screens/Settings/AppearanceSettings'
-import { AppIconSettingsScreen } from '#/screens/Settings/AppIconSettings'
-import { BskyHackSettingsScreen } from '#/screens/Settings/BskyHackSettings'
-import { NotificationSettingsScreen } from '#/screens/Settings/NotificationSettings'
+import {MessagesScreen} from '#/screens/Messages/ChatList'
+import {MessagesConversationScreen} from '#/screens/Messages/Conversation'
+import {MessagesInboxScreen} from '#/screens/Messages/Inbox'
+import {MessagesSettingsScreen} from '#/screens/Messages/Settings'
+import {ModerationScreen} from '#/screens/Moderation'
+import {Screen as ModerationVerificationSettings} from '#/screens/Moderation/VerificationSettings'
+import {Screen as ModerationInteractionSettings} from '#/screens/ModerationInteractionSettings'
+import {PostLikedByScreen} from '#/screens/Post/PostLikedBy'
+import {PostQuotesScreen} from '#/screens/Post/PostQuotes'
+import {PostRepostedByScreen} from '#/screens/Post/PostRepostedBy'
+import {ProfileKnownFollowersScreen} from '#/screens/Profile/KnownFollowers'
+import {ProfileFeedScreen} from '#/screens/Profile/ProfileFeed'
+import {ProfileFollowersScreen} from '#/screens/Profile/ProfileFollowers'
+import {ProfileFollowsScreen} from '#/screens/Profile/ProfileFollows'
+import {ProfileLabelerLikedByScreen} from '#/screens/Profile/ProfileLabelerLikedBy'
+import {SearchScreen} from '#/screens/Search'
+import {AppearanceSettingsScreen} from '#/screens/Settings/AppearanceSettings'
+import {AppIconSettingsScreen} from '#/screens/Settings/AppIconSettings'
+import {NotificationSettingsScreen} from '#/screens/Settings/NotificationSettings'
+import {SettingsInterests} from '#/screens/Settings/SettingsInterests'
 import {
   StarterPackScreen,
   StarterPackScreenShort,
@@ -165,6 +165,14 @@ function commonScreens(Stack: typeof HomeTab, unreadCountLabel?: string) {
         getComponent={() => ModerationInteractionSettings}
         options={{
           title: title(msg`Post Interaction Settings`),
+          requireAuth: true,
+        }}
+      />
+      <Stack.Screen
+        name="ModerationVerificationSettings"
+        getComponent={() => ModerationVerificationSettings}
+        options={{
+          title: title(msg`Verification Settings`),
           requireAuth: true,
         }}
       />
@@ -374,6 +382,14 @@ function commonScreens(Stack: typeof HomeTab, unreadCountLabel?: string) {
         getComponent={() => ContentAndMediaSettingsScreen}
         options={{
           title: title(msg`Content and Media`),
+          requireAuth: true,
+        }}
+      />
+      <Stack.Screen
+        name="SettingsInterests"
+        getComponent={() => SettingsInterests}
+        options={{
+          title: title(msg`Your interests`),
           requireAuth: true,
         }}
       />
@@ -638,7 +654,7 @@ const FlatNavigator = () => {
       <Flat.Screen
         name="Search"
         getComponent={() => SearchScreen}
-        options={{title: title(msg`Search`)}}
+        options={{title: title(msg`Explore`)}}
       />
       <Flat.Screen
         name="Notifications"
