@@ -1,14 +1,14 @@
 import React from 'react'
-import { TextStyle } from 'react-native'
-import { AppBskyRichtextFacet, RichText as RichTextAPI } from '@atproto/api'
+import {type TextStyle} from 'react-native'
+import {AppBskyRichtextFacet, RichText as RichTextAPI} from '@atproto/api'
 
-import { toShortUrl } from '#/lib/strings/url-helpers'
-import { atoms as a, flatten, TextStyleProp } from '#/alf'
-import { isOnlyEmoji } from '#/alf/typography'
-import { InlineLinkText, LinkProps } from '#/components/Link'
-import { ProfileHoverCard } from '#/components/ProfileHoverCard'
-import { RichTextTag } from '#/components/RichTextTag'
-import { Text, TextProps } from '#/components/Typography'
+import {toShortUrl} from '#/lib/strings/url-helpers'
+import {atoms as a, flatten, type TextStyleProp} from '#/alf'
+import {isOnlyEmoji} from '#/alf/typography'
+import {InlineLinkText, type LinkProps} from '#/components/Link'
+import {ProfileHoverCard} from '#/components/ProfileHoverCard'
+import {RichTextTag} from '#/components/RichTextTag'
+import {Text, type TextProps} from '#/components/Typography'
 
 const WORD_WRAP = {wordWrap: 1}
 
@@ -144,14 +144,18 @@ export function RichText({
       tag &&
       AppBskyRichtextFacet.validateTag(tag).success
     ) {
-      const special: boolean = /regretevator/i.test(tag.tag);
+      const special: boolean = /.*?regretevator.*?/i.test(tag.tag)
 
       els.push(
         <RichTextTag
           key={key}
           display={segment.text}
           tag={tag.tag}
-          textStyle={special ? [{ color: "#cba6f7" }, ...interactiveStyles] : interactiveStyles}
+          textStyle={
+            special
+              ? [{color: '#00ff00'}, ...interactiveStyles]
+              : interactiveStyles
+          }
           authorHandle={authorHandle}
         />,
       )
