@@ -14,7 +14,7 @@ env:
 
 jobs:
   bskyweb-container-ghcr:
-    if: github.repository == 'ocbwoy3/private-bsky-fork'
+    if: github.repository == 'ocbwoy3/bsky-fork'
     runs-on: ubuntu-latest
     permissions:
       contents: read
