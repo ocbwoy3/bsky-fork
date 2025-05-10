@@ -235,6 +235,14 @@ function useCategoryDisplayName(
       return _(msg`Entertainment`)
     case 'news':
       return _(msg`News`)
+    case 'regretevator':
+      return _(msg`Regretevator`)
+    case 'roblox':
+      return _(msg`Roblox`)
+    case 'furries':
+      return _(msg`Furries`)
+    case 'femboys':
+      return _(msg`Femboys`)
     case 'other':
     default:
       return null

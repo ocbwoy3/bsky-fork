@@ -256,4 +256,8 @@ const INTERESTS = [
   'tech',
   'tv',
   'writers',
+  'regretevator',
+  'roblox',
+  'furries',
+  'femboys',
 ]

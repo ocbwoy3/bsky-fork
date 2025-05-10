@@ -3,7 +3,10 @@ import {msg} from '@lingui/macro'
 import {useLingui} from '@lingui/react'
 
 import {logger} from '#/logger'
-import {type AvatarColor, type Emoji} from '#/screens/Onboarding/StepProfile/types'
+import {
+  type AvatarColor,
+  type Emoji,
+} from '#/screens/Onboarding/StepProfile/types'
 
 export type OnboardingState = {
   hasPrev: boolean
@@ -83,6 +86,10 @@ export const popularInterests = [
   'photography',
   'science',
   'news',
+  'regretevator',
+  'roblox',
+  'furries',
+  'femboys',
 ]
 
 export function useInterestsDisplayNames() {
@@ -114,6 +121,10 @@ export function useInterestsDisplayNames() {
       tech: _(msg`Tech`),
       tv: _(msg`TV`),
       writers: _(msg`Writers`),
+      regretevator: _(msg`Regretevator`),
+      roblox: _(msg`Roblox`),
+      furries: _(msg`Furries`),
+      femboys: _(msg`Femboys`),
     }
   }, [_])
 }
