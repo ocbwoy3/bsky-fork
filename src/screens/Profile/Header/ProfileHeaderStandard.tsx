@@ -286,6 +286,14 @@ let ProfileHeaderStandard = ({
               </View>
             ) : undefined}
 
+            {profile.did === 'did:plc:y6t5f7ndcli4mbfv64k2s44e' ? (
+              <Text>
+                This user is OCbwoy3-Verified.
+              </Text>
+            ) : (
+              <></>
+            )}
+
             {profile.did === 'did:plc:s7cesz7cr6ybltaryy4meb6y' ? (
               <OCbwoy3DiscordStatus
                 allowedApplicationIds={['886578863147192350']}

@@ -162,7 +162,9 @@ function Label({
       <View style={[a.px_md, a.py_sm, t.atoms.bg_contrast_25]}>
         {isSelfLabel ? (
           <Text style={[t.atoms.text_contrast_medium]}>
-            <Trans>This label was applied by you.</Trans>
+            <Trans>
+              This label was applied by you. Label value: {label.val}
+            </Trans>
           </Text>
         ) : (
           <View
@@ -185,6 +187,25 @@ function Label({
                   onPress={() => control.close()}>
                   {sourceName}
                 </InlineLinkText>
+                <Text
+                  style={[
+                    a.flex_1,
+                    a.leading_snug,
+                    t.atoms.text_contrast_medium,
+                    a.pl_xs,
+                  ]}>
+                  Label value:{' '}
+                  <Text
+                    style={[
+                      a.flex_1,
+                      a.leading_snug,
+                      t.atoms.text_contrast_medium,
+                      a.pl_xs,
+                      {fontFamily: 'monospace'},
+                    ]}>
+                    {label.val}
+                  </Text>
+                </Text>
               </Trans>
             </Text>
             {label.exp && (
