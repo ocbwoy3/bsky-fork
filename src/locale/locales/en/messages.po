@@ -903,7 +903,7 @@ msgid "and"
 msgstr ""
 
 #: src/screens/Onboarding/index.tsx:29
-#: src/screens/Onboarding/state.ts:94
+#: src/screens/Onboarding/state.ts:101
 msgid "Animals"
 msgstr ""
 
@@ -971,11 +971,11 @@ msgstr ""
 msgid "Appeal"
 msgstr ""
 
-#: src/components/moderation/LabelsOnMeDialog.tsx:268
+#: src/components/moderation/LabelsOnMeDialog.tsx:289
 msgid "Appeal \"{0}\" label"
 msgstr ""
 
-#: src/components/moderation/LabelsOnMeDialog.tsx:258
+#: src/components/moderation/LabelsOnMeDialog.tsx:279
 #: src/screens/Messages/components/ChatDisabled.tsx:91
 msgctxt "toast"
 msgid "Appeal submitted"
@@ -1067,7 +1067,7 @@ msgid "Are you writing in <0>{suggestedLanguageName}</0>?"
 msgstr ""
 
 #: src/screens/Onboarding/index.tsx:23
-#: src/screens/Onboarding/state.ts:95
+#: src/screens/Onboarding/state.ts:102
 msgid "Art"
 msgstr ""
 
@@ -1094,8 +1094,8 @@ msgid "Autoplay videos and GIFs"
 msgstr ""
 
 #: src/components/dms/MessagesListHeader.tsx:84
-#: src/components/moderation/LabelsOnMeDialog.tsx:315
-#: src/components/moderation/LabelsOnMeDialog.tsx:316
+#: src/components/moderation/LabelsOnMeDialog.tsx:336
+#: src/components/moderation/LabelsOnMeDialog.tsx:337
 #: src/screens/Login/ChooseAccountForm.tsx:90
 #: src/screens/Login/ChooseAccountForm.tsx:95
 #: src/screens/Login/ForgotPasswordForm.tsx:123
@@ -1144,7 +1144,7 @@ msgstr ""
 msgid "Birthday"
 msgstr ""
 
-#: src/screens/Profile/Header/ProfileHeaderStandard.tsx:319
+#: src/screens/Profile/Header/ProfileHeaderStandard.tsx:327
 #: src/view/com/profile/ProfileMenu.tsx:464
 #: src/view/com/util/forms/PostDropdownBtnMenuItems.tsx:856
 msgid "Block"
@@ -1301,7 +1301,7 @@ msgid "Blur images and filter from feeds"
 msgstr ""
 
 #: src/screens/Onboarding/index.tsx:30
-#: src/screens/Onboarding/state.ts:96
+#: src/screens/Onboarding/state.ts:103
 msgid "Books"
 msgstr ""
 
@@ -1789,12 +1789,12 @@ msgid "Color theme"
 msgstr ""
 
 #: src/screens/Onboarding/index.tsx:38
-#: src/screens/Onboarding/state.ts:97
+#: src/screens/Onboarding/state.ts:104
 msgid "Comedy"
 msgstr ""
 
 #: src/screens/Onboarding/index.tsx:24
-#: src/screens/Onboarding/state.ts:98
+#: src/screens/Onboarding/state.ts:105
 msgid "Comics"
 msgstr ""
 
@@ -2169,7 +2169,7 @@ msgid "Creator has been blocked"
 msgstr ""
 
 #: src/screens/Onboarding/index.tsx:26
-#: src/screens/Onboarding/state.ts:99
+#: src/screens/Onboarding/state.ts:106
 msgid "Culture"
 msgstr ""
 
@@ -2722,7 +2722,7 @@ msgid "Edit your starter pack"
 msgstr ""
 
 #: src/screens/Onboarding/index.tsx:31
-#: src/screens/Onboarding/state.ts:101
+#: src/screens/Onboarding/state.ts:108
 msgid "Education"
 msgstr ""
 
@@ -3033,7 +3033,7 @@ msgstr ""
 msgid "Expires {0}"
 msgstr ""
 
-#: src/components/moderation/LabelsOnMeDialog.tsx:199
+#: src/components/moderation/LabelsOnMeDialog.tsx:220
 #: src/components/moderation/ModerationDetailsDialog.tsx:208
 msgid "Expires in {0}"
 msgstr ""
@@ -3210,7 +3210,7 @@ msgstr ""
 msgid "Failed to send"
 msgstr ""
 
-#: src/components/moderation/LabelsOnMeDialog.tsx:254
+#: src/components/moderation/LabelsOnMeDialog.tsx:275
 #: src/screens/Messages/components/ChatDisabled.tsx:87
 msgid "Failed to submit appeal, please try again."
 msgstr ""
@@ -3290,6 +3290,12 @@ msgstr ""
 
 #: src/screens/Search/modules/ExploreRecommendations.tsx:65
 msgid "Feeds we think you might like."
+msgstr ""
+
+#: src/screens/Onboarding/index.tsx:45
+#: src/screens/Onboarding/state.ts:127
+#: src/screens/Search/modules/ExploreTrendingTopics.tsx:245
+msgid "Femboys"
 msgstr ""
 
 #: src/screens/Settings/components/OTAInfo.tsx:58
@@ -3493,7 +3499,7 @@ msgid "Font size"
 msgstr ""
 
 #: src/screens/Onboarding/index.tsx:40
-#: src/screens/Onboarding/state.ts:102
+#: src/screens/Onboarding/state.ts:109
 msgid "Food"
 msgstr ""
 
@@ -3542,6 +3548,12 @@ msgstr ""
 #: src/view/com/posts/PostFeedItem.tsx:285
 msgctxt "from-feed"
 msgid "From <0/>"
+msgstr ""
+
+#: src/screens/Onboarding/index.tsx:44
+#: src/screens/Onboarding/state.ts:126
+#: src/screens/Search/modules/ExploreTrendingTopics.tsx:243
+msgid "Furries"
 msgstr ""
 
 #: src/view/com/composer/photos/SelectPhotoBtn.tsx:50
@@ -4086,7 +4098,7 @@ msgid "Join the conversation"
 msgstr ""
 
 #: src/screens/Onboarding/index.tsx:21
-#: src/screens/Onboarding/state.ts:104
+#: src/screens/Onboarding/state.ts:111
 msgid "Journalism"
 msgstr ""
 
@@ -4637,11 +4649,11 @@ msgstr ""
 msgid "Most-liked replies first"
 msgstr ""
 
-#: src/screens/Onboarding/state.ts:105
+#: src/screens/Onboarding/state.ts:112
 msgid "Movies"
 msgstr ""
 
-#: src/screens/Onboarding/state.ts:106
+#: src/screens/Onboarding/state.ts:113
 msgid "Music"
 msgstr ""
 
@@ -4772,7 +4784,7 @@ msgid "Name or Description Violates Community Standards"
 msgstr ""
 
 #: src/screens/Onboarding/index.tsx:22
-#: src/screens/Onboarding/state.ts:107
+#: src/screens/Onboarding/state.ts:114
 msgid "Nature"
 msgstr ""
 
@@ -4894,7 +4906,7 @@ msgid "Newest replies first"
 msgstr ""
 
 #: src/screens/Onboarding/index.tsx:20
-#: src/screens/Onboarding/state.ts:108
+#: src/screens/Onboarding/state.ts:115
 #: src/screens/Search/modules/ExploreTrendingTopics.tsx:237
 msgid "News"
 msgstr ""
@@ -5498,11 +5510,11 @@ msgid "Person toggle"
 msgstr ""
 
 #: src/screens/Onboarding/index.tsx:28
-#: src/screens/Onboarding/state.ts:109
+#: src/screens/Onboarding/state.ts:116
 msgid "Pets"
 msgstr ""
 
-#: src/screens/Onboarding/state.ts:110
+#: src/screens/Onboarding/state.ts:117
 msgid "Photography"
 msgstr ""
 
@@ -5646,7 +5658,7 @@ msgstr ""
 msgid "Please enter your username"
 msgstr ""
 
-#: src/components/moderation/LabelsOnMeDialog.tsx:290
+#: src/components/moderation/LabelsOnMeDialog.tsx:311
 msgid "Please explain why you think this label was incorrectly applied by {0}"
 msgstr ""
 
@@ -5672,7 +5684,7 @@ msgid "Please Verify Your Email"
 msgstr ""
 
 #: src/screens/Onboarding/index.tsx:34
-#: src/screens/Onboarding/state.ts:111
+#: src/screens/Onboarding/state.ts:118
 #: src/screens/Search/modules/ExploreTrendingTopics.tsx:231
 msgid "Politics"
 msgstr ""
@@ -6024,6 +6036,12 @@ msgstr ""
 
 #: src/Navigation.tsx:393
 msgid "Redsky Settings"
+msgstr ""
+
+#: src/screens/Onboarding/index.tsx:42
+#: src/screens/Onboarding/state.ts:124
+#: src/screens/Search/modules/ExploreTrendingTopics.tsx:239
+msgid "Regretevator"
 msgstr ""
 
 #. Reject a chat request, this opens a menu with options
@@ -6517,6 +6535,12 @@ msgstr ""
 msgid "Returns to the previous step"
 msgstr ""
 
+#: src/screens/Onboarding/index.tsx:43
+#: src/screens/Onboarding/state.ts:125
+#: src/screens/Search/modules/ExploreTrendingTopics.tsx:241
+msgid "Roblox"
+msgstr ""
+
 #: src/components/dialogs/BirthDateSettings.tsx:121
 #: src/components/dialogs/PostInteractionSettingsDialog.tsx:479
 #: src/components/dialogs/PostInteractionSettingsDialog.tsx:485
@@ -6606,7 +6630,7 @@ msgid "Say hello!"
 msgstr ""
 
 #: src/screens/Onboarding/index.tsx:33
-#: src/screens/Onboarding/state.ts:112
+#: src/screens/Onboarding/state.ts:119
 msgid "Science"
 msgstr ""
 
@@ -7224,7 +7248,7 @@ msgid "Smaller"
 msgstr ""
 
 #: src/screens/Onboarding/index.tsx:37
-#: src/screens/Onboarding/state.ts:100
+#: src/screens/Onboarding/state.ts:107
 msgid "Software Dev"
 msgstr ""
 
@@ -7298,9 +7322,12 @@ msgstr ""
 msgid "Sort replies to the same post by:"
 msgstr ""
 
-#: src/components/moderation/LabelsOnMeDialog.tsx:178
 #: src/components/moderation/ModerationDetailsDialog.tsx:186
 msgid "Source: <0>{sourceName}</0>"
+msgstr ""
+
+#: src/components/moderation/LabelsOnMeDialog.tsx:180
+msgid "Source: <0>{sourceName}</0><1>Label value: <2>{0}</2></1>"
 msgstr ""
 
 #: src/components/moderation/ReportDialog/utils/useReportOptions.ts:72
@@ -7316,7 +7343,7 @@ msgid "Spam; excessive mentions or replies"
 msgstr ""
 
 #: src/screens/Onboarding/index.tsx:27
-#: src/screens/Onboarding/state.ts:113
+#: src/screens/Onboarding/state.ts:120
 #: src/screens/Search/modules/ExploreTrendingTopics.tsx:229
 msgid "Sports"
 msgstr ""
@@ -7389,8 +7416,8 @@ msgstr ""
 msgid "Storybook"
 msgstr ""
 
-#: src/components/moderation/LabelsOnMeDialog.tsx:324
-#: src/components/moderation/LabelsOnMeDialog.tsx:325
+#: src/components/moderation/LabelsOnMeDialog.tsx:345
+#: src/components/moderation/LabelsOnMeDialog.tsx:346
 #: src/screens/Messages/components/ChatDisabled.tsx:142
 #: src/screens/Messages/components/ChatDisabled.tsx:143
 msgid "Submit"
@@ -7527,7 +7554,7 @@ msgid "Teach our algorithm what you like"
 msgstr ""
 
 #: src/screens/Onboarding/index.tsx:36
-#: src/screens/Onboarding/state.ts:114
+#: src/screens/Onboarding/state.ts:121
 msgid "Tech"
 msgstr ""
 
@@ -7576,7 +7603,7 @@ msgstr ""
 msgid "Text field"
 msgstr ""
 
-#: src/components/moderation/LabelsOnMeDialog.tsx:288
+#: src/components/moderation/LabelsOnMeDialog.tsx:309
 #: src/screens/Messages/components/ChatDisabled.tsx:108
 msgid "Text input field"
 msgstr ""
@@ -7618,7 +7645,7 @@ msgstr ""
 msgid "That's everything!"
 msgstr ""
 
-#: src/screens/Profile/Header/ProfileHeaderStandard.tsx:315
+#: src/screens/Profile/Header/ProfileHeaderStandard.tsx:323
 #: src/view/com/profile/ProfileMenu.tsx:452
 msgid "The account will be able to interact with you after unblocking."
 msgstr ""
@@ -7845,7 +7872,7 @@ msgstr ""
 msgid "This action can be undone at any time."
 msgstr ""
 
-#: src/components/moderation/LabelsOnMeDialog.tsx:271
+#: src/components/moderation/LabelsOnMeDialog.tsx:292
 msgid "This appeal will be sent to <0>{sourceName}</0>."
 msgstr ""
 
@@ -7925,7 +7952,7 @@ msgid "This label was applied by the author."
 msgstr ""
 
 #: src/components/moderation/LabelsOnMeDialog.tsx:165
-msgid "This label was applied by you."
+msgid "This label was applied by you. Label value: {0}"
 msgstr ""
 
 #: src/screens/Profile/Sections/Labels.tsx:185
@@ -8145,7 +8172,7 @@ msgctxt "action"
 msgid "Try again"
 msgstr ""
 
-#: src/screens/Onboarding/state.ts:115
+#: src/screens/Onboarding/state.ts:122
 msgid "TV"
 msgstr ""
 
@@ -8188,7 +8215,7 @@ msgstr ""
 #: src/components/dms/MessagesListBlockedFooter.tsx:112
 #: src/components/dms/MessagesListBlockedFooter.tsx:119
 #: src/screens/Profile/Header/ProfileHeaderStandard.tsx:201
-#: src/screens/Profile/Header/ProfileHeaderStandard.tsx:319
+#: src/screens/Profile/Header/ProfileHeaderStandard.tsx:327
 #: src/view/com/profile/ProfileMenu.tsx:464
 #: src/view/screens/ProfileList.tsx:723
 msgid "Unblock"
@@ -8206,7 +8233,7 @@ msgstr ""
 msgid "Unblock account"
 msgstr ""
 
-#: src/screens/Profile/Header/ProfileHeaderStandard.tsx:313
+#: src/screens/Profile/Header/ProfileHeaderStandard.tsx:321
 #: src/view/com/profile/ProfileMenu.tsx:446
 msgid "Unblock Account?"
 msgstr ""
@@ -8630,7 +8657,7 @@ msgid "Video from {0}: {text}"
 msgstr ""
 
 #: src/screens/Onboarding/index.tsx:39
-#: src/screens/Onboarding/state.ts:103
+#: src/screens/Onboarding/state.ts:110
 #: src/screens/Search/modules/ExploreTrendingTopics.tsx:233
 msgid "Video Games"
 msgstr ""
@@ -9027,7 +9054,7 @@ msgid "Write your reply"
 msgstr ""
 
 #: src/screens/Onboarding/index.tsx:25
-#: src/screens/Onboarding/state.ts:116
+#: src/screens/Onboarding/state.ts:123
 msgid "Writers"
 msgstr ""
 
