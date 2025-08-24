@@ -19,7 +19,8 @@ enum SettingType {
 type Setting = {
   name: string
   type: SettingType
-  settingId: string
+  settingId: string,
+  desc: string
   onUpdate: (v: string | boolean) => any
   getState: () => string | boolean
 }
@@ -39,11 +40,13 @@ type BskyPersistedStateContext = persisted.Schema
 function createToggleOptionBluesky(
   name: string,
   value: keyof BskyPersistedStateContext,
+  desc?: string
 ): Setting {
   return {
     name,
     type: SettingType.ON_OFF,
     settingId: value,
+    desc: desc || value,
     getState: () => {
       return (persisted.get(value) as boolean) || false
     },
@@ -56,30 +59,12 @@ function createToggleOptionBluesky(
 function createToggleOption(
   name: string,
   value: keyof typeof DummyOCbwoy3SettingsSchema,
+  desc?: string
 ): Setting {
   return {
     name,
     type: SettingType.ON_OFF,
-    settingId: value,
-    getState: () => {
-      return (device.get(['ocbwoy3']) || {})[value] || false
-    },
-    onUpdate: (v: string | boolean) => {
-      let b: any = device.get(['ocbwoy3']) || {}
-      b[value] = v as boolean
-      device.set(['ocbwoy3'], b)
-    },
-  }
-}
-
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-function createTextOption(
-  name: string,
-  value: keyof typeof DummyOCbwoy3SettingsSchema,
-): Setting {
-  return {
-    name,
-    type: SettingType.STRING,
+    desc: desc || value,
     settingId: value,
     getState: () => {
       return (device.get(['ocbwoy3']) || {})[value] || false
@@ -94,46 +79,39 @@ function createTextOption(
 
 const AllSettings: SettingCategory[] = [
   {
-    title: 'Labelers',
+    title: 'Labeler / AT Protocol fuckery',
     type: SettingCategoryType.GROUP,
     settings: [
       createToggleOption(
         'Disable Region-specific labelers',
         'disableAppLabelers',
+        'Prevents Bluesky from applying additional labelers'
       ),
       createToggleOption(
         'Disable Bluesky Moderation',
         'disableBlueskyLabelerAtproto',
+        'Disables the default Bluesky labeler'
       ),
-      createToggleOption('Increase labeler limit', 'increaseLabelerLimit'),
+      createToggleOption('Infinite labeler limit', 'increaseLabelerLimit', 'Lets you add unlimited labelers. Might break ATProto.'),
     ],
   },
   {
-    title: 'Bluesky',
+    title: 'QOL',
     type: SettingCategoryType.GROUP,
     settings: [
-      createToggleOption('Add "Bluesky for Web" to posts', 'blueskyForWeb'),
-      createToggleOption('Use createdAt timestamp', 'restoreBackdatedPosts'),
-      createToggleOption('Bypass age verification and enable nsfw', 'skipModSettingAgeCheck'), // Keir Starmer plz fix!!
-      createToggleOption('Bypass !warn, !hide', 'bypassHideWarning'),
-      createToggleOption('Unverify the New York Times', 'unverifyNyt'),
-      createToggleOption('UK Mode', 'forceAgeVerification')
+      createToggleOption('Restore Backdated posts', 'restoreBackdatedPosts', 'Show a post\'s self-identified timestamp'),
+      createToggleOption('Bypass !warn, !hide', 'bypassHideWarning', 'Bypasses content hidden by labelers. Might not work.'),
+      createToggleOption('Bluesky for iPhone', 'blueskyForWeb', 'Let users see what device you post from'),
     ],
   },
-  // TODO: AI Features
-  /*
   {
-    title: 'AI',
+    title: 'Fun',
     type: SettingCategoryType.GROUP,
     settings: [
-      createToggleOption(
-        'Enable Generative AI Features',
-        'enableGenaiFeatures',
-      ),
-      createTextOption('Gemini API Key', 'geminiApiKey'),
+      createToggleOption('Fix Trending', 'fixTrending', 'Show interesting topics'),
+      createToggleOption('Skeets', 'skeets', 'Rename posts to skeets'),
     ],
   },
-  */
 ]
 
 type Props = NativeStackScreenProps<CommonNavigatorParams, 'BskyHackSettings'>
@@ -145,8 +123,11 @@ export function BskyHackSettingsScreen({}: Props) {
       title: 'Bluesky Settings',
       type: SettingCategoryType.GROUP,
       settings: [
-        createToggleOptionBluesky('Disable Trending', 'trendingDisabled'),
-        createToggleOptionBluesky('Kawaii', 'kawaii')
+        createToggleOptionBluesky('Disable Trending', 'trendingDisabled', 'Disables the trending topics list'),
+        createToggleOptionBluesky('Kawaii', 'kawaii', 'Changes the Bluesky logo to be kawaii'),
+        createToggleOption('Unverify the New York Times', 'unverifyNyt', 'Why verify them in the first place?'),
+        createToggleOption('Bypass age verification', 'skipModSettingAgeCheck', 'Lets you enable NSFW, bypasses UK mode'),
+        createToggleOption('UK Mode', 'forceAgeVerification', 'Foces you into verifying your ID'),
       ],
     },
   ]
@@ -160,23 +141,22 @@ export function BskyHackSettingsScreen({}: Props) {
         <Layout.Header.BackButton />
         <Layout.Header.Content>
           <Layout.Header.TitleText>
-            Redsky Settings
+            Super Secret Dev Menu
           </Layout.Header.TitleText>
         </Layout.Header.Content>
         <Layout.Header.Slot />
       </Layout.Header.Outer>
       <Layout.Content>
         <Text style={[a.text_2xl, a.pt_xl, a.text_center]}>
-          Made by{' '}
-          <InlineLinkText
-            style={[a.text_2xl]}
+          Bluesky Mod
+        </Text>
+        <Text style={[a.text_lg, a.pt_xl, a.text_center]}>
+          Made by <InlineLinkText
+            style={[a.text_lg]}
             label="@ocbwoy3.dev"
             to="/profile/did:plc:s7cesz7cr6ybltaryy4meb6y">
             @ocbwoy3.dev
-          </InlineLinkText>
-        </Text>
-        <Text style={[a.text_lg, a.pt_xl, a.text_center]}>
-          Changing some settings will require an app restart.
+          </InlineLinkText>, some settings require app restart
         </Text>
         <View style={[a.pt_2xl, a.px_lg, gtMobile && a.px_2xl]}>
           {[...AllSettings, ...otherSettings].map((item, idx) => (
@@ -206,6 +186,7 @@ export function BskyHackSettingsScreen({}: Props) {
                       <OCbwoy3BskyHackSettingToggle
                         key={idx2}
                         name={s.name}
+                        desc={s.desc}
                         settingId={s.settingId}
                         getState={s.getState}
                         onUpdate={s.onUpdate}
@@ -223,7 +204,7 @@ export function BskyHackSettingsScreen({}: Props) {
             label="Bluesky's Social App"
             to="https://github.com/bluesky-social/social-app">
             Bluesky's Social App
-          </InlineLinkText>
+          </InlineLinkText>.<br/>We claim no association with Bluesky Social PBC. Use at your own risk.
         </Text>
       </Layout.Content>
     </Layout.Screen>

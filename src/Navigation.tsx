@@ -513,7 +513,7 @@ function commonScreens(Stack: typeof Flat, unreadCountLabel?: string) {
         name="BskyHackSettings"
         getComponent={() => BskyHackSettingsScreen}
         options={{
-          title: title(msg`Redsky Settings`),
+          title: title(msg`Super Secret Dev Menu`),
           requireAuth: true,
         }}
       />

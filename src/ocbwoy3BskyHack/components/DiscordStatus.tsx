@@ -27,21 +27,21 @@ export function OCbwoy3DiscordStatus({
         {(status || {activities: []}).activities.length === 0 ? (
           <></>
         ) : (
-          <View
-            style={[
-              t.atoms.bg_contrast_25,
-              {
-                paddingVertical: 13,
-                paddingHorizontal: 20,
-                borderRadius: 8,
-                gap: 8,
-              },
-            ]}>
-            {(() => {
-              if (!status) return <></>
-              const s = status.activities.filter(ac => predicate(ac))[0]
-              if (!s) return <></>
-              return (
+          (() => {
+            if (!status) return <></>
+            const s = status.activities.filter(ac => predicate(ac))[0]
+            if (!s) return <></>
+            return (
+              <View
+                style={[
+                  t.atoms.bg_contrast_25,
+                  {
+                    paddingVertical: 13,
+                    paddingHorizontal: 20,
+                    borderRadius: 8,
+                    gap: 8,
+                  },
+                ]}>
                 <View style={styles.statusContainer}>
                   <Image
                     accessibilityIgnoresInvertColors
@@ -66,9 +66,9 @@ export function OCbwoy3DiscordStatus({
                     </Text>
                   </View>
                 </View>
-              )
-            })()}
-          </View>
+              </View>
+            )
+          })()
         )}
       </Text>
     </View>

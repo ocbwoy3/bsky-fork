@@ -5,7 +5,7 @@ import {z} from 'zod'
 // import {MAX_LABELERS} from '#/lib/constants'
 
 const MAX_LABELERS =
-  getOCbwoy3Settings().increaseLabelerLimit === true ? 100 : 20
+  getOCbwoy3Settings().increaseLabelerLimit === true ? Infinity : 20
 
 import {getOCbwoy3Settings} from '#/lib/constants'
 import {labelersDetailedInfoQueryKeyRoot} from '#/lib/react-query'

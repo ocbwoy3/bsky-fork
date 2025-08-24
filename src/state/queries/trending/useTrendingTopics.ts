@@ -5,6 +5,7 @@ import {useQuery} from '@tanstack/react-query'
 import {STALE} from '#/state/queries'
 import {usePreferencesQuery} from '#/state/queries/preferences'
 import {useAgent} from '#/state/session'
+import { getOCbwoy3Settings } from '#/lib/constants'
 
 export type TrendingTopic = AppBskyUnspeccedDefs.TrendingTopic
 
@@ -29,6 +30,20 @@ export function useTrendingTopics() {
     staleTime: STALE.MINUTES.THREE,
     queryKey: trendingTopicsQueryKey,
     async queryFn() {
+
+      if (getOCbwoy3Settings().fixTrending === true) {
+        return {
+          topics: [
+            "Bluesky",
+            "AT Protocol",
+            "NixOS",
+            "Hyprland",
+            "Regretevator"
+          ].map(a=>({topic:a, link: `/topic/${encodeURIComponent(a)}`})),
+          suggested: []
+        }
+      }
+
       const {data} = await agent.api.app.bsky.unspecced.getTrendingTopics({
         limit: DEFAULT_LIMIT,
       })

@@ -10,6 +10,7 @@ import {
 
 import {isNative} from '#/platform/detection'
 import {listenNetworkConfirmed, listenNetworkLost} from '#/state/events'
+import { DevToolsBubble } from "react-native-react-query-devtools"
 
 // any query keys in this array will be persisted to AsyncStorage
 export const labelersDetailedInfoQueryKeyRoot = 'labelers-detailed-info'
@@ -184,6 +185,7 @@ function QueryProviderInner({
       client={queryClient}
       persistOptions={persistOptions}>
       {children}
+      {/* <DevToolsBubble queryClient={queryClient} /> */}
     </PersistQueryClientProvider>
   )
 }

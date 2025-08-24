@@ -74,8 +74,8 @@ export function useReportOptions(): ReportOptions {
         },
         {
           reason: ComAtprotoModerationDefs.REASONSEXUAL,
-          title: _(msg`Unwanted Sexual Content`),
-          description: _(msg`Nudity or adult content not labeled as such`),
+          title: _(msg`Porn`),
+          description: _(msg`Pornography or sexually suggestive content not labeled as such`),
         },
         ...common,
       ],

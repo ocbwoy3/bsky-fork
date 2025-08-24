@@ -208,9 +208,11 @@ let ProfileMenu = ({
   const verificationCreatePromptControl = Prompt.usePromptControl()
   const verificationRemovePromptControl = Prompt.usePromptControl()
   const currentAccountVerifications =
-    (profile as any).verification?.verifications?.filter((v: {issuer: string}) => {
-      return v.issuer === currentAccount?.did
-    }) ?? []
+    (profile as any).verification?.verifications?.filter(
+      (v: {issuer: string}) => {
+        return v.issuer === currentAccount?.did
+      },
+    ) ?? []
 
   const status = useActorStatus(profile)
 
@@ -351,8 +353,6 @@ let ProfileMenu = ({
                       <Menu.ItemIcon icon={CircleCheckIcon} />
                     </Menu.Item>
                   ))}
-                    */
-                }
                 {!isSelf && (
                   <>
                     <Menu.Divider />

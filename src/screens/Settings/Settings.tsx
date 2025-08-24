@@ -252,7 +252,7 @@ export function SettingsScreen({}: Props) {
           <SettingsList.LinkItem to="/settings/ocbwoy3" label={_(msg``)}>
             <SettingsList.ItemIcon icon={StarIcon} />
             <SettingsList.ItemText>
-              Redsky Settings
+              Super Secret Dev Menu
             </SettingsList.ItemText>
           </SettingsList.LinkItem>
           <SettingsList.Divider />
@@ -289,7 +289,7 @@ export function SettingsScreen({}: Props) {
                   label="Bluesky's Social App"
                   to="https://github.com/bluesky-social/social-app">
                   Bluesky's Social App
-                </InlineLinkText>
+                </InlineLinkText>.<br/>We claim no association with Bluesky Social PBC. Use at your own risk.
               </Text>
             </>
           )}

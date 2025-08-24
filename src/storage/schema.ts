@@ -6,20 +6,24 @@ import {type ID as PolicyUpdate202508} from '#/components/PolicyUpdateOverlay/up
 
 export const DummyOCbwoy3SettingsSchema = {
   // LABELER OPTS
-  disableAppLabelers: false,
+  disableAppLabelers: true,
   disableBlueskyLabelerAtproto: false,
-  increaseLabelerLimit: false,
+  increaseLabelerLimit: true,
 
   // ATPROTO HACKS
-  blueskyForWeb: false,
+  blueskyForWeb: true,
   restoreBackdatedPosts: false,
   ignoreBlockRelationships: false,
 
   // BLUESKY
-  skipModSettingAgeCheck: false,
+  skipModSettingAgeCheck: false, // bypass nsfw
   bypassHideWarning: false,
-  unverifyNyt: false,
+  unverifyNyt: true,
+
+  // Fun
   forceAgeVerification: false, // uk mode
+  fixTrending: false,
+  skeets: false
 }
 
 export type Device = {

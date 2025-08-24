@@ -783,9 +783,14 @@ export function Explore({
             <View style={[a.px_lg, a.pb_lg]}>
               <Admonition>
                 {selectedInterest ? (
-                  <Trans>
-                    No results for "{interestsDisplayNames[selectedInterest]}".
-                  </Trans>
+                  ['roblox', 'regretevator'].includes(selectedInterest) ? (
+                    selectedInterest === "regretevator" ? <Trans>gregoriah :3</Trans> : <Trans>What did you do...</Trans>
+                  ) : (
+                    <Trans>
+                      No results for "{interestsDisplayNames[selectedInterest]}
+                      ".
+                    </Trans>
+                  )
                 ) : (
                   <Trans>No results.</Trans>
                 )}
