@@ -13,6 +13,7 @@ import {useIsAgeAssuranceEnabled} from '#/state/ageAssurance/useIsAgeAssuranceEn
 import {logger} from '#/state/ageAssurance/util'
 import {useGeolocation} from '#/state/geolocation'
 import {useAgent} from '#/state/session'
+import { getOCbwoy3Settings } from '#/lib/constants'
 
 export const createAgeAssuranceQueryKey = (did: string) =>
   ['ageAssurance', did] as const
@@ -105,6 +106,15 @@ export function Provider({children}: {children: React.ReactNode}) {
       lastInitiatedAt,
       isAgeRestricted: isAgeAssuranceEnabled ? status !== 'assured' : false,
     }
+
+    if (getOCbwoy3Settings().skipModSettingAgeCheck === true) {
+      return {
+        isReady: true,
+        status: "assured",
+        lastInitiatedAt,
+        isAgeRestricted: false
+      }
+    } 
     logger.debug(`context`, ctx)
     return ctx
   }, [isFetched, data, isAgeAssuranceEnabled])

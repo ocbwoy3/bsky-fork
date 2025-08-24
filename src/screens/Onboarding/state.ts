@@ -87,9 +87,7 @@ export const popularInterests = [
   'science',
   'news',
   'regretevator',
-  'roblox',
-  'furries',
-  'femboys',
+  'roblox'
 ]
 
 export function useInterestsDisplayNames() {
@@ -122,9 +120,7 @@ export function useInterestsDisplayNames() {
       tv: _(msg`TV`),
       writers: _(msg`Writers`),
       regretevator: _(msg`Regretevator`),
-      roblox: _(msg`Roblox`),
-      furries: _(msg`Furries`),
-      femboys: _(msg`Femboys`),
+      roblox: _(msg`Roblox`)
     }
   }, [_])
 }

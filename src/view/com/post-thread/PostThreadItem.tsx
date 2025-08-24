@@ -868,14 +868,14 @@ function ExpandedPostDetails({
   return (
     <View style={[a.gap_md, a.pt_md, a.align_start]}>
       <BackdatedPostIndicator post={post} />
-      {(post.record as any).posting_client ? (
+      {((post.record as any).posting_client || (post.record as any).via) ? (
         <Text>
           <Trans>
-            {`${(post.record as any).posting_client}`.startsWith('Bluesky for ')
+            {`${(post.record as any).posting_client || (post.record as any).via}`.startsWith('Bluesky for ')
               ? ''
               : 'Posted with '}
             <Text style={[a.font_bold]}>
-              {((post.record as any).posting_client as string) || ''}
+              {(post.record as any).posting_client || (post.record as any).via || ''}
             </Text>
           </Trans>
         </Text>

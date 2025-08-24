@@ -240,10 +240,6 @@ function useCategoryDisplayName(
       return _(msg`Regretevator`)
     case 'roblox':
       return _(msg`Roblox`)
-    case 'furries':
-      return _(msg`Furries`)
-    case 'femboys':
-      return _(msg`Femboys`)
     case 'other':
     default:
       return null

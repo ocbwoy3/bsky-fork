@@ -141,10 +141,10 @@ function DialogInner({
                   updateAdultLabels(values as AdultSelfLabel[])
                 }}>
                 <View style={[a.gap_sm]}>
-                  <Toggle.Item name="sexual" label={_(msg`Suggestive`)}>
+                  <Toggle.Item name="sexual" label={_(msg`Sexual Content`)}>
                     <Toggle.Checkbox />
                     <Toggle.LabelText>
-                      <Trans>Suggestive</Trans>
+                      <Trans>Sexual Content</Trans>
                     </Toggle.LabelText>
                   </Toggle.Item>
                   <Toggle.Item name="nudity" label={_(msg`Nudity`)}>
@@ -156,7 +156,7 @@ function DialogInner({
                   <Toggle.Item name="porn" label={_(msg`Porn`)}>
                     <Toggle.Checkbox />
                     <Toggle.LabelText>
-                      <Trans>Adult</Trans>
+                      <Trans>Porn</Trans>
                     </Toggle.LabelText>
                   </Toggle.Item>
                 </View>
@@ -166,11 +166,11 @@ function DialogInner({
               labels.includes('porn') ? (
                 <Text style={[a.mt_sm, t.atoms.text_contrast_medium]}>
                   {labels.includes('sexual') ? (
-                    <Trans>Pictures meant for adults.</Trans>
+                    <Trans>Sexually suggestive content, pictures meant for adults.</Trans>
                   ) : labels.includes('nudity') ? (
                     <Trans>Artistic or non-erotic nudity.</Trans>
                   ) : labels.includes('porn') ? (
-                    <Trans>Sexual activity or erotic nudity.</Trans>
+                    <Trans>Pornography, sexual activity or erotic nudity.</Trans>
                   ) : (
                     ''
                   )}
@@ -198,10 +198,10 @@ function DialogInner({
                 onChange={values => {
                   updateOtherLabels(values as OtherSelfLabel[])
                 }}>
-                <Toggle.Item name="graphic-media" label={_(msg`Graphic Media`)}>
+                <Toggle.Item name="graphic-media" label={_(msg`Gore or Violence`)}>
                   <Toggle.Checkbox />
                   <Toggle.LabelText>
-                    <Trans>Graphic Media</Trans>
+                    <Trans>Gore/Violence</Trans>
                   </Toggle.LabelText>
                 </Toggle.Item>
               </Toggle.Group>

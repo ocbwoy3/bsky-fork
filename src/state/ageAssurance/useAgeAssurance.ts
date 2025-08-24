@@ -3,6 +3,7 @@ import {useMemo} from 'react'
 import {useAgeAssuranceContext} from '#/state/ageAssurance'
 import {logger} from '#/state/ageAssurance/util'
 import {usePreferencesQuery} from '#/state/queries/preferences'
+import { getOCbwoy3Settings } from '#/lib/constants'
 
 type AgeAssurance = ReturnType<typeof useAgeAssuranceContext> & {
   /**
@@ -25,6 +26,32 @@ export function useAgeAssurance(): AgeAssurance {
   const {isFetched: preferencesLoaded, data: preferences} =
     usePreferencesQuery()
   const declaredAge = preferences?.userAge
+
+  if (getOCbwoy3Settings().skipModSettingAgeCheck === true) {
+    return useMemo(() => {
+      return {
+        declaredAge: 18,
+        isDeclaredUnderage: false,
+        isAgeRestricted: false,
+        isReady: true,
+        status: "assured",
+        lastInitiatedAt: new Date().toISOString()
+      }
+    },[aa, preferencesLoaded, declaredAge])
+  }
+
+  if (getOCbwoy3Settings().forceAgeVerification === true) {
+    return useMemo(() => {
+      return {
+        declaredAge: 18,
+        isDeclaredUnderage: false,
+        isAgeRestricted: true,
+        isReady: true,
+        status: "pending",
+        lastInitiatedAt: new Date().toISOString()
+      }
+    },[aa, preferencesLoaded, declaredAge])
+  }
 
   return useMemo(() => {
     const isReady = aa.isReady && preferencesLoaded

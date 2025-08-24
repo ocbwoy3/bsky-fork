@@ -25,7 +25,7 @@ import * as Hasher from 'multiformats/hashes/hasher'
 import {isNetworkError} from '#/lib/strings/errors'
 import {shortenLinks, stripInvalidMentions} from '#/lib/strings/rich-text-manip'
 import {logger} from '#/logger'
-import {devicePlatform} from '#/platform/detection'
+import {isAndroid, isIOS, isWeb} from '#/platform/detection'
 import {compressImage} from '#/state/gallery'
 import {
   fetchResolveGifQuery,
@@ -115,22 +115,18 @@ export async function post(
     const reply = await replyPromise
     let applyWritesAdditions: any = {}
     if (getOCbwoy3Settings().blueskyForWeb === true) {
-      switch (devicePlatform) {
-        case 'android': {
-          applyWritesAdditions.posting_client = 'Bluesky for Android'
-          break
-        }
-        case 'ios': {
-          applyWritesAdditions.posting_client = 'Bluesky for iOS'
-          break
-        }
-        case 'web': {
-          applyWritesAdditions.posting_client = 'Bluesky for Web'
-          break
-        }
-        default: {
-          applyWritesAdditions.posting_client = 'Bluesky Social'
-        }
+      if (isAndroid) {
+        applyWritesAdditions.posting_client = 'Bluesky for Android'
+        applyWritesAdditions.via = 'Bluesky for Android'
+      } else if (isIOS) {
+        applyWritesAdditions.posting_client = 'Bluesky for iOS'
+        applyWritesAdditions.via = 'Bluesky for iOS'
+      } else if (isWeb) {
+        applyWritesAdditions.posting_client = 'Bluesky for Web'
+        applyWritesAdditions.via = 'Bluesky for Web'
+      } else {
+        applyWritesAdditions.posting_client = 'Bluesky Social'
+        applyWritesAdditions.via = 'Bluesky Social'
       }
     }
     const record: AppBskyFeedPost.Record = {

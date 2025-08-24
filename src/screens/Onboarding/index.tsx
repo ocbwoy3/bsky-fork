@@ -40,9 +40,7 @@ export function Onboarding() {
       food: _(msg`Food`),
       cooking: _(msg`Cooking`),
       regretevator: _(msg`Regretevator`),
-      roblox: _(msg`Roblox`),
-      furries: _(msg`Furries`),
-      femboys: _(msg`Femboys`),
+      roblox: _(msg`Roblox`)
     }
   }, [_])
 

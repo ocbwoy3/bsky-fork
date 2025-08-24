@@ -19,10 +19,7 @@ export const DummyOCbwoy3SettingsSchema = {
   skipModSettingAgeCheck: false,
   bypassHideWarning: false,
   unverifyNyt: false,
-
-  // AI
-  enableGenaiFeatures: false,
-  geminiApiKey: ''
+  forceAgeVerification: false, // uk mode
 }
 
 export type Device = {

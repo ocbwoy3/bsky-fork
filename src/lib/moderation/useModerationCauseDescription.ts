@@ -145,7 +145,11 @@ export function useModerationCauseDescription(
         }
       }
       if (def.identifier === 'porn' || def.identifier === 'sexual') {
-        strings.name = _(msg`Adult Content`)
+        if (def.identifier === "porn") {
+          strings.name = _(msg`Porn`)
+        } else {
+          strings.name = _(msg`Sexually Suggestive`)  
+        }
       }
 
       return {

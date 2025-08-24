@@ -13,7 +13,6 @@ import {
 } from '#/lib/routes/types'
 import {logger} from '#/logger'
 import {isIOS} from '#/platform/detection'
-import {useDevModeEnabled} from '#/state/preferences/dev-mode'
 import {useAgeAssurance} from '#/state/ageAssurance/useAgeAssurance'
 import {
   useMyLabelersQuery,
@@ -394,7 +393,7 @@ export function ModerationScreenInner({
                 a.overflow_hidden,
                 t.atoms.bg_contrast_25,
               ]}>
-              {!isDeclaredUnderage && (
+              {(!isDeclaredUnderage || bypassAgeGate) && (
                 <>
                   <View
                     style={[
@@ -545,7 +544,7 @@ export function ModerationScreenInner({
           <Text style={[a.pt_xl]}>
             You are subscribed to {labelers?.length}/{MAX_LABELERS} labelers.
           </Text>
-          {isDevleoper ? (
+          {getOCbwoy3Settings().increaseLabelerLimit ? (
             <>
               <br />
               <CopyButton

@@ -3,7 +3,6 @@ import { View } from 'react-native'
 
 import { CommonNavigatorParams, NativeStackScreenProps } from '#/lib/routes/types'
 import * as persisted from '#/state/persisted'
-import { useDevModeEnabled } from '#/state/preferences/dev-mode'
 import { atoms as a, useBreakpoints, useTheme } from '#/alf/index'
 import { Divider } from '#/components/Divider'
 import * as Layout from '#/components/Layout'
@@ -115,9 +114,10 @@ const AllSettings: SettingCategory[] = [
     settings: [
       createToggleOption('Add "Bluesky for Web" to posts', 'blueskyForWeb'),
       createToggleOption('Use createdAt timestamp', 'restoreBackdatedPosts'),
-      createToggleOption('Bypass age check', 'skipModSettingAgeCheck'),
+      createToggleOption('Bypass age verification and enable nsfw', 'skipModSettingAgeCheck'), // Keir Starmer plz fix!!
       createToggleOption('Bypass !warn, !hide', 'bypassHideWarning'),
       createToggleOption('Unverify the New York Times', 'unverifyNyt'),
+      createToggleOption('UK Mode', 'forceAgeVerification')
     ],
   },
   // TODO: AI Features
@@ -139,7 +139,6 @@ const AllSettings: SettingCategory[] = [
 type Props = NativeStackScreenProps<CommonNavigatorParams, 'BskyHackSettings'>
 export function BskyHackSettingsScreen({}: Props) {
   const t = useTheme()
-  const [devModeEnabled, setDevModeEnabled] = useDevModeEnabled()
 
   const otherSettings: SettingCategory[] = [
     {
@@ -147,18 +146,7 @@ export function BskyHackSettingsScreen({}: Props) {
       type: SettingCategoryType.GROUP,
       settings: [
         createToggleOptionBluesky('Disable Trending', 'trendingDisabled'),
-        createToggleOptionBluesky('Kawaii', 'kawaii'),
-        {
-          name: 'Developer Mode',
-          type: SettingType.ON_OFF,
-          settingId: 'devModeEnabled',
-          getState: () => {
-            return devModeEnabled
-          },
-          onUpdate: v => {
-            setDevModeEnabled(v as boolean)
-          },
-        },
+        createToggleOptionBluesky('Kawaii', 'kawaii')
       ],
     },
   ]

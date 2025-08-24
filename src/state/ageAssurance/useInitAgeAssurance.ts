@@ -7,6 +7,7 @@ import {useMutation, useQueryClient} from '@tanstack/react-query'
 
 import {wait} from '#/lib/async/wait'
 import {
+  getOCbwoy3Settings,
   // DEV_ENV_APPVIEW,
   PUBLIC_APPVIEW,
   PUBLIC_APPVIEW_DID,
@@ -42,7 +43,8 @@ export function useInitAgeAssurance() {
       props: Omit<AppBskyUnspeccedInitAgeAssurance.InputSchema, 'countryCode'>,
     ) {
       if (!geolocation?.countryCode) {
-        throw new Error(`Geolocation not available, cannot init age assurance.`)
+        if (!getOCbwoy3Settings().forceAgeVerification)
+          throw new Error(`Geolocation not available, cannot init age assurance.`)
       }
 
       const {
@@ -65,7 +67,7 @@ export function useInitAgeAssurance() {
         2e3,
         appView.app.bsky.unspecced.initAgeAssurance({
           ...props,
-          countryCode: geolocation?.countryCode?.toUpperCase(),
+          countryCode: geolocation?.countryCode?.toUpperCase() || "lv",
         }),
       )
 

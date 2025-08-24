@@ -65,6 +65,7 @@ import {Provider as VideoVolumeProvider} from '#/components/Post/Embed/VideoEmbe
 import {ToastOutlet} from '#/components/Toast'
 import {BackgroundNotificationPreferencesProvider} from '../modules/expo-background-notification-handler/src/BackgroundNotificationHandlerProvider'
 import {Provider as HideBottomBarBorderProvider} from './lib/hooks/useHideBottomBarBorder'
+import { TestCtrls } from './view/com/testing/TestCtrls'
 
 /**
  * Begin geolocation ASAP
@@ -140,6 +141,7 @@ function InnerApp() {
                                                       <EmailVerificationProvider>
                                                         <HideBottomBarBorderProvider>
                                                           <IntentDialogProvider>
+                                                            <TestCtrls />
                                                             <Shell />
                                                             <NuxDialogs />
                                                             <ToastOutlet />
