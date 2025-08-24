@@ -1,11 +1,68 @@
 import React from 'react'
+import {Platform} from 'react-native'
+import {AppState, type AppStateStatus} from 'react-native'
+import {Statsig, StatsigProvider} from 'statsig-react-native-expo'
 
-import { LogEvents } from './events'
-import { Gate } from './gates'
+import {logger} from '#/logger'
+import {type MetricEvents} from '#/logger/metrics'
+import {isWeb} from '#/platform/detection'
+import * as persisted from '#/state/persisted'
+import * as env from '#/env'
+import {useSession} from '../../state/session'
+import {timeout} from '../async/timeout'
+import {useNonReactiveCallback} from '../hooks/useNonReactiveCallback'
+import {type Gate} from './gates'
+
+const SDK_KEY = 'client-SXJakO39w9vIhl3D44u8UupyzFl4oZ2qPIkjwcvuPsV'
 
 export const initPromise = initialize()
 
-export type {LogEvents}
+type StatsigUser = {
+  userID: string | undefined
+  // TODO: Remove when enough users have custom.platform:
+  platform: 'ios' | 'android' | 'web'
+  custom: {
+    // This is the place where we can add our own stuff.
+    // Fields here have to be non-optional to be visible in the UI.
+    platform: 'ios' | 'android' | 'web'
+    appVersion: string
+    bundleIdentifier: string
+    bundleDate: number
+    refSrc: string
+    refUrl: string
+    appLanguage: string
+    contentLanguages: string[]
+  }
+}
+
+let refSrc = ''
+let refUrl = ''
+if (isWeb && typeof window !== 'undefined') {
+  const params = new URLSearchParams(window.location.search)
+  refSrc = params.get('ref_src') ?? ''
+  refUrl = decodeURIComponent(params.get('ref_url') ?? '')
+}
+
+export type {MetricEvents as LogEvents}
+
+function createStatsigOptions(prefetchUsers: StatsigUser[]) {
+  return {
+    environment: {
+      tier: env.IS_DEV
+        ? 'development'
+        : env.IS_TESTFLIGHT
+          ? 'staging'
+          : 'production',
+    },
+    // Don't block on waiting for network. The fetched config will kick in on next load.
+    // This ensures the UI is always consistent and doesn't update mid-session.
+    // Note this makes cold load (no local storage) and private mode return `false` for all gates.
+    initTimeoutMs: 1,
+    // Get fresh flags for other accounts as well, if any.
+    prefetchUsers,
+    api: 'https://events.bsky.app/v2',
+  }
+}
 
 type FlatJSONRecord = Record<
   string,
@@ -30,10 +87,63 @@ export function toClout(n: number | null | undefined): number | undefined {
   }
 }
 
-export function logEvent<E extends keyof LogEvents>(
-  _eventName: E & string,
-  _rawMetadata: LogEvents[E] & FlatJSONRecord,
-) {}
+/**
+ * @deprecated use `logger.metric()` instead
+ */
+export function logEvent<E extends keyof MetricEvents>(
+  eventName: E & string,
+  rawMetadata: MetricEvents[E] & FlatJSONRecord,
+  options: {
+    /**
+     * Send to our data lake only, not to StatSig
+     */
+    lake?: boolean
+  } = {lake: false},
+) {
+  try {
+    const fullMetadata = toStringRecord(rawMetadata)
+    fullMetadata.routeName = getCurrentRouteName() ?? '(Uninitialized)'
+    if (Statsig.initializeCalled()) {
+      let ev: string = eventName
+      if (options.lake) {
+        ev = `lake:${ev}`
+      }
+      Statsig.logEvent(ev, null, fullMetadata)
+    }
+    /**
+     * All datalake events should be sent using `logger.metric`, and we don't
+     * want to double-emit logs to other transports.
+     */
+    if (!options.lake) {
+      logger.info(eventName, fullMetadata)
+    }
+  } catch (e) {
+    // A log should never interrupt the calling code, whatever happens.
+    logger.error('Failed to log an event', {message: e})
+  }
+}
+
+function toStringRecord<E extends keyof MetricEvents>(
+  metadata: MetricEvents[E] & FlatJSONRecord,
+): Record<string, string> {
+  const record: Record<string, string> = {}
+  for (let key in metadata) {
+    if (metadata.hasOwnProperty(key)) {
+      if (typeof metadata[key] === 'string') {
+        record[key] = metadata[key]
+      } else {
+        record[key] = JSON.stringify(metadata[key])
+      }
+    }
+  }
+  return record
+}
+
+// We roll our own cache in front of Statsig because it is a singleton
+// and it's been difficult to get it to behave in a predictable way.
+// Our own cache ensures consistent evaluation within a single session.
+const GateCache = React.createContext<Map<string, boolean> | null>(null)
+GateCache.displayName = 'StatsigGateCacheContext'
 
 type GateOptions = {
   dangerouslyDisableExposureLogging?: boolean
@@ -65,6 +175,46 @@ export function useDangerousSetGate(): (
   )
   return dangerousSetGate
 }
+
+function toStatsigUser(did: string | undefined): StatsigUser {
+  const languagePrefs = persisted.get('languagePrefs')
+  return {
+    userID: did,
+    platform: Platform.OS as 'ios' | 'android' | 'web',
+    custom: {
+      refSrc,
+      refUrl,
+      platform: Platform.OS as 'ios' | 'android' | 'web',
+      appVersion: env.RELEASE_VERSION,
+      bundleIdentifier: env.BUNDLE_IDENTIFIER,
+      bundleDate: env.BUNDLE_DATE,
+      appLanguage: languagePrefs.appLanguage,
+      contentLanguages: languagePrefs.contentLanguages,
+    },
+  }
+}
+
+let lastState: AppStateStatus = AppState.currentState
+let lastActive = lastState === 'active' ? performance.now() : null
+AppState.addEventListener('change', (state: AppStateStatus) => {
+  if (state === lastState) {
+    return
+  }
+  lastState = state
+  if (state === 'active') {
+    lastActive = performance.now()
+    logEvent('state:foreground', {})
+  } else {
+    let secondsActive = 0
+    if (lastActive != null) {
+      secondsActive = Math.round((performance.now() - lastActive) / 1e3)
+      lastActive = null
+      logEvent('state:background', {
+        secondsActive,
+      })
+    }
+  }
+})
 
 export async function tryFetchGates(
   _did: string | undefined,

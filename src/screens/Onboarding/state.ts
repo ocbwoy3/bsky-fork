@@ -158,6 +158,7 @@ export const Context = React.createContext<{
   state: {...initialState},
   dispatch: () => {},
 })
+Context.displayName = 'OnboardingContext'
 
 export function reducer(
   s: OnboardingState,

@@ -1,3 +1,4 @@
+import {type NotificationReason} from '#/lib/hooks/useNotificationHandler'
 import {type FeedDescriptor} from '#/state/queries/post-feed'
 
 export type MetricEvents = {
@@ -23,7 +24,10 @@ export type MetricEvents = {
       | 'Takendown'
     scope: 'current' | 'every'
   }
-  'notifications:openApp': {}
+  'notifications:openApp': {
+    reason: NotificationReason
+    causedBoot: boolean
+  }
   'notifications:request': {
     context: 'StartOnboarding' | 'AfterOnboarding' | 'Login' | 'Home'
     status: 'granted' | 'denied' | 'undetermined'
@@ -63,7 +67,9 @@ export type MetricEvents = {
     activeStep: number
     backgroundCount: number
   }
-  'signup:handleTaken': {}
+  'signup:handleTaken': {typeahead?: boolean}
+  'signup:handleAvailable': {typeahead?: boolean}
+  'signup:handleSuggestionSelected': {method: string}
   'signin:hostingProviderPressed': {
     hostingProviderDidChange: boolean
   }
@@ -127,6 +133,33 @@ export type MetricEvents = {
     feedType: string
     reason: 'pull-to-refresh' | 'soft-reset' | 'load-latest'
   }
+  'feed:save': {
+    feedUrl: string
+  }
+  'feed:unsave': {
+    feedUrl: string
+  }
+  'feed:pin': {
+    feedUrl: string
+  }
+  'feed:unpin': {
+    feedUrl: string
+  }
+  'feed:like': {
+    feedUrl: string
+  }
+  'feed:unlike': {
+    feedUrl: string
+  }
+  'feed:share': {
+    feedUrl: string
+  }
+  'feed:suggestion:seen': {
+    feedUrl: string
+  }
+  'feed:suggestion:press': {
+    feedUrl: string
+  }
   'discover:showMore': {
     feedContext: string
   }
@@ -172,15 +205,19 @@ export type MetricEvents = {
     likerClout: number | undefined
     postClout: number | undefined
     logContext: 'FeedItem' | 'PostThreadItem' | 'Post' | 'ImmersiveVideo'
+    feedDescriptor?: string
   }
   'post:repost': {
     logContext: 'FeedItem' | 'PostThreadItem' | 'Post' | 'ImmersiveVideo'
+    feedDescriptor?: string
   }
   'post:unlike': {
     logContext: 'FeedItem' | 'PostThreadItem' | 'Post' | 'ImmersiveVideo'
+    feedDescriptor?: string
   }
   'post:unrepost': {
     logContext: 'FeedItem' | 'PostThreadItem' | 'Post' | 'ImmersiveVideo'
+    feedDescriptor?: string
   }
   'post:mute': {}
   'post:unmute': {}
@@ -383,4 +420,66 @@ export type MetricEvents = {
   }
   'verification:settings:hideBadges': {}
   'verification:settings:unHideBadges': {}
+
+  'live:create': {duration: number}
+  'live:edit': {}
+  'live:remove': {}
+  'live:card:open': {subject: string; from: 'post' | 'profile'}
+  'live:card:watch': {subject: string}
+  'live:card:openProfile': {subject: string}
+  'live:view:profile': {subject: string}
+  'live:view:post': {subject: string; feed?: string}
+
+  'share:open': {context: 'feed' | 'thread'}
+  'share:press:copyLink': {}
+  'share:press:nativeShare': {}
+  'share:press:openDmSearch': {}
+  'share:press:dmSelected': {}
+  'share:press:recentDm': {}
+  'share:press:embed': {}
+
+  'thread:click:showOtherReplies': {}
+  'thread:preferences:load': {
+    [key: string]: any
+  }
+  'thread:preferences:update': {
+    [key: string]: any
+  }
+  'thread:click:headerMenuOpen': {}
+  'activitySubscription:enable': {
+    setting: 'posts' | 'posts_and_replies'
+  }
+  'activitySubscription:disable': {}
+  'activityPreference:changeChannels': {
+    name: string
+    push: boolean
+    list: boolean
+  }
+  'activityPreference:changeFilter': {
+    name: string
+    value: string
+  }
+
+  'ageAssurance:navigateToSettings': {}
+  'ageAssurance:dismissFeedBanner': {}
+  'ageAssurance:dismissSettingsNotice': {}
+  'ageAssurance:initDialogOpen': {
+    hasInitiatedPreviously: boolean
+  }
+  'ageAssurance:initDialogSubmit': {}
+  'ageAssurance:initDialogError': {
+    code: string
+  }
+  'ageAssurance:redirectDialogOpen': {}
+  'ageAssurance:redirectDialogSuccess': {}
+  'ageAssurance:redirectDialogFail': {}
+  'ageAssurance:appealDialogOpen': {}
+  'ageAssurance:appealDialogSubmit': {}
+
+  /*
+   * Specifically for the `BlockedGeoOverlay`
+   */
+  'blockedGeoOverlay:shown': {}
+
+  'geo:debug': {}
 }

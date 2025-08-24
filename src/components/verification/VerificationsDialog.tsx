@@ -64,13 +64,13 @@ function Inner({
       ? _(msg`You are verified`)
       : _(msg`Your verifications`)
     : state.profile.isVerified
-    ? _(msg`${userName} is verified`)
-    : _(
-        msg({
-          message: `${userName}'s verifications`,
-          comment: `Possessive, meaning "the verifications of {userName}"`,
-        }),
-      )
+      ? _(msg`${userName} is verified`)
+      : _(
+          msg({
+            message: `${userName}'s verifications`,
+            comment: `Possessive, meaning "the verifications of {userName}"`,
+          }),
+        )
 
   return (
     <Dialog.ScrollableInner
@@ -153,9 +153,13 @@ function Inner({
           color="secondary"
           style={[a.justify_center]}
           onPress={() => {
-            logger.metric('verification:learn-more', {
-              location: 'verificationsDialog',
-            })
+            logger.metric(
+              'verification:learn-more',
+              {
+                location: 'verificationsDialog',
+              },
+              {statsig: true},
+            )
           }}>
           <ButtonText>
             <Trans>Learn more</Trans>

@@ -1,8 +1,6 @@
 const pkg = require('./package.json')
 
-const DARK_SPLASH_ANDROID_BACKGROUND = '#0f141b'
-
-module.exports = function (config) {
+module.exports = function (_config) {
   /**
    * App version number. Should be incremented as part of a release cycle.
    */
@@ -28,12 +26,7 @@ module.exports = function (config) {
     ...(IS_DEV || IS_TESTFLIGHT ? [] : []),
   ]
 
-  const UPDATES_CHANNEL = IS_TESTFLIGHT
-    ? 'testflight'
-    : IS_PRODUCTION
-    ? 'production'
-    : undefined
-  const UPDATES_ENABLED = !!UPDATES_CHANNEL
+  const UPDATES_ENABLED = IS_TESTFLIGHT || IS_PRODUCTION
 
   const USE_SENTRY = Boolean(process.env.SENTRY_AUTH_TOKEN)
 
@@ -81,6 +74,7 @@ module.exports = function (config) {
             'eu',
             'fi',
             'fr',
+            'fy',
             'ga',
             'gd',
             'gl',
@@ -96,6 +90,7 @@ module.exports = function (config) {
             'nl',
             'pl',
             'pt-BR',
+            'pt-PT',
             'ro',
             'ru',
             'sv',
@@ -140,12 +135,10 @@ module.exports = function (config) {
       },
       androidStatusBar: {
         barStyle: 'light-content',
-        backgroundColor: '#00000000',
       },
       // Dark nav bar in light mode is better than light nav bar in dark mode
       androidNavigationBar: {
         barStyle: 'light-content',
-        backgroundColor: DARK_SPLASH_ANDROID_BACKGROUND,
       },
       android: {
         icon: './assets/app-icons/android_icon_default_light.png',
@@ -192,11 +185,15 @@ module.exports = function (config) {
             }
           : undefined,
         checkAutomatically: 'NEVER',
-        channel: UPDATES_CHANNEL,
       },
       plugins: [
         'expo-video',
         'expo-localization',
+        'expo-web-browser',
+        [
+          'react-native-edge-to-edge',
+          {android: {enforceNavigationBarContrast: false}},
+        ],
         USE_SENTRY && [
           '@sentry/react-native/expo',
           {
@@ -231,15 +228,14 @@ module.exports = function (config) {
         ],
         './plugins/starterPackAppClipExtension/withStarterPackAppClip.js',
         './plugins/withGradleJVMHeapSizeIncrease.js',
-        './plugins/withAndroidManifestPlugin.js',
+        './plugins/withAndroidManifestLargeHeapPlugin.js',
         './plugins/withAndroidManifestFCMIconPlugin.js',
+        './plugins/withAndroidManifestIntentQueriesPlugin.js',
         './plugins/withAndroidStylesAccentColorPlugin.js',
-        './plugins/withAndroidSplashScreenStatusBarTranslucentPlugin.js',
+        './plugins/withAndroidDayNightThemePlugin.js',
         './plugins/withAndroidNoJitpackPlugin.js',
-        './plugins/withNoBundleCompression.js',
         './plugins/shareExtension/withShareExtensions.js',
         './plugins/notificationsExtension/withNotificationsExtension.js',
-        './plugins/withAppDelegateReferrer.js',
         [
           'expo-font',
           {
@@ -249,10 +245,12 @@ module.exports = function (config) {
               // Android only
               './assets/fonts/inter/Inter-Regular.otf',
               './assets/fonts/inter/Inter-Italic.otf',
+              './assets/fonts/inter/Inter-Medium.otf',
+              './assets/fonts/inter/Inter-MediumItalic.otf',
               './assets/fonts/inter/Inter-SemiBold.otf',
               './assets/fonts/inter/Inter-SemiBoldItalic.otf',
-              './assets/fonts/inter/Inter-ExtraBold.otf',
-              './assets/fonts/inter/Inter-ExtraBoldItalic.otf',
+              './assets/fonts/inter/Inter-Bold.otf',
+              './assets/fonts/inter/Inter-BoldItalic.otf',
             ],
           },
         ],
@@ -287,6 +285,11 @@ module.exports = function (config) {
             default_dark: {
               ios: './assets/app-icons/ios_icon_default_dark.png',
               android: './assets/app-icons/android_icon_default_dark.png',
+              prerendered: true,
+            },
+            next: {
+              ios: './assets/app-icons/icon_default_next.png',
+              android: './assets/app-icons/icon_default_next.png',
               prerendered: true,
             },
 
@@ -341,16 +344,6 @@ module.exports = function (config) {
           },
         ],
         ['expo-screen-orientation', {initialOrientation: 'PORTRAIT_UP'}],
-        [
-          'react-native-vision-camera',
-          {
-            enableLocation: false,
-            cameraPermissionText: 'Bluesky needs access to your camera.',
-            enableMicrophonePermission: true,
-            microphonePermissionText:
-              'Bluesky needs access to your microphone.',
-          },
-        ],
       ].filter(Boolean),
       extra: {
         eas: {

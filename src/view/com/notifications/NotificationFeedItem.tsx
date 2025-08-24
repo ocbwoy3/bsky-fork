@@ -30,6 +30,7 @@ import {useLingui} from '@lingui/react'
 import {useNavigation} from '@react-navigation/native'
 import {useQueryClient} from '@tanstack/react-query'
 
+import {MAX_POST_LINES} from '#/lib/constants'
 import {useAnimatedValue} from '#/lib/hooks/useAnimatedValue'
 import {usePalette} from '#/lib/hooks/usePalette'
 import {makeProfileLink} from '#/lib/routes/links'
@@ -51,6 +52,7 @@ import {TimeElapsed} from '#/view/com/util/TimeElapsed'
 import {PreviewableUserAvatar, UserAvatar} from '#/view/com/util/UserAvatar'
 import {atoms as a, platform, useTheme} from '#/alf'
 import {Button, ButtonText} from '#/components/Button'
+import {BellRinging_Filled_Corner0_Rounded as BellRingingIcon} from '#/components/icons/BellRinging'
 import {
   ChevronBottom_Stroke2_Corner0_Rounded as ChevronDownIcon,
   ChevronTop_Stroke2_Corner0_Rounded as ChevronUpIcon,
@@ -97,29 +99,45 @@ let NotificationFeedItem = ({
   const {_, i18n} = useLingui()
   const [isAuthorsExpanded, setAuthorsExpanded] = useState<boolean>(false)
   const itemHref = useMemo(() => {
-    if (item.type === 'post-like' || item.type === 'repost') {
-      if (item.subjectUri) {
-        const urip = new AtUri(item.subjectUri)
-        return `/profile/${urip.host}/post/${urip.rkey}`
+    switch (item.type) {
+      case 'post-like':
+      case 'repost':
+      case 'like-via-repost':
+      case 'repost-via-repost': {
+        if (item.subjectUri) {
+          const urip = new AtUri(item.subjectUri)
+          return `/profile/${urip.host}/post/${urip.rkey}`
+        }
+        break
       }
-    } else if (
-      item.type === 'follow' ||
-      item.type === 'verified' ||
-      item.type === 'unverified'
-    ) {
-      return makeProfileLink(item.notification.author)
-    } else if (item.type === 'reply') {
-      const urip = new AtUri(item.notification.uri)
-      return `/profile/${urip.host}/post/${urip.rkey}`
-    } else if (
-      item.type === 'feedgen-like' ||
-      item.type === 'starterpack-joined'
-    ) {
-      if (item.subjectUri) {
-        const urip = new AtUri(item.subjectUri)
-        return `/profile/${urip.host}/feed/${urip.rkey}`
+      case 'follow':
+      case 'verified':
+      case 'unverified': {
+        return makeProfileLink(item.notification.author)
+      }
+      case 'reply':
+      case 'mention':
+      case 'quote': {
+        const uripReply = new AtUri(item.notification.uri)
+        return `/profile/${uripReply.host}/post/${uripReply.rkey}`
+      }
+      case 'feedgen-like':
+      case 'starterpack-joined': {
+        if (item.subjectUri) {
+          const urip = new AtUri(item.subjectUri)
+          return `/profile/${urip.host}/feed/${urip.rkey}`
+        }
+        break
+      }
+      case 'subscribed-post': {
+        const posts: string[] = []
+        for (const post of [item.notification, ...(item.additional ?? [])]) {
+          posts.push(post.uri)
+        }
+        return `/notifications/activity?posts=${encodeURIComponent(posts.slice(0, 25).join(','))}`
       }
     }
+
     return ''
   }, [item])
 
@@ -147,7 +165,10 @@ let NotificationFeedItem = ({
         href: makeProfileLink(author),
         moderation: moderateProfile(author, moderationOpts),
       })) || []),
-    ]
+    ].filter(
+      (author, index, arr) =>
+        arr.findIndex(au => au.profile.did === author.profile.did) === index,
+    )
   }, [item, moderationOpts])
 
   const niceTimestamp = niceDate(i18n, item.notification.indexedAt)
@@ -174,47 +195,51 @@ let NotificationFeedItem = ({
     }
     const isHighlighted = highlightUnread && !item.notification.isRead
     return (
-      <Post
-        post={item.subject}
-        style={
-          isHighlighted && {
-            backgroundColor: pal.colors.unreadNotifBg,
-            borderColor: pal.colors.unreadNotifBorder,
+      <View testID={`feedItem-by-${item.notification.author.handle}`}>
+        <Post
+          post={item.subject}
+          style={
+            isHighlighted && {
+              backgroundColor: pal.colors.unreadNotifBg,
+              borderColor: pal.colors.unreadNotifBorder,
+            }
           }
-        }
-        hideTopBorder={hideTopBorder}
-      />
+          hideTopBorder={hideTopBorder}
+        />
+      </View>
     )
   }
 
   const firstAuthorLink = (
-    <InlineLinkText
-      key={firstAuthor.href}
-      style={[t.atoms.text, a.font_bold, a.text_md, a.leading_tight]}
-      to={firstAuthor.href}
-      disableMismatchWarning
-      emoji
-      label={_(msg`Go to ${firstAuthorName}'s profile`)}>
-      {forceLTR(firstAuthorName)}
-      {firstAuthorVerification.showBadge && (
-        <View
-          style={[
-            a.relative,
-            {
-              paddingTop: platform({android: 2}),
-              marginBottom: platform({ios: -7}),
-              top: platform({web: 1}),
-              paddingLeft: 3,
-              paddingRight: 2,
-            },
-          ]}>
-          <VerificationCheck
-            width={14}
-            verifier={firstAuthorVerification.role === 'verifier'}
-          />
-        </View>
-      )}
-    </InlineLinkText>
+    <ProfileHoverCard did={firstAuthor.profile.did} inline>
+      <InlineLinkText
+        key={firstAuthor.href}
+        style={[t.atoms.text, a.font_bold, a.text_md, a.leading_tight]}
+        to={firstAuthor.href}
+        disableMismatchWarning
+        emoji
+        label={_(msg`Go to ${firstAuthorName}'s profile`)}>
+        {forceLTR(firstAuthorName)}
+        {firstAuthorVerification.showBadge && (
+          <View
+            style={[
+              a.relative,
+              {
+                paddingTop: platform({android: 2}),
+                marginBottom: platform({ios: -7}),
+                top: platform({web: 1}),
+                paddingLeft: 3,
+                paddingRight: 2,
+              },
+            ]}>
+            <VerificationCheck
+              width={14}
+              verifier={firstAuthorVerification.role === 'verifier'}
+            />
+          </View>
+        )}
+      </InlineLinkText>
+    </ProfileHoverCard>
   )
   const additionalAuthorsCount = authors.length - 1
   const hasMultipleAuthors = additionalAuthorsCount > 0
@@ -446,6 +471,91 @@ let NotificationFeedItem = ({
       </Trans>
     )
     icon = <VerifiedCheck size="xl" fill={t.palette.contrast_500} />
+  } else if (item.type === 'like-via-repost') {
+    a11yLabel = hasMultipleAuthors
+      ? _(
+          msg`${firstAuthorName} and ${plural(additionalAuthorsCount, {
+            one: `${formattedAuthorsCount} other`,
+            other: `${formattedAuthorsCount} others`,
+          })} liked your repost`,
+        )
+      : _(msg`${firstAuthorName} liked your repost`)
+    notificationContent = hasMultipleAuthors ? (
+      <Trans>
+        {firstAuthorLink} and{' '}
+        <Text style={[a.text_md, a.font_bold, a.leading_snug]}>
+          <Plural
+            value={additionalAuthorsCount}
+            one={`${formattedAuthorsCount} other`}
+            other={`${formattedAuthorsCount} others`}
+          />
+        </Text>{' '}
+        liked your repost
+      </Trans>
+    ) : (
+      <Trans>{firstAuthorLink} liked your repost</Trans>
+    )
+  } else if (item.type === 'repost-via-repost') {
+    a11yLabel = hasMultipleAuthors
+      ? _(
+          msg`${firstAuthorName} and ${plural(additionalAuthorsCount, {
+            one: `${formattedAuthorsCount} other`,
+            other: `${formattedAuthorsCount} others`,
+          })} reposted your repost`,
+        )
+      : _(msg`${firstAuthorName} reposted your repost`)
+    notificationContent = hasMultipleAuthors ? (
+      <Trans>
+        {firstAuthorLink} and{' '}
+        <Text style={[a.text_md, a.font_bold, a.leading_snug]}>
+          <Plural
+            value={additionalAuthorsCount}
+            one={`${formattedAuthorsCount} other`}
+            other={`${formattedAuthorsCount} others`}
+          />
+        </Text>{' '}
+        reposted your repost
+      </Trans>
+    ) : (
+      <Trans>{firstAuthorLink} reposted your repost</Trans>
+    )
+    icon = <RepostIcon size="xl" style={{color: t.palette.positive_600}} />
+  } else if (item.type === 'subscribed-post') {
+    const postsCount = 1 + (item.additional?.length || 0)
+    a11yLabel = hasMultipleAuthors
+      ? _(
+          msg`New posts from ${firstAuthorName} and ${plural(
+            additionalAuthorsCount,
+            {
+              one: `${formattedAuthorsCount} other`,
+              other: `${formattedAuthorsCount} others`,
+            },
+          )}`,
+        )
+      : _(
+          msg`New ${plural(postsCount, {
+            one: 'post',
+            other: 'posts',
+          })} from ${firstAuthorName}`,
+        )
+    notificationContent = hasMultipleAuthors ? (
+      <Trans>
+        New posts from {firstAuthorLink} and{' '}
+        <Text style={[a.text_md, a.font_bold, a.leading_snug]}>
+          <Plural
+            value={additionalAuthorsCount}
+            one={`${formattedAuthorsCount} other`}
+            other={`${formattedAuthorsCount} others`}
+          />
+        </Text>{' '}
+      </Trans>
+    ) : (
+      <Trans>
+        New <Plural value={postsCount} one="post" other="posts" /> from{' '}
+        {firstAuthorLink}
+      </Trans>
+    )
+    icon = <BellRingingIcon size="xl" style={{color: t.palette.primary_500}} />
   } else {
     return null
   }
@@ -553,7 +663,11 @@ let NotificationFeedItem = ({
                 </TimeElapsed>
               </Text>
             </ExpandListPressable>
-            {item.type === 'post-like' || item.type === 'repost' ? (
+            {item.type === 'post-like' ||
+            item.type === 'repost' ||
+            item.type === 'like-via-repost' ||
+            item.type === 'repost-via-repost' ||
+            item.type === 'subscribed-post' ? (
               <View style={[a.pt_2xs]}>
                 <AdditionalPostText post={item.subject} />
               </View>
@@ -561,10 +675,12 @@ let NotificationFeedItem = ({
             {item.type === 'feedgen-like' && item.subjectUri ? (
               <FeedSourceCard
                 feedUri={item.subjectUri}
+                link={false}
                 style={[
                   t.atoms.bg,
                   t.atoms.border_contrast_low,
                   a.border,
+                  a.p_md,
                   styles.feedcard,
                 ]}
                 showLikes
@@ -859,7 +975,8 @@ function AdditionalPostText({post}: {post?: AppBskyFeedDefs.PostView}) {
         {text?.length > 0 && (
           <Text
             emoji
-            style={[a.text_sm, a.leading_snug, t.atoms.text_contrast_medium]}>
+            style={[a.text_sm, a.leading_snug, t.atoms.text_contrast_medium]}
+            numberOfLines={MAX_POST_LINES}>
             {text}
           </Text>
         )}
@@ -889,7 +1006,6 @@ const styles = StyleSheet.create({
   },
   feedcard: {
     borderRadius: 8,
-    paddingVertical: 12,
     marginTop: 6,
   },
   addedContainer: {

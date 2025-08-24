@@ -1,9 +1,9 @@
 import {useCallback, useEffect, useState} from 'react'
 import {BackHandler, useWindowDimensions, View} from 'react-native'
 import {Drawer} from 'react-native-drawer-layout'
+import {SystemBars} from 'react-native-edge-to-edge'
 import {Gesture} from 'react-native-gesture-handler'
 import {useSafeAreaInsets} from 'react-native-safe-area-context'
-import {StatusBar} from 'expo-status-bar'
 import {useNavigation, useNavigationState} from '@react-navigation/native'
 
 import {useDedupe} from '#/lib/hooks/useDedupe'
@@ -12,22 +12,31 @@ import {useNotificationsHandler} from '#/lib/hooks/useNotificationHandler'
 import {useNotificationsRegistration} from '#/lib/notifications/notifications'
 import {isStateAtTabRoot} from '#/lib/routes/helpers'
 import {isAndroid, isIOS} from '#/platform/detection'
-import {useDialogStateControlContext} from '#/state/dialogs'
+import {useDialogFullyExpandedCountContext} from '#/state/dialogs'
+import {useGeolocation} from '#/state/geolocation'
 import {useSession} from '#/state/session'
 import {
   useIsDrawerOpen,
   useIsDrawerSwipeDisabled,
   useSetDrawerOpen,
 } from '#/state/shell'
-import {useLightStatusBar} from '#/state/shell/light-status-bar'
 import {useCloseAnyActiveElement} from '#/state/util'
 import {Lightbox} from '#/view/com/lightbox/Lightbox'
 import {ModalsContainer} from '#/view/com/modals/Modal'
 import {ErrorBoundary} from '#/view/com/util/ErrorBoundary'
 import {atoms as a, select, useTheme} from '#/alf'
-import {setNavigationBar} from '#/alf/util/navigationBar'
+import {setSystemUITheme} from '#/alf/util/systemUI'
+import {AgeAssuranceRedirectDialog} from '#/components/ageAssurance/AgeAssuranceRedirectDialog'
+import {BlockedGeoOverlay} from '#/components/BlockedGeoOverlay'
+import {EmailDialog} from '#/components/dialogs/EmailDialog'
+import {InAppBrowserConsentDialog} from '#/components/dialogs/InAppBrowserConsent'
+import {LinkWarningDialog} from '#/components/dialogs/LinkWarning'
 import {MutedWordsDialog} from '#/components/dialogs/MutedWords'
 import {SigninDialog} from '#/components/dialogs/Signin'
+import {
+  Outlet as PolicyUpdateOverlayPortalOutlet,
+  usePolicyUpdateContext,
+} from '#/components/PolicyUpdateOverlay'
 import {Outlet as PortalOutlet} from '#/components/Portal'
 import {RoutesContainer, TabsNavigator} from '#/Navigation'
 import {BottomSheetOutlet} from '../../../modules/bottom-sheet'
@@ -42,6 +51,7 @@ function ShellInner() {
   const setIsDrawerOpen = useSetDrawerOpen()
   const winDim = useWindowDimensions()
   const insets = useSafeAreaInsets()
+  const {state: policyUpdateState} = usePolicyUpdateContext()
 
   const renderDrawerContent = useCallback(() => <DrawerContent />, [])
   const onOpenDrawer = useCallback(
@@ -148,42 +158,59 @@ function ShellInner() {
           </Drawer>
         </ErrorBoundary>
       </View>
+
       <Composer winHeight={winDim.height} />
       <ModalsContainer />
       <MutedWordsDialog />
       <SigninDialog />
+      <EmailDialog />
+      <AgeAssuranceRedirectDialog />
+      <InAppBrowserConsentDialog />
+      <LinkWarningDialog />
       <Lightbox />
-      <PortalOutlet />
-      <BottomSheetOutlet />
+
+      {/* Until policy update has been completed by the user, don't render anything that is portaled */}
+      {policyUpdateState.completed && (
+        <>
+          <PortalOutlet />
+          <BottomSheetOutlet />
+        </>
+      )}
+
+      <PolicyUpdateOverlayPortalOutlet />
     </>
   )
 }
 
-export const Shell: React.FC = function ShellImpl() {
-  const {fullyExpandedCount} = useDialogStateControlContext()
-  const lightStatusBar = useLightStatusBar()
+export function Shell() {
   const t = useTheme()
+  const {geolocation} = useGeolocation()
+  const fullyExpandedCount = useDialogFullyExpandedCountContext()
+
   useIntentHandler()
 
   useEffect(() => {
-    setNavigationBar('theme', t)
+    setSystemUITheme('theme', t)
   }, [t])
 
   return (
     <View testID="mobileShellView" style={[a.h_full, t.atoms.bg]}>
-      <StatusBar
-        style={
-          t.name !== 'light' ||
-          (isIOS && fullyExpandedCount > 0) ||
-          lightStatusBar
-            ? 'light'
-            : 'dark'
-        }
-        animated
+      <SystemBars
+        style={{
+          statusBar:
+            t.name !== 'light' || (isIOS && fullyExpandedCount > 0)
+              ? 'light'
+              : 'dark',
+          navigationBar: t.name !== 'light' ? 'light' : 'dark',
+        }}
       />
-      <RoutesContainer>
-        <ShellInner />
-      </RoutesContainer>
+      {geolocation?.isAgeBlockedGeo ? (
+        <BlockedGeoOverlay />
+      ) : (
+        <RoutesContainer>
+          <ShellInner />
+        </RoutesContainer>
+      )}
     </View>
   )
 }

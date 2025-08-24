@@ -190,7 +190,7 @@ export function Root({children}: {children: React.ReactNode}) {
           if (item) playHaptic('Light')
           setHoveredMenuItem(item)
         },
-      } satisfies ContextType),
+      }) satisfies ContextType,
     [
       measurement,
       setMeasurement,
@@ -556,7 +556,7 @@ export function Outer({
       // pure vibes based
       const TOP_INSET = insets.top + 80
       const BOTTOM_INSET_IOS = insets.bottom + 20
-      const BOTTOM_INSET_ANDROID = 12 // TODO: revisit when edge-to-edge mode is enabled -sfn
+      const BOTTOM_INSET_ANDROID = insets.bottom + 12
 
       const {height} = evt.nativeEvent.layout
       const topPosition =
@@ -710,8 +710,8 @@ export function Item({
       const xOffset = position
         ? position.x
         : align === 'left'
-        ? measurement.x
-        : measurement.x + measurement.width - layout.width
+          ? measurement.x
+          : measurement.x + measurement.width - layout.width
 
       registerHoverable(
         id,

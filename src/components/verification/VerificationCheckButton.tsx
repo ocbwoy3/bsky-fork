@@ -100,7 +100,7 @@ export function Badge({
         }
         hitSlop={20}
         onPress={() => {
-          logger.metric('verification:badge:click', {})
+          logger.metric('verification:badge:click', {}, {statsig: true})
           if (state.profile.role === 'verifier') {
             verifierDialogControl.open()
           } else {
@@ -130,8 +130,8 @@ export function Badge({
                 verifiedByHidden
                   ? t.atoms.bg_contrast_100.backgroundColor
                   : state.profile.isVerified
-                  ? t.palette.primary_500
-                  : t.atoms.bg_contrast_100.backgroundColor
+                    ? t.palette.primary_500
+                    : t.atoms.bg_contrast_100.backgroundColor
               }
               verifier={state.profile.role === 'verifier'}
             />

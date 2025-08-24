@@ -14,6 +14,7 @@ import {findAllPostsInQueryData as findAllPostsInFeedQueryData} from '#/state/qu
 import {findAllPostsInQueryData as findAllPostsInQuoteQueryData} from '#/state/queries/post-quotes'
 import {findAllPostsInQueryData as findAllPostsInThreadQueryData} from '#/state/queries/post-thread'
 import {findAllPostsInQueryData as findAllPostsInSearchQueryData} from '#/state/queries/search-posts'
+import {findAllPostsInQueryData as findAllPostsInThreadV2QueryData} from '#/state/queries/usePostThread/queryCache'
 import {castAsShadow, type Shadow} from './types'
 export type {Shadow} from './types'
 
@@ -23,6 +24,7 @@ export interface PostShadow {
   isDeleted: boolean
   embed: AppBskyEmbedRecord.View | AppBskyEmbedRecordWithMedia.View | undefined
   pinned: boolean
+  optimisticReplyCount: number | undefined
 }
 
 export const POST_TOMBSTONE = Symbol('PostTombstone')
@@ -32,6 +34,14 @@ const shadows: WeakMap<
   AppBskyFeedDefs.PostView,
   Partial<PostShadow>
 > = new WeakMap()
+
+/**
+ * Use with caution! This function returns the raw shadow data for a post.
+ * Prefer using `usePostShadow`.
+ */
+export function dangerousGetPostShadow(post: AppBskyFeedDefs.PostView) {
+  return shadows.get(post)
+}
 
 export function usePostShadow(
   post: AppBskyFeedDefs.PostView,
@@ -94,6 +104,11 @@ function mergeShadow(
     repostCount = Math.max(0, repostCount)
   }
 
+  let replyCount = post.replyCount ?? 0
+  if ('optimisticReplyCount' in shadow) {
+    replyCount = shadow.optimisticReplyCount ?? replyCount
+  }
+
   let embed: typeof post.embed
   if ('embed' in shadow) {
     if (
@@ -111,6 +126,7 @@ function mergeShadow(
     embed: embed || post.embed,
     likeCount: likeCount,
     repostCount: repostCount,
+    replyCount: replyCount,
     viewer: {
       ...(post.viewer || {}),
       like: 'likeUri' in shadow ? shadow.likeUri : post.viewer?.like,
@@ -148,6 +164,9 @@ function* findPostsInCache(
     if (node.type === 'post') {
       yield node.post
     }
+  }
+  for (let post of findAllPostsInThreadV2QueryData(queryClient, uri)) {
+    yield post
   }
   for (let post of findAllPostsInSearchQueryData(queryClient, uri)) {
     yield post
