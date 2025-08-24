@@ -151,7 +151,8 @@ function DialogInner({
     displayName !== initialDisplayName ||
     description !== initialDescription ||
     userAvatar !== profile.avatar ||
-    userBanner !== profile.banner
+    userBanner !== profile.banner ||
+    (profileCustom?.pronouns || "") !== pronouns
 
   useEffect(() => {
     setDirty(dirty)
@@ -201,6 +202,7 @@ function DialogInner({
         updates: {
           displayName: displayName.trimEnd(),
           description: description.trimEnd(),
+          pronouns: pronouns.trimEnd()
         },
         newUserAvatar,
         newUserBanner,
@@ -218,6 +220,7 @@ function DialogInner({
     control,
     displayName,
     description,
+    pronouns,
     newUserAvatar,
     newUserBanner,
     setImageError,
@@ -264,7 +267,7 @@ function DialogInner({
           !dirty ||
           isUpdatingProfile ||
           displayNameTooLong ||
-          descriptionTooLong
+          descriptionTooLong 
         }
         size="small"
         color="primary"

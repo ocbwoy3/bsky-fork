@@ -109,7 +109,7 @@ const AllSettings: SettingCategory[] = [
     type: SettingCategoryType.GROUP,
     settings: [
       createToggleOption('Fix Trending', 'fixTrending', 'Show interesting topics'),
-      createToggleOption('Skeets', 'skeets', 'Rename posts to skeets'),
+      // createToggleOption('Skeets', 'skeets', 'Rename posts to skeets'), // too lazy rn
     ],
   },
 ]

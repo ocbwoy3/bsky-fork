@@ -167,6 +167,24 @@ export function useProfileUpdateMutation() {
           newUserBanner.mime,
         )
       }
+      const currentStuff = await agent.com.atproto.repo.getRecord({
+        repo: agent.did!,
+        collection: 'app.bsky.actor.profile',
+        rkey: 'self',
+      })
+      if (currentStuff.data) {
+        await agent.app.bsky.actor.profile.put(
+          {
+            repo: agent.did!,
+            // collection: 'app.bsky.actor.profile',
+            rkey: 'self',
+          },
+          {
+            ...currentStuff.data.value,
+            pronouns: (updates as any).pronouns || '',
+          },
+        )
+      }
       await agent.upsertProfile(async existing => {
         let next: Un$Typed<AppBskyActorProfile.Record> = existing || {}
         if (typeof updates === 'function') {
