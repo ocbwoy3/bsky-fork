@@ -42,6 +42,7 @@ import {ProfileHeaderHandle} from './Handle'
 import {ProfileHeaderMetrics} from './Metrics'
 import {ProfileHeaderShell} from './Shell'
 import {AnimatedProfileHeaderSuggestedFollows} from './SuggestedFollows'
+import { useCustomProfileMetadataFromAtprotoRecord } from '#/lib/hooks/ocbwoy3/useCustomProfileMetadataFromAtprotoRecord'
 
 interface Props {
   profile: AppBskyActorDefs.ProfileViewDetailed
@@ -62,6 +63,7 @@ let ProfileHeaderStandard = ({
   const {gtMobile} = useBreakpoints()
   const profile =
     useProfileShadow<AppBskyActorDefs.ProfileViewDetailed>(profileUnshadowed)
+  const { data: profileCustom } = useCustomProfileMetadataFromAtprotoRecord({did: profile.did})
   const {currentAccount, hasSession} = useSession()
   const {_} = useLingui()
   const moderation = useMemo(
@@ -286,7 +288,7 @@ let ProfileHeaderStandard = ({
                 </View>
               </Text>
             </View>
-            <ProfileHeaderHandle profile={profile} />
+            <ProfileHeaderHandle profile={profile} customProfile={profileCustom} />
           </View>
           {!isPlaceholderProfile && !isBlockedUser && (
             <View style={a.gap_md}>

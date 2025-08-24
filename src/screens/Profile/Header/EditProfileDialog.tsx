@@ -25,9 +25,11 @@ import {Loader} from '#/components/Loader'
 import * as Prompt from '#/components/Prompt'
 import {Text} from '#/components/Typography'
 import {useSimpleVerificationState} from '#/components/verification'
+import {useCustomProfileMetadataFromAtprotoRecord} from '#/lib/hooks/ocbwoy3/useCustomProfileMetadataFromAtprotoRecord'
 
 const DISPLAY_NAME_MAX_GRAPHEMES = 64
 const DESCRIPTION_MAX_GRAPHEMES = 256
+const PRONOUNS_MAX_GRAPHEMES = 64
 
 const SCREEN_HEIGHT = Dimensions.get('window').height
 
@@ -116,11 +118,22 @@ function DialogInner({
     isError: isUpdateProfileError,
     isPending: isUpdatingProfile,
   } = useProfileUpdateMutation()
+
+  const {data: profileCustom} = useCustomProfileMetadataFromAtprotoRecord({
+    did: profile.did,
+  })
+
   const [imageError, setImageError] = useState('')
   const initialDisplayName = profile.displayName || ''
   const [displayName, setDisplayName] = useState(initialDisplayName)
   const initialDescription = profile.description || ''
   const [description, setDescription] = useState(initialDescription)
+  const [pronouns, setPronouns] = useState(
+    profileCustom && typeof profileCustom.pronouns === 'string'
+      ? profileCustom.pronouns
+      : '',
+  )
+
   const [userBanner, setUserBanner] = useState<string | undefined | null>(
     profile.banner,
   )
@@ -218,6 +231,10 @@ function DialogInner({
   const descriptionTooLong = useWarnMaxGraphemeCount({
     text: description,
     maxCount: DESCRIPTION_MAX_GRAPHEMES,
+  })
+  const pronounsTooLong = useWarnMaxGraphemeCount({
+    text: pronouns,
+    maxCount: PRONOUNS_MAX_GRAPHEMES,
   })
 
   const cancelButton = useCallback(
@@ -370,12 +387,12 @@ function DialogInner({
               defaultValue={description}
               onChangeText={setDescription}
               multiline
-              label={_(msg`Display name`)}
+              label={_(msg`Description`)}
               placeholder={_(msg`Tell us a bit about yourself`)}
               testID="editProfileDescriptionInput"
             />
           </TextField.Root>
-          {descriptionTooLong && (
+          {displayNameTooLong && (
             <Text
               style={[
                 a.text_sm,
@@ -386,6 +403,34 @@ function DialogInner({
               <Plural
                 value={DESCRIPTION_MAX_GRAPHEMES}
                 other="Description is too long. The maximum number of characters is #."
+              />
+            </Text>
+          )}
+        </View>
+        <View>
+          <TextField.LabelText>
+            <Trans>Pronouns</Trans>
+          </TextField.LabelText>
+          <TextField.Root isInvalid={pronounsTooLong}>
+            <Dialog.Input
+              defaultValue={pronouns}
+              onChangeText={setPronouns}
+              label={_(msg`Pronouns`)}
+              placeholder={_(msg`e.g. they/them`)}
+              testID="editProfilePronounsInput"
+            />
+          </TextField.Root>
+          {pronounsTooLong && (
+            <Text
+              style={[
+                a.text_sm,
+                a.mt_xs,
+                a.font_bold,
+                {color: t.palette.negative_400},
+              ]}>
+              <Plural
+                value={PRONOUNS_MAX_GRAPHEMES}
+                other="Pronouns too long. The maximum number of characters is #."
               />
             </Text>
           )}

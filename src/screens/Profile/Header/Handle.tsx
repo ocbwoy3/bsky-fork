@@ -9,12 +9,15 @@ import {type Shadow} from '#/state/cache/types'
 import {atoms as a, useTheme, web} from '#/alf'
 import {NewskieDialog} from '#/components/NewskieDialog'
 import {Text} from '#/components/Typography'
+import {CustomProfileMetadata} from '#/lib/hooks/ocbwoy3/useCustomProfileMetadataFromAtprotoRecord'
 
 export function ProfileHeaderHandle({
   profile,
+  customProfile,
   disableTaps,
 }: {
   profile: Shadow<AppBskyActorDefs.ProfileViewDetailed>
+  customProfile: CustomProfileMetadata | undefined
   disableTaps?: boolean
 }) {
   const t = useTheme()
@@ -62,6 +65,14 @@ export function ProfileHeaderHandle({
               isNative,
             )}
       </Text>
+      {customProfile && typeof customProfile.pronouns === 'string' && (
+        <Text
+          emoji
+          numberOfLines={1}
+          style={[a.text_md, a.leading_snug, t.atoms.text_contrast_medium]}>
+          {customProfile.pronouns}
+        </Text>
+      )}
     </View>
   )
 }
