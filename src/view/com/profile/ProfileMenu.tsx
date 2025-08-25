@@ -57,6 +57,7 @@ import {useFullVerificationState} from '#/components/verification'
 import {VerificationCreatePrompt} from '#/components/verification/VerificationCreatePrompt'
 import {VerificationRemovePrompt} from '#/components/verification/VerificationRemovePrompt'
 import {useDevMode} from '#/storage/hooks/dev-mode'
+import { CodeBrackets_Stroke2_Corner0_Rounded } from '#/components/icons/CodeBrackets'
 
 let ProfileMenu = ({
   profile,
@@ -436,6 +437,15 @@ let ProfileMenu = ({
                     <Trans>Copy DID</Trans>
                   </Menu.ItemText>
                   <Menu.ItemIcon icon={ClipboardIcon} />
+                </Menu.Item>
+                <Menu.Item
+                  testID="profileHeaderDropdownShareDIDBtn"
+                  label={_(msg`Open Repo`)}
+                  onPress={()=>open(`https://pdsls.dev/at://${profile.did}`)}>
+                  <Menu.ItemText>
+                    <Trans>Open Repo</Trans>
+                  </Menu.ItemText>
+                  <Menu.ItemIcon icon={CodeBrackets_Stroke2_Corner0_Rounded} />
                 </Menu.Item>
               </Menu.Group>
             </>

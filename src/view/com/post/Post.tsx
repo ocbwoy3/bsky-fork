@@ -37,6 +37,9 @@ import {PostControls} from '#/components/PostControls'
 import {RichText} from '#/components/RichText'
 import {SubtleWebHover} from '#/components/SubtleWebHover'
 import * as bsky from '#/types/bsky'
+import {useTGPCensor} from '#/lib/hooks/ocbwoy3/useTGPCensor'
+import {Admonition} from '#/components/Admonition'
+import {Trans} from '@lingui/macro'
 
 export function Post({
   post,

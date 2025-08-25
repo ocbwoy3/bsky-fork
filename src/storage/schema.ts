@@ -20,10 +20,13 @@ export const DummyOCbwoy3SettingsSchema = {
   bypassHideWarning: false,
   unverifyNyt: true,
 
+  // QOL
+  theGooberProject: true,
+
   // Fun
   forceAgeVerification: false, // uk mode
   fixTrending: false,
-  skeets: false
+  skeets: false,
 }
 
 export type Device = {

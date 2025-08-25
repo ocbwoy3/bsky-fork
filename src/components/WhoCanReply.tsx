@@ -74,7 +74,9 @@ export function WhoCanReply({post, isThreadAuthor, style}: WhoCanReplyProps) {
     settings.length === 1 && settings[0].type === 'everybody'
   const noOneCanReply = settings.length === 1 && settings[0].type === 'nobody'
   const description = anyoneCanReply
-    ? _(msg`Everybody can reply`)
+    ? _(
+        msg`Everybody can reply`,
+      )
     : noOneCanReply
       ? _(msg`Replies disabled`)
       : _(msg`Some people can reply`)
@@ -146,6 +148,13 @@ export function WhoCanReply({post, isThreadAuthor, style}: WhoCanReplyProps) {
           settings={settings}
           embeddingDisabled={Boolean(post.viewer?.embeddingDisabled)}
         />
+      )}
+
+      {(post.record.posting_client || post.record.via) && (
+        <Text
+          style={[a.text_sm, a.leading_tight, t.atoms.text_contrast_medium]}>
+          {(post.record.posting_client as string) || (post.record.via as string)}
+        </Text>
       )}
     </>
   )

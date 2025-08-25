@@ -10,6 +10,7 @@ import { InlineLinkText } from '#/components/Link'
 import { Text } from '#/components/Typography'
 import { device, DummyOCbwoy3SettingsSchema } from '#/storage/index'
 import { OCbwoy3BskyHackSettingToggle } from './BskyHackSettings/SettingToggle'
+import { useDevMode } from '#/storage/hooks/dev-mode'
 
 enum SettingType {
   ON_OFF = 1,
@@ -79,20 +80,20 @@ function createToggleOption(
 
 const AllSettings: SettingCategory[] = [
   {
-    title: 'Labeler / AT Protocol fuckery',
+    title: 'AT Protocol fuckery',
     type: SettingCategoryType.GROUP,
     settings: [
       createToggleOption(
         'Disable Region-specific labelers',
         'disableAppLabelers',
-        'Prevents Bluesky from applying additional labelers'
+        'e.g. labelers required in your country/region'
       ),
       createToggleOption(
-        'Disable Bluesky Moderation',
+        'Disable Bluesky\'s Labeler',
         'disableBlueskyLabelerAtproto',
-        'Disables the default Bluesky labeler'
+        // 'Disables the default Bluesky labeler'
       ),
-      createToggleOption('Infinite labeler limit', 'increaseLabelerLimit', 'Lets you add unlimited labelers. Might break ATProto.'),
+      createToggleOption('Infinite labelers', 'increaseLabelerLimit', 'Uncap the labeler limit. Will break Bluesky or ATProto.'),
     ],
   },
   {
@@ -102,6 +103,7 @@ const AllSettings: SettingCategory[] = [
       createToggleOption('Restore Backdated posts', 'restoreBackdatedPosts', 'Show a post\'s self-identified timestamp'),
       createToggleOption('Bypass !warn, !hide', 'bypassHideWarning', 'Bypasses content hidden by labelers. Might not work.'),
       createToggleOption('Bluesky for iPhone', 'blueskyForWeb', 'Let users see what device you post from'),
+      createToggleOption('The Goober Project', 'theGooberProject', 'Disables media in Roblox NSFW posts') // @doqdev plz make a labeler
     ],
   },
   {
@@ -117,6 +119,7 @@ const AllSettings: SettingCategory[] = [
 type Props = NativeStackScreenProps<CommonNavigatorParams, 'BskyHackSettings'>
 export function BskyHackSettingsScreen({}: Props) {
   const t = useTheme()
+  const [devModeEnabled, setDevModeEnabled] = useDevMode()
 
   const otherSettings: SettingCategory[] = [
     {
@@ -127,7 +130,17 @@ export function BskyHackSettingsScreen({}: Props) {
         createToggleOptionBluesky('Kawaii', 'kawaii', 'Changes the Bluesky logo to be kawaii'),
         createToggleOption('Unverify the New York Times', 'unverifyNyt', 'Why verify them in the first place?'),
         createToggleOption('Bypass age verification', 'skipModSettingAgeCheck', 'Lets you enable NSFW, bypasses UK mode'),
-        createToggleOption('UK Mode', 'forceAgeVerification', 'Foces you into verifying your ID'),
+        {
+          name: "Developer Mode",
+          settingId: "devMode",
+          desc: "Shows some developer options (e.g. Copy DID)",
+          onUpdate: (n) => {
+            setDevModeEnabled(n as boolean)
+          },
+          type: SettingType.ON_OFF,
+          getState: ()=>{ return devModeEnabled.valueOf() }
+        }
+        // createToggleOption('Force Age Verification', 'forceAgeVerification', 'Foces you to verify your ID'),
       ],
     },
   ]

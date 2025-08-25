@@ -868,20 +868,6 @@ function ExpandedPostDetails({
   return (
     <View style={[a.gap_md, a.pt_md, a.align_start]}>
       <BackdatedPostIndicator post={post} />
-      {((post.record as any).posting_client || (post.record as any).via) ? (
-        <Text>
-          <Trans>
-            {`${(post.record as any).posting_client || (post.record as any).via}`.startsWith('Bluesky for ')
-              ? ''
-              : 'Posted with '}
-            <Text style={[a.font_bold]}>
-              {(post.record as any).posting_client || (post.record as any).via || ''}
-            </Text>
-          </Trans>
-        </Text>
-      ) : (
-        <></>
-      )}
       <View style={[a.flex_row, a.align_center, a.flex_wrap, a.gap_sm]}>
         <Text style={[a.text_sm, t.atoms.text_contrast_medium]}>
           {niceDate(i18n, (post.record as any).createdAt || post.indexedAt)}
