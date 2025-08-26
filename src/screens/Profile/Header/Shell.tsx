@@ -214,10 +214,10 @@ let ProfileHeaderShell = ({
           style={[a.px_lg, a.pt_xs, a.pb_sm]}
           pointerEvents={isIOS ? 'auto' : 'box-none'}>
           {isMe ? (
-            <>
-              {/* <ProfileHeaderAlerts moderation={moderation} /> */}
+            <View style={[a.gap_lg]}>
+              <ProfileHeaderAlerts moderation={moderation} />
               <LabelsOnMe type="account" labels={profile.labels} />
-            </>
+            </View>
           ) : (
             <ProfileHeaderAlerts moderation={moderation} />
           )}

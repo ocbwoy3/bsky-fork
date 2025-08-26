@@ -23,6 +23,7 @@ import {EyeSlash_Stroke2_Corner0_Rounded as EyeSlash} from '#/components/icons/E
 import {Loader} from '#/components/Loader'
 import {useHider} from '#/components/moderation/Hider'
 import {Text} from '#/components/Typography'
+import { getOCbwoy3Settings } from '#/lib/constants'
 
 export function ListHiddenScreen({
   list,
@@ -178,7 +179,7 @@ export function ListHiddenScreen({
               ) : null}
             </Button>
           ) : null}
-          {isOwner ? (
+          {(isOwner || getOCbwoy3Settings().bypassHideWarning) ? (
             <Button
               variant="solid"
               color="secondary"

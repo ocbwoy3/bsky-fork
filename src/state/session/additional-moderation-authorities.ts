@@ -2,6 +2,7 @@ import {BskyAgent} from '@atproto/api'
 
 import {logger} from '#/logger'
 import {device} from '#/storage'
+import { forceLabelerDidsWithOpt } from './ocbwoy3/modAuthoritiesLib'
 
 export const BR_LABELER = 'did:plc:ekitcvx7uwnauoqy5oest3hm' // Brazil
 export const DE_LABELER = 'did:plc:r55ow3tocux5kafs5dq445fy' // Germany
@@ -61,12 +62,14 @@ const MODERATION_AUTHORITIES: {
   SE: [EU_LABELER], // Sweden
 }
 
+let FORCED_MOD_AUTHORITIES: string[] = [];
+
 const MODERATION_AUTHORITIES_DIDS = Array.from(
   new Set(Object.values(MODERATION_AUTHORITIES).flat()),
 )
 
 export function isNonConfigurableModerationAuthority(did: string) {
-  return MODERATION_AUTHORITIES_DIDS.includes(did)
+  return MODERATION_AUTHORITIES_DIDS.includes(did) || FORCED_MOD_AUTHORITIES.includes(did)
 }
 
 export function configureAdditionalModerationAuthorities() {
@@ -93,9 +96,15 @@ export function configureAdditionalModerationAuthorities() {
     additionalLabelers = []
   }
 
+  if (ocbwoy3_settings.enableGoodAppLabelers) {
+    additionalLabelers = [...additionalLabelers, ...forceLabelerDidsWithOpt]
+  }
+
   const appLabelers = Array.from(
     new Set([...BskyAgent.appLabelers, ...additionalLabelers]),
   )
+
+  FORCED_MOD_AUTHORITIES = [...BskyAgent.appLabelers, ...additionalLabelers];
 
   logger.info(`applying mod authorities`, {
     additionalLabelers,

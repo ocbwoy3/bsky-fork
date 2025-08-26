@@ -135,7 +135,7 @@ export function Shell() {
   const {geolocation} = useGeolocation()
   return (
     <View style={[a.util_screen_outer, t.atoms.bg]}>
-      {geolocation?.isAgeBlockedGeo ? (
+      {false /* geolocation?.isAgeBlockedGeo */ ? (
         <BlockedGeoOverlay />
       ) : (
         <RoutesContainer>

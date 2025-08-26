@@ -8,28 +8,36 @@ import {getOCbwoy3Settings} from '#/lib/constants'
 
 const st = getOCbwoy3Settings()
 
-const FORCE_UNVERIFIED_DIDS = st.unverifyNyt
-  ? [
-      'did:plc:eclio37ymobqex2ncko63h4r', // NYT
-    ]
-  : []
+const FORCE_UNVERIFIED_DIDS: string[] = [
+  ...(st.unverifyNyt
+    ? [
+        'did:plc:eclio37ymobqex2ncko63h4r', // NYT
+        "did:plc:vovinwhtulbsx4mwfw26r5ni" // the guardian
+      ]
+    : []),
+    "did:plc:tkspefzlu72575kljanhe3uj" // jd vance
+]
 
-const FORCE_UNVERIFIED_VERIFIERS = st.unverifyNyt
-  ? [
-      'did:plc:eclio37ymobqex2ncko63h4r', // NYT
-    ]
-  : []
+const FORCE_UNVERIFIED_VERIFIERS: string[] = [
+  ...(st.unverifyNyt
+    ? [
+        'did:plc:eclio37ymobqex2ncko63h4r', // NYT
+        "did:plc:vovinwhtulbsx4mwfw26r5ni" // the guardian
+      ]
+    : []),
+    "did:plc:tkspefzlu72575kljanhe3uj" // jd vance
+]
 
 const FORCE_ISSUER_DIDS = [
-  "did:plc:s7cesz7cr6ybltaryy4meb6y",
-  "did:plc:p5bauvemeju4opbauvyduuos", // doqe
-  "did:plc:y6t5f7ndcli4mbfv64k2s44e" // tgp
+  'did:plc:s7cesz7cr6ybltaryy4meb6y',
+  'did:plc:p5bauvemeju4opbauvyduuos', // doqe
+  'did:plc:y6t5f7ndcli4mbfv64k2s44e', // tgp
 ]
 
 const FORCE_VERIFIED_DIDS = [
   'did:plc:s7cesz7cr6ybltaryy4meb6y',
   'did:plc:p5bauvemeju4opbauvyduuos', // doqe
-  'did:plc:y6t5f7ndcli4mbfv64k2s44e' // tgp
+  'did:plc:y6t5f7ndcli4mbfv64k2s44e', // tgp
 ]
 
 export type FullVerificationState = {
@@ -96,7 +104,8 @@ export function useFullVerificationState({
     }
 
     if (
-      FORCE_ISSUER_DIDS.includes(profile.did) || FORCE_VERIFIED_DIDS.includes(profile.did)
+      FORCE_ISSUER_DIDS.includes(profile.did) ||
+      FORCE_VERIFIED_DIDS.includes(profile.did)
     ) {
       return {
         profile: {
@@ -106,17 +115,16 @@ export function useFullVerificationState({
           isViewer: profile.did === currentAccount?.did,
           showBadge: true,
         },
-        viewer:
-           FORCE_ISSUER_DIDS.includes(profile.did)
-            ? {
-                role: 'verifier',
-                isVerified: viewerState.isVerified,
-                hasIssuedVerification: false,
-              }
-            : {
-                role: 'default',
-                isVerified: viewerState.isVerified,
-              },
+        viewer: FORCE_ISSUER_DIDS.includes(profile.did)
+          ? {
+              role: 'verifier',
+              isVerified: viewerState.isVerified,
+              hasIssuedVerification: false,
+            }
+          : {
+              role: 'default',
+              isVerified: viewerState.isVerified,
+            },
       }
     }
 

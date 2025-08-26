@@ -29,19 +29,19 @@ export function useGlobalLabelStrings(): GlobalLabelStrings {
       '!no-unauthenticated': {
         name: _(msg`Sign-in Required`),
         description: _(
-          msg`This user has given themselves the !no-unauthenticated label, therefore you must log in to see the user's posts.`,
+          msg`This user has labeled themselves or their content with the !no-unauthenticated global label value defined by the AT Protocol. You must log in.`,
         ),
       },
       porn: {
-        name: _(msg`Adult Content`),
-        description: _(msg`Explicit sexual images.`),
+        name: _(msg`Porn`),
+        description: _(msg`Pornography, explicit sexual content.`),
       },
       sexual: {
         name: _(msg`Sexually Suggestive`),
         description: _(msg`Does not include nudity.`),
       },
       nudity: {
-        name: _(msg`Non-sexual Nudity`),
+        name: _(msg`Nudity`),
         description: _(msg`E.g. artistic nudes.`),
       },
       'graphic-media': {
@@ -49,7 +49,7 @@ export function useGlobalLabelStrings(): GlobalLabelStrings {
         description: _(msg`Explicit or potentially disturbing media.`),
       },
       gore: {
-        name: _(msg`Graphic Media`),
+        name: _(msg`Gore`),
         description: _(msg`Explicit or potentially disturbing media.`),
       },
     }),

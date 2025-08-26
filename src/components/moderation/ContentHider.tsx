@@ -4,19 +4,20 @@ import {type ModerationUI} from '@atproto/api'
 import {msg, Trans} from '@lingui/macro'
 import {useLingui} from '@lingui/react'
 
-import { ADULT_CONTENT_LABELS, isJustAMute } from '#/lib/moderation'
-import { useGlobalLabelStrings } from '#/lib/moderation/useGlobalLabelStrings'
-import { getDefinition, getLabelStrings } from '#/lib/moderation/useLabelInfo'
-import { useModerationCauseDescription } from '#/lib/moderation/useModerationCauseDescription'
-import { sanitizeDisplayName } from '#/lib/strings/display-names'
-import { useLabelDefinitions } from '#/state/preferences'
-import { atoms as a, useBreakpoints, useTheme, web } from '#/alf'
-import { Button } from '#/components/Button'
+import {ADULT_CONTENT_LABELS, isJustAMute} from '#/lib/moderation'
+import {useGlobalLabelStrings} from '#/lib/moderation/useGlobalLabelStrings'
+import {getDefinition, getLabelStrings} from '#/lib/moderation/useLabelInfo'
+import {useModerationCauseDescription} from '#/lib/moderation/useModerationCauseDescription'
+import {sanitizeDisplayName} from '#/lib/strings/display-names'
+import {useLabelDefinitions} from '#/state/preferences'
+import {atoms as a, useBreakpoints, useTheme, web} from '#/alf'
+import {Button} from '#/components/Button'
 import {
   ModerationDetailsDialog,
   useModerationDetailsDialogControl,
 } from '#/components/moderation/ModerationDetailsDialog'
-import { Text } from '#/components/Typography'
+import {Text} from '#/components/Typography'
+import {getOCbwoy3Settings} from '#/lib/constants'
 
 export function ContentHider({
   testID,
@@ -36,9 +37,6 @@ export function ContentHider({
   children?: React.ReactNode | ((props: {active: boolean}) => React.ReactNode)
 }) {
   const blur = modui?.blurs[0]
-  if (modui) {
-    modui.noOverride = false;
-  }
   if (!blur || (ignoreMute && isJustAMute(modui))) {
     return (
       <View testID={testID} style={style}>
@@ -146,7 +144,7 @@ function ContentHiderActive({
         onPress={e => {
           e.preventDefault()
           e.stopPropagation()
-          if (!modui.noOverride) {
+          if (getOCbwoy3Settings().bypassHideWarning || !modui.noOverride) {
             setOverride(v => !v)
           } else {
             control.open()
@@ -154,7 +152,7 @@ function ContentHiderActive({
         }}
         label={desc.name}
         accessibilityHint={
-          modui.noOverride
+          (!getOCbwoy3Settings().bypassHideWarning || modui.noOverride)
             ? _(msg`Learn more about the moderation applied to this content`)
             : override
               ? _(msg`Hides the content`)
@@ -195,7 +193,7 @@ function ContentHiderActive({
               numberOfLines={2}>
               {labelName}
             </Text>
-            {!modui.noOverride && (
+            {(getOCbwoy3Settings().bypassHideWarning || !modui.noOverride) && (
               <Text
                 style={[
                   a.font_bold,

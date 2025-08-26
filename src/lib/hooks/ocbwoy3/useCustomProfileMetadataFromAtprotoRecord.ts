@@ -17,10 +17,29 @@ const {
 */
 
 import {STALE} from '#/state/queries'
-import {useAgent} from '#/state/session'
 import {AppBskyActorProfile} from '@atproto/api'
 import {useQuery} from '@tanstack/react-query'
 import {_ocbwoy3AppViewAgent} from './lib'
+import { logger } from '#/logger'
+
+/** TODO: Put all dev.ocbwoy3.* lexicons on my repo
+ * dev.ocbwoy3.bsky.showcaseButtons
+ * dev.ocbwoy3.bsky.defs
+*/
+
+type devOCbwoy3BskyDefs = 
+  | "dev.ocbwoy3.bsky.defs#topicShowcase"
+  | "dev.ocbwoy3.bsky.defs#profileShowcase"
+  | "dev.ocbwoy3.bsky.defs#externalUrlShowcase"
+
+/** Determines it `t` is a valid `dev.ocbwoy3.bsky.defs` value */
+export function isValidOCbwoy3BskyDef(t: string): boolean {
+  return (
+    t === "dev.ocbwoy3.bsky.defs#topicShowcase" ||
+    t === "dev.ocbwoy3.bsky.defs#profileShowcase" ||
+    t === "dev.ocbwoy3.bsky.defs#externalUrlShowcase"
+  )
+}
 
 /**
  * We can't validate the validity of this, so treat the data with caution, especially links.
@@ -45,7 +64,14 @@ export type CustomProfileMetadata = AppBskyActorProfile.Record & {
     year?: number
   }
   /** A thought/speech bubble coming out of the user's PFP */
-  speechBubble?: string
+  speechBubble?: string,
+  /** Buttons shown on the user's profile */
+  'dev.ocbwoy3.bsky.showcaseButtons'?: {
+    label?: string,
+    value?: string,
+    type?: devOCbwoy3BskyDefs
+  },
+  'dev.ocbwoy3.bsky.myProps'?: {[a: string]: string | any}
 }
 
 const RQKEY_ROOT = 'profileCustom'
@@ -72,7 +98,7 @@ export function useCustomProfileMetadataFromAtprotoRecord({
         // collection: "app.bsky.actor.profile",
         rkey: 'self',
       })
-      console.warn("[ocbwoy3]","useCustomProfileMetadataFromAtprotoRecord",did,res.value)
+      logger.info("[ocbwoy3] useCustomProfileMetadataFromAtprotoRecord",{did,res:res.value})
       return res.value ? res.value as CustomProfileMetadata : undefined
     },
     placeholderData: () => {

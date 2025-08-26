@@ -548,7 +548,7 @@ export function ModerationScreenInner({
             <>
               <br />
               <CopyButton
-                value={labelers.map(a => a.creator.did).join('\n')}
+                value={labelers.map(a => `${a.creator.displayName} - ${a.creator.did}`).join('\n')}
                 label="test">
                 <Text>Copy Labeler DIDs</Text>
               </CopyButton>

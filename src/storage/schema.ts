@@ -9,6 +9,7 @@ export const DummyOCbwoy3SettingsSchema = {
   disableAppLabelers: true,
   disableBlueskyLabelerAtproto: false,
   increaseLabelerLimit: true,
+  enableGoodAppLabelers: true,
 
   // ATPROTO HACKS
   blueskyForWeb: true,
@@ -22,6 +23,7 @@ export const DummyOCbwoy3SettingsSchema = {
 
   // QOL
   theGooberProject: true,
+  profileShowcaseButtons: true,
 
   // Fun
   forceAgeVerification: false, // uk mode

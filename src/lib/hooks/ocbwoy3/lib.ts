@@ -1,3 +1,5 @@
+// Written by OCbwoy3 (@ocbwoy3.dev) - Bluesky Mod
+
 import {PUBLIC_APPVIEW} from '#/lib/constants'
 import AtpAgent from '@atproto/api'
 

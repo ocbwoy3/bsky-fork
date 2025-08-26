@@ -204,7 +204,7 @@ export function Shell() {
           navigationBar: t.name !== 'light' ? 'light' : 'dark',
         }}
       />
-      {geolocation?.isAgeBlockedGeo ? (
+      {false /* geolocation?.isAgeBlockedGeo */ ? (
         <BlockedGeoOverlay />
       ) : (
         <RoutesContainer>

@@ -85,6 +85,7 @@ import {
 } from '#/components/moderation/ReportDialog'
 import * as Prompt from '#/components/Prompt'
 import {RichText} from '#/components/RichText'
+import { getOCbwoy3Settings } from '#/lib/constants'
 
 interface SectionRef {
   scrollToTop: () => void
@@ -204,7 +205,7 @@ function ProfileListScreenLoaded({
 
   if (isCurateList) {
     return (
-      <Hider.Outer modui={moderation.ui('contentView')} allowOverride={isOwner}>
+      <Hider.Outer modui={moderation.ui('contentView')} allowOverride={getOCbwoy3Settings().bypassHideWarning || isOwner}>
         <Hider.Mask>
           <ListHiddenScreen list={list} preferences={preferences} />
         </Hider.Mask>
@@ -261,7 +262,7 @@ function ProfileListScreenLoaded({
     )
   }
   return (
-    <Hider.Outer modui={moderation.ui('contentView')} allowOverride={isOwner}>
+    <Hider.Outer modui={moderation.ui('contentView')} allowOverride={getOCbwoy3Settings().bypassHideWarning || isOwner}>
       <Hider.Mask>
         <ListHiddenScreen list={list} preferences={preferences} />
       </Hider.Mask>

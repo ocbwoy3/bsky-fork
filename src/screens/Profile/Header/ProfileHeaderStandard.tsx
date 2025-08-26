@@ -42,7 +42,9 @@ import {ProfileHeaderHandle} from './Handle'
 import {ProfileHeaderMetrics} from './Metrics'
 import {ProfileHeaderShell} from './Shell'
 import {AnimatedProfileHeaderSuggestedFollows} from './SuggestedFollows'
-import { useCustomProfileMetadataFromAtprotoRecord } from '#/lib/hooks/ocbwoy3/useCustomProfileMetadataFromAtprotoRecord'
+import {useCustomProfileMetadataFromAtprotoRecord} from '#/lib/hooks/ocbwoy3/useCustomProfileMetadataFromAtprotoRecord'
+import {Admonition} from '#/components/Admonition'
+import MyProps from './ocbwoy3/MyProps'
 
 interface Props {
   profile: AppBskyActorDefs.ProfileViewDetailed
@@ -63,7 +65,9 @@ let ProfileHeaderStandard = ({
   const {gtMobile} = useBreakpoints()
   const profile =
     useProfileShadow<AppBskyActorDefs.ProfileViewDetailed>(profileUnshadowed)
-  const { data: profileCustom } = useCustomProfileMetadataFromAtprotoRecord({did: profile.did})
+  const {data: profileCustom} = useCustomProfileMetadataFromAtprotoRecord({
+    did: profile.did,
+  })
   const {currentAccount, hasSession} = useSession()
   const {_} = useLingui()
   const moderation = useMemo(
@@ -288,7 +292,10 @@ let ProfileHeaderStandard = ({
                 </View>
               </Text>
             </View>
-            <ProfileHeaderHandle profile={profile} customProfile={profileCustom} />
+            <ProfileHeaderHandle
+              profile={profile}
+              customProfile={profileCustom}
+            />
           </View>
           {!isPlaceholderProfile && !isBlockedUser && (
             <View style={a.gap_md}>
@@ -306,33 +313,25 @@ let ProfileHeaderStandard = ({
                 </View>
               ) : undefined}
 
-            {profile.did === 'did:plc:y6t5f7ndcli4mbfv64k2s44e' ? (
-              <Text>
-                This user is OCbwoy3-Verified.
-              </Text>
-            ) : (
-              <></>
-            )}
+              <MyProps md={profileCustom} />
 
-            {profile.did === 'did:plc:s7cesz7cr6ybltaryy4meb6y' ? (
-              <OCbwoy3DiscordStatus
-                allowedApplicationIds={['886578863147192350']}
-                disallowNullApps
-              />
-            ) : (
-              <></>
-            )}
+              {profile.did === 'did:plc:s7cesz7cr6ybltaryy4meb6y' ? (
+                <OCbwoy3DiscordStatus
+                  allowedApplicationIds={['886578863147192350']}
+                  disallowNullApps
+                />
+              ) : (
+                <></>
+              )}
 
-              {!isMe &&
-                !isBlockedUser &&
-                shouldShowKnownFollowers(profile.viewer?.knownFollowers) && (
-                  <View style={[a.flex_row, a.align_center, a.gap_sm]}>
-                    <KnownFollowers
-                      profile={profile}
-                      moderationOpts={moderationOpts}
-                    />
-                  </View>
-                )}
+              {shouldShowKnownFollowers(profile.viewer?.knownFollowers) && (
+                <View style={[a.flex_row, a.align_center, a.gap_sm]}>
+                  <KnownFollowers
+                    profile={profile}
+                    moderationOpts={moderationOpts}
+                  />
+                </View>
+              )}
             </View>
           )}
         </View>
