@@ -178,7 +178,7 @@ export function AppearanceSettingsScreen({}: Props) {
                 onChange={onChangeFontScale}
               />
 
-              {isNative && IS_INTERNAL && (
+              {isNative && (
                 <>
                   <SettingsList.Divider />
                   <AppIconSettingsListItem />
