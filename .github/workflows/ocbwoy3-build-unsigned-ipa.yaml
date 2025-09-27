@@ -1,60 +1,82 @@
-name: Build Unsigned IPA (for Sideloading)
+name: Build Unsigned IPA
 
 on:
   workflow_dispatch:
+    inputs:
+      profile:
+        type: choice
+        description: Build profile to use
+        options:
+          - testflight
+          - production
 
 jobs:
-  build-ios:
-    runs-on: macos-latest
-    steps:
-      - uses: actions/checkout@v4
+  build:
+    name: Build Bluesky.ipa (unsigned)
+    runs-on: macos-15
 
-      - name: Set up Node.js
+    steps:
+      - name: ⬇️ Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 5
+
+      - name: 🔧 Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version-file: .nvmrc
+          cache: yarn
 
-      - name: Install Yarn
-        run: npm install -g yarn
+      - name: 🪛 Setup jq
+        uses: dcarbone/install-jq-action@v2
 
-      - name: Install dependencies
-        run: yarn install --frozen-lockfile
+      - name: ⛏️ Setup EAS local builds
+        run: yarn global add eas-cli eas-cli-local-build-plugin
 
-      - name: Prebuild `ios`
-        run: yarn expo prebuild --yarn -p ios
+      - name: ⚙️ Install dependencies
+        run: yarn install
 
-      - name: Install CocoaPods
+      - name: 🛠 Install iOS build dependencies
         run: |
-          cd ios
-          pod install
-          cd ..
+          brew install cocoapods
+          cd ios && pod install && cd ..
 
-      - name: Copy exportOptions.plist
+      - name: 🔤 Compile translations
+        run: yarn intl:build 2>&1 | tee i18n.log
+
+      - name: Check for i18n compilation errors
         run: |
-          cp .ocbwoy3/exportOptions.plist ios/exportOptions.plist
+          if grep -q "invalid syntax" "i18n.log"; then
+            echo "\n\nFound compilation errors!\n\n"
+            exit 1
+          else
+            echo "\n\nNo compilation errors!\n\n"
+          fi
 
-      - name: Build iOS app (unsigned)
+      - name: ✏️ Write environment variables
+        id: env
         run: |
-          xcodebuild \
-            -project ios/Bluesky.xcodeproj \
-            -scheme Bluesky \
-            -configuration Release \
-            -sdk iphoneos \
-            -archivePath build/Bluesky.xcarchive archive \
-            CODE_SIGN_IDENTITY="" \
-            CODE_SIGNING_REQUIRED=NO \
-            CODE_SIGNING_ALLOWED=NO
+          echo "# ocbwoy3 was here" > .env
+          echo "EXPO_PUBLIC_RELEASE_VERSION=$(jq -r '.version' package.json)" >> .env
+          echo "EXPO_PUBLIC_RELEASE_VERSION=$(jq -r '.version' package.json)" >> $GITHUB_OUTPUT
+          echo "EXPO_PUBLIC_BUNDLE_IDENTIFIER=$(git rev-parse HEAD)" >> .env
+          echo "EXPO_PUBLIC_BUNDLE_IDENTIFIER=$(git rev-parse HEAD)" >> $GITHUB_OUTPUT
+          echo "EXPO_PUBLIC_BUNDLE_DATE=$(date -u +"%y%m%d%H")" >> .env
+          echo "{}" > google-services.json
 
-      - name: Package IPA
+      - name: 🏗️ Local EAS Build (Unsigned)
         run: |
-          xcodebuild \
-            -exportArchive \
-            -archivePath build/Bluesky.xcarchive \
-            -exportPath build/ipa \
-            -exportOptionsPlist ios/exportOptions.plist
+          yarn use-build-number-with-bump
+          eas build -p ios \
+            --profile ${{ inputs.profile || 'testflight' }} \
+            --local \
+            --skip-credentials \
+            --output build.ipa \
+            --non-interactive
 
-      - name: Upload artifact
-        uses: actions/upload-artifact@v4
+      - name: 📦 Upload to GitHub Releases
+        uses: softprops/action-gh-release@v1
         with:
-          name: ios-ipa
-          path: build/ipa
+          files: build.ipa
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
