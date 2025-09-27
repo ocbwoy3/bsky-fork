@@ -59,6 +59,13 @@ jobs:
       - name: 🪛 Setup jq
         uses: dcarbone/install-jq-action@v2
 
+      - name: 🔨 Setup EAS
+        uses: expo/expo-github-action@v8
+        with:
+          expo-version: latest
+          eas-version: latest
+          token: ${{ secrets.EXPO_TOKEN }}
+
       - name: ⛏️ Setup EAS local builds
         run: yarn global add eas-cli eas-cli-local-build-plugin
 
@@ -102,7 +109,6 @@ jobs:
           eas build -p ios \
             --profile local \
             --local \
-            --skip-credentials \
             --output build.ipa \
             --non-interactive
 
