@@ -11,6 +11,35 @@ on:
           - production
 
 jobs:
+  release:
+    name: Publish release
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: ⬇️ Download artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: unsigned-ipa
+
+      - name: 📦 Create Release
+        id: create-new-release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.run_number }}
+          release_name: Release ${{ github.run_number }}
+
+      - name: Upload release asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create-new-release.outputs.upload_url }}
+          asset_path: unsigned-ipa/build.ipa
+          asset_name: Bluesky.ipa
+          asset_content_type: application/zip
+
   build:
     name: Build Bluesky.ipa (unsigned)
     runs-on: macos-15
@@ -74,9 +103,8 @@ jobs:
             --output build.ipa \
             --non-interactive
 
-      - name: 📦 Upload to GitHub Releases
-        uses: softprops/action-gh-release@v1
+      - name: 📦 Upload artifact
+        uses: actions/upload-artifact@v2
         with:
-          files: build.ipa
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          name: unsigned-ipa
+          path: build.ipa
