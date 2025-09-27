@@ -65,6 +65,9 @@ jobs:
       - name: ⚙️ Install dependencies
         run: yarn install
 
+      - name: 🏗 Prebuild iOS
+        run: yarn expo prebuild --yarn -p ios
+
       - name: 🛠 Install iOS build dependencies
         run: |
           brew install cocoapods
