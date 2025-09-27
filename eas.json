@@ -9,7 +9,9 @@
       "developmentClient": false,
       "distribution": "internal",
       "ios": {
-        "simulator": false
+        "simulator": false,
+        "buildType": "generic",
+        "credentials": {}
       },
       "android": {}
     },
