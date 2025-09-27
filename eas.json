@@ -5,6 +5,14 @@
     "appVersionSource": "remote"
   },
   "build": {
+    "local": {
+      "developmentClient": false,
+      "distribution": "internal",
+      "ios": {
+        "simulator": false
+      },
+      "android": {}
+    },
     "base": {
       "node": "20.19.4"
     },
@@ -14,14 +22,15 @@
       "distribution": "internal",
       "channel": "development",
       "ios": {
-	"credentialsSource": "remote",
-	"distribution": "internal",
+        "credentialsSource": "remote",
+        "distribution": "internal",
         "simulator": false
       },
       "env": {
         "EXPO_PUBLIC_ENV": "production"
       }
     },
+    
     "preview": {
       "extends": "base",
       "distribution": "internal",
