@@ -1,8 +1,9 @@
 {
   "extends": "@react-native/typescript-config/tsconfig.json",
   "compilerOptions": {
+    // "moduleResolution": "nodenext",
     "jsx": "react-jsx",
-    "module": "esnext",
+    "module": "nodenext",
     "types": ["node", "jest"],
     "baseUrl": ".",
     "paths": {

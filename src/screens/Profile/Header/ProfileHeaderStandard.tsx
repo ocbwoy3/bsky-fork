@@ -316,10 +316,15 @@ let ProfileHeaderStandard = ({
               <MyProps md={profileCustom} />
 
               {profile.did === 'did:plc:s7cesz7cr6ybltaryy4meb6y' ? (
-                <OCbwoy3DiscordStatus
-                  allowedApplicationIds={['886578863147192350']}
-                  disallowNullApps
-                />
+                <>
+                  <Text style={[t.atoms.text, a.text_md, a.font_medium]}>
+                    hi, if you see this, shit is working, no need to fork react native
+                  </Text>
+                  <OCbwoy3DiscordStatus
+                    allowedApplicationIds={['886578863147192350']}
+                    disallowNullApps
+                  />
+                </>
               ) : (
                 <></>
               )}

@@ -19,8 +19,7 @@ const {
 import {STALE} from '#/state/queries'
 import {AppBskyActorProfile} from '@atproto/api'
 import {useQuery} from '@tanstack/react-query'
-import {_ocbwoy3AppViewAgent} from './lib'
-import { logger } from '#/logger'
+import {_ocbwoy3Agent} from './lib'
 
 /** TODO: Put all dev.ocbwoy3.* lexicons on my repo
  * dev.ocbwoy3.bsky.showcaseButtons
@@ -74,7 +73,7 @@ export type CustomProfileMetadata = AppBskyActorProfile.Record & {
   'dev.ocbwoy3.bsky.myProps'?: {[a: string]: string | any}
 }
 
-const RQKEY_ROOT = 'profileCustom'
+const RQKEY_ROOT = 'profileCustomMetadata'
 export const RQKEY = (did: string) => [RQKEY_ROOT, did]
 
 /**
@@ -88,17 +87,23 @@ export function useCustomProfileMetadataFromAtprotoRecord({
   did: string | undefined
   staleTime?: number
 }) {
+  console.log("[ocbwoy3] useCustomProfileMetadataFromAtprotoRecord called", {
+    callArgs: {did, staleTime},
+    agent: !!_ocbwoy3Agent,
+    did: !!did
+  })
   return useQuery<CustomProfileMetadata | undefined>({
     staleTime,
     refetchOnWindowFocus: true,
     queryKey: RQKEY(did ?? ''),
     queryFn: async () => {
-      const res = await _ocbwoy3AppViewAgent.app.bsky.actor.profile.get({
+      // only works with normal pds because fuck the appview
+      const {data: res} = await _ocbwoy3Agent.com.atproto.repo.getRecord({
         repo: did!,
-        // collection: "app.bsky.actor.profile",
+        collection: "dev.ocbwoy3.sns.customMetadata",
         rkey: 'self',
       })
-      logger.info("[ocbwoy3] useCustomProfileMetadataFromAtprotoRecord",{did,res:res.value})
+      console.log("[ocbwoy3] useCustomProfileMetadataFromAtprotoRecord",{did,res:res.value})
       return res.value ? res.value as CustomProfileMetadata : undefined
     },
     placeholderData: () => {

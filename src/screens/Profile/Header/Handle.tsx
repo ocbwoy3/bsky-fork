@@ -65,6 +65,7 @@ export function ProfileHeaderHandle({
               isNative,
             )}
       </Text>
+      {/* <Text>{JSON.stringify(customProfile)}</Text> */}
       {customProfile && typeof customProfile.pronouns === 'string' && (
         <Text
           emoji

@@ -86,7 +86,8 @@ export function AppIconSettingsScreen({}: Props) {
           ))}
         </Group>
 
-        {IS_INTERNAL && gate('debug_subscriptions') && (
+        {/* IS_INTERNAL && gate('debug_subscriptions') */}
+        {true && (
           <>
             <Text
               style={[
