@@ -1,5 +1,6 @@
 import {useEffect, useState} from 'react'
 import {View} from 'react-native'
+import {parseLanguage} from '@atproto/api'
 import {msg, Trans} from '@lingui/macro'
 import {useLingui} from '@lingui/react'
 import lande from 'lande'
@@ -21,11 +22,12 @@ const cancelIdle = globalThis.cancelIdleCallback || clearTimeout
 
 export function SuggestedLanguage({
   text,
-  replyToLanguage,
+  replyToLanguage: replyToLanguageProp,
 }: {
   text: string
   replyToLanguage?: string
 }) {
+  const replyToLanguage = cleanUpLanguage(replyToLanguageProp)
   const [suggestedLanguage, setSuggestedLanguage] = useState<
     string | undefined
   >(text.length === 0 ? replyToLanguage : undefined)
@@ -86,7 +88,7 @@ export function SuggestedLanguage({
         <Text style={[a.flex_1]}>
           <Trans>
             Are you writing in{' '}
-            <Text style={[a.font_bold]}>{suggestedLanguageName}</Text>?
+            <Text style={[a.font_semi_bold]}>{suggestedLanguageName}</Text>?
           </Trans>
         </Text>
 
@@ -124,4 +126,12 @@ function guessLanguage(text: string): string | undefined {
     return undefined
   }
   return code3ToCode2Strict(lang)
+}
+
+function cleanUpLanguage(text: string | undefined): string | undefined {
+  if (!text) {
+    return undefined
+  }
+
+  return parseLanguage(text)?.language
 }

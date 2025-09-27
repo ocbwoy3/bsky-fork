@@ -5,7 +5,6 @@ import {
   View,
   type ViewStyle,
 } from 'react-native'
-import type React from 'react'
 
 import {atoms as a, useTheme} from '#/alf'
 import {Text} from '#/components/Typography'
@@ -28,6 +27,8 @@ export function Header({
     <View
       onLayout={onLayout}
       style={[
+        a.sticky,
+        a.top_0,
         a.relative,
         a.w_full,
         a.py_sm,

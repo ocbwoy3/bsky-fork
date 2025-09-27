@@ -316,7 +316,7 @@ func serve(cctx *cli.Context) error {
 	e.GET("/profile/:handleOrDID/known-followers", server.WebGeneric)
 	e.GET("/profile/:handleOrDID/search", server.WebGeneric)
 	e.GET("/profile/:handleOrDID/lists/:rkey", server.WebGeneric)
-	e.GET("/profile/:handleOrDID/feed/:rkey", server.WebGeneric)
+	e.GET("/profile/:handleOrDID/feed/:rkey", server.WebFeed)
 	e.GET("/profile/:handleOrDID/feed/:rkey/liked-by", server.WebGeneric)
 	e.GET("/profile/:handleOrDID/labeler/liked-by", server.WebGeneric)
 
@@ -333,6 +333,9 @@ func serve(cctx *cli.Context) error {
 	e.GET("/starter-pack/:handleOrDID/:rkey", server.WebStarterPack)
 	e.GET("/starter-pack-short/:code", server.WebGeneric)
 	e.GET("/start/:handleOrDID/:rkey", server.WebStarterPack)
+
+	// bookmarks
+	e.GET("/saved", server.WebGeneric)
 
 	// ipcc
 	e.GET("/ipcc", server.WebIpCC)
@@ -394,6 +397,7 @@ func (srv *Server) Shutdown() error {
 func (srv *Server) NewTemplateContext() pongo2.Context {
 	return pongo2.Context{
 		"staticCDNHost": srv.cfg.staticCDNHost,
+		"favicon":       fmt.Sprintf("%s/static/favicon.png", srv.cfg.staticCDNHost),
 	}
 }
 
@@ -488,20 +492,26 @@ func (srv *Server) WebPost(c echo.Context) error {
 		}
 	}
 
+	req := c.Request()
 	if !unauthedViewingOkay {
+		// Provide minimal OpenGraph data for auth-required posts
+		data["requestURI"] = fmt.Sprintf("https://%s%s", req.Host, req.URL.Path)
+		data["requiresAuth"] = true
+		data["profileHandle"] = pv.Handle
+		if pv.DisplayName != nil {
+			data["profileDisplayName"] = *pv.DisplayName
+		}
 		return c.Render(http.StatusOK, "post.html", data)
 	}
-	did := pv.Did
-	data["did"] = did
 
 	// then fetch the post thread (with extra context)
-	uri := fmt.Sprintf("at://%s/app.bsky.feed.post/%s", did, rkey)
+	uri := fmt.Sprintf("at://%s/app.bsky.feed.post/%s", pv.Did, rkey)
 	tpv, err := appbsky.FeedGetPostThread(ctx, srv.xrpcc, 1, 0, uri)
 	if err != nil {
 		log.Warnf("failed to fetch post: %s\t%v", uri, err)
 		return c.Render(http.StatusOK, "post.html", data)
 	}
-	req := c.Request()
+
 	postView := tpv.Thread.FeedDefs_ThreadViewPost.Post
 	data["postView"] = postView
 	data["requestURI"] = fmt.Sprintf("https://%s%s", req.Host, req.URL.Path)
@@ -593,14 +603,68 @@ func (srv *Server) WebProfile(c echo.Context) error {
 			unauthedViewingOkay = false
 		}
 	}
-	if !unauthedViewingOkay {
-		return c.Render(http.StatusOK, "profile.html", data)
-	}
+
 	req := c.Request()
 	data["profileView"] = pv
 	data["requestURI"] = fmt.Sprintf("https://%s%s", req.Host, req.URL.Path)
 	data["requestHost"] = req.Host
+
+	if !unauthedViewingOkay {
+		data["requiresAuth"] = true
+	}
+
 	return c.Render(http.StatusOK, "profile.html", data)
+}
+
+func (srv *Server) WebFeed(c echo.Context) error {
+	ctx := c.Request().Context()
+	data := srv.NewTemplateContext()
+
+	// sanity check arguments. don't 4xx, just let app handle if not expected format
+	rkeyParam := c.Param("rkey")
+	rkey, err := syntax.ParseRecordKey(rkeyParam)
+	if err != nil {
+		return c.Render(http.StatusOK, "feed.html", data)
+	}
+	handleOrDIDParam := c.Param("handleOrDID")
+	handleOrDID, err := syntax.ParseAtIdentifier(handleOrDIDParam)
+	if err != nil {
+		return c.Render(http.StatusOK, "feed.html", data)
+	}
+
+	identifier := handleOrDID.Normalize().String()
+
+	// requires two fetches: first fetch profile to get DID
+	pv, err := appbsky.ActorGetProfile(ctx, srv.xrpcc, identifier)
+	if err != nil {
+		log.Warnf("failed to fetch profile for: %s\t%v", identifier, err)
+		return c.Render(http.StatusOK, "feed.html", data)
+	}
+	unauthedViewingOkay := true
+	for _, label := range pv.Labels {
+		if label.Src == pv.Did && label.Val == "!no-unauthenticated" {
+			unauthedViewingOkay = false
+		}
+	}
+
+	if !unauthedViewingOkay {
+		return c.Render(http.StatusOK, "feed.html", data)
+	}
+	did := pv.Did
+	data["did"] = did
+
+	// then fetch the feed generator
+	feedURI := fmt.Sprintf("at://%s/app.bsky.feed.generator/%s", did, rkey)
+	fgv, err := appbsky.FeedGetFeedGenerator(ctx, srv.xrpcc, feedURI)
+	if err != nil {
+		log.Warnf("failed to fetch feed generator: %s\t%v", feedURI, err)
+		return c.Render(http.StatusOK, "feed.html", data)
+	}
+	req := c.Request()
+	data["feedView"] = fgv.View
+	data["requestURI"] = fmt.Sprintf("https://%s%s", req.Host, req.URL.Path)
+
+	return c.Render(http.StatusOK, "feed.html", data)
 }
 
 type IPCCRequest struct {

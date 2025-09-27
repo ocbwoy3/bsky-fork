@@ -70,6 +70,7 @@ import {
   useFeedFeedbackContext,
 } from '#/state/feed-feedback'
 import {useFeedFeedback} from '#/state/feed-feedback'
+import {useFeedInfo} from '#/state/queries/feed'
 import {usePostLikeMutationQueue} from '#/state/queries/post'
 import {
   type AuthorFilter,
@@ -80,9 +81,9 @@ import {useProfileFollowMutationQueue} from '#/state/queries/profile'
 import {useSession} from '#/state/session'
 import {useSetMinimalShellMode} from '#/state/shell'
 import {useSetLightStatusBar} from '#/state/shell/light-status-bar'
-import {PostThreadComposePrompt} from '#/view/com/post-thread/PostThreadComposePrompt'
 import {List} from '#/view/com/util/List'
 import {UserAvatar} from '#/view/com/util/UserAvatar'
+import {ThreadComposePrompt} from '#/screens/PostThread/components/ThreadComposePrompt'
 import {Header} from '#/screens/VideoFeed/components/Header'
 import {atoms as a, ios, platform, ThemeProvider, useTheme} from '#/alf'
 import {setSystemUITheme} from '#/alf/util/systemUI'
@@ -199,7 +200,9 @@ function Feed() {
         throw new Error(`Invalid video feed params ${JSON.stringify(params)}`)
     }
   }, [params])
-  const feedFeedback = useFeedFeedback(feedDesc, hasSession)
+  const feedUri = params.type === 'feedgen' ? params.uri : undefined
+  const {data: feedInfo} = useFeedInfo(feedUri)
+  const feedFeedback = useFeedFeedback(feedInfo, hasSession)
   const {data, error, hasNextPage, isFetchingNextPage, fetchNextPage} =
     usePostFeedQuery(
       feedDesc,
@@ -521,7 +524,7 @@ let VideoItem = ({
           <Text
             style={[
               a.text_2xl,
-              a.font_heavy,
+              a.font_bold,
               a.text_center,
               a.leading_tight,
               a.mx_xl,
@@ -667,7 +670,7 @@ function ModerationOverlay({
                 <Text
                   style={[
                     a.text_sm,
-                    a.font_bold,
+                    a.font_semi_bold,
                     a.text_center,
                     {opacity: pressed ? 0.5 : 1},
                   ]}>
@@ -804,7 +807,7 @@ function Overlay({
                   />
                   <View style={[a.flex_1]}>
                     <Text
-                      style={[a.text_md, a.font_heavy]}
+                      style={[a.text_md, a.font_bold]}
                       emoji
                       numberOfLines={1}>
                       {sanitizeDisplayName(
@@ -866,6 +869,7 @@ function Overlay({
                     richText={richText}
                     post={post}
                     record={record}
+                    feedContext={feedContext}
                     logContext="FeedItem"
                     onPressReply={() =>
                       navigation.navigate('PostThread', {
@@ -883,7 +887,7 @@ function Overlay({
               player={player}
               seekingAnimationSV={seekingAnimationSV}
               scrollGesture={scrollGesture}>
-              <PostThreadComposePrompt
+              <ThreadComposePrompt
                 onPressCompose={onPressReply}
                 style={[a.pt_md, a.pb_sm]}
               />
@@ -1111,7 +1115,7 @@ function EndMessage() {
         <LeafIcon width={64} fill="black" />
       </View>
       <View style={[a.w_full, a.gap_md]}>
-        <Text style={[a.text_3xl, a.text_center, a.font_heavy]}>
+        <Text style={[a.text_3xl, a.text_center, a.font_bold]}>
           <Trans>That's everything!</Trans>
         </Text>
         <Text

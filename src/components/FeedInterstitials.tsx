@@ -25,17 +25,18 @@ import {
   type ViewStyleProp,
   web,
 } from '#/alf'
-import {Button} from '#/components/Button'
+import {Button, ButtonIcon, ButtonText} from '#/components/Button'
 import * as FeedCard from '#/components/FeedCard'
-import {ArrowRight_Stroke2_Corner0_Rounded as Arrow} from '#/components/icons/Arrow'
+import {ArrowRight_Stroke2_Corner0_Rounded as ArrowRight} from '#/components/icons/Arrow'
 import {Hashtag_Stroke2_Corner0_Rounded as Hashtag} from '#/components/icons/Hashtag'
-import {InlineLinkText} from '#/components/Link'
+import {InlineLinkText, Link} from '#/components/Link'
 import * as ProfileCard from '#/components/ProfileCard'
 import {Text} from '#/components/Typography'
 import type * as bsky from '#/types/bsky'
 import {ProgressGuideList} from './ProgressGuide/List'
 
 const MOBILE_CARD_WIDTH = 165
+const FINAL_CARD_WIDTH = 120
 
 function CardOuter({
   children,
@@ -379,7 +380,7 @@ export function ProfileGrid({
           a.justify_between,
         ]}
         pointerEvents={isIOS ? 'auto' : 'box-none'}>
-        <Text style={[a.text_sm, a.font_bold, t.atoms.text]}>
+        <Text style={[a.text_sm, a.font_semi_bold, t.atoms.text]}>
           {isFeedContext ? (
             <Trans>Suggested for you</Trans>
           ) : (
@@ -420,28 +421,30 @@ export function ProfileGrid({
 }
 
 function SeeMoreSuggestedProfilesCard() {
-  const navigation = useNavigation<NavigationProp>()
+  const t = useTheme()
   const {_} = useLingui()
 
   return (
-    <Button
+    <Link
+      to="/search"
+      color="primary"
       label={_(msg`Browse more accounts on the Explore page`)}
-      style={[a.flex_col]}
-      onPress={() => {
-        navigation.navigate('SearchTab')
-      }}>
-      <CardOuter>
-        <View style={[a.flex_1, a.justify_center]}>
-          <View style={[a.flex_col, a.align_center, a.gap_md]}>
-            <Text style={[a.leading_snug, a.text_center]}>
-              <Trans>See more accounts you might like</Trans>
-            </Text>
-
-            <Arrow size="xl" />
-          </View>
-        </View>
-      </CardOuter>
-    </Button>
+      style={[
+        a.flex_col,
+        a.align_center,
+        a.justify_center,
+        a.gap_sm,
+        a.p_md,
+        a.rounded_lg,
+        t.atoms.shadow_sm,
+        {width: FINAL_CARD_WIDTH},
+      ]}>
+      <ButtonIcon icon={ArrowRight} size="lg" />
+      <ButtonText
+        style={[a.text_md, a.font_medium, a.leading_snug, a.text_center]}>
+        <Trans>See more</Trans>
+      </ButtonText>
+    </Link>
   )
 }
 
@@ -513,7 +516,7 @@ export function SuggestedFeeds() {
           style={[
             a.flex_1,
             a.text_lg,
-            a.font_bold,
+            a.font_semi_bold,
             t.atoms.text_contrast_medium,
           ]}>
           <Trans>Some other feeds you might like</Trans>
@@ -539,7 +542,7 @@ export function SuggestedFeeds() {
               style={[t.atoms.text_contrast_medium]}>
               <Trans>Browse more suggestions</Trans>
             </InlineLinkText>
-            <Arrow size="sm" fill={t.atoms.text_contrast_medium.color} />
+            <ArrowRight size="sm" fill={t.atoms.text_contrast_medium.color} />
           </View>
         </View>
       ) : (
@@ -567,7 +570,7 @@ export function SuggestedFeeds() {
                         </Trans>
                       </Text>
 
-                      <Arrow size="xl" />
+                      <ArrowRight size="xl" />
                     </View>
                   </View>
                 </CardOuter>

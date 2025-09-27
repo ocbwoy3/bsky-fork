@@ -32,6 +32,7 @@ import Animated, {
   runOnUI,
   scrollTo,
   useAnimatedRef,
+  useAnimatedScrollHandler,
   useAnimatedStyle,
   useDerivedValue,
   useSharedValue,
@@ -40,19 +41,20 @@ import Animated, {
   ZoomIn,
   ZoomOut,
 } from 'react-native-reanimated'
-import {RootSiblingParent} from 'react-native-root-siblings'
 import {useSafeAreaInsets} from 'react-native-safe-area-context'
 import {type ImagePickerAsset} from 'expo-image-picker'
 import {
   AppBskyFeedDefs,
   type AppBskyFeedGetPostThread,
   AppBskyUnspeccedDefs,
+  AtUri,
   type BskyAgent,
   type RichText,
 } from '@atproto/api'
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome'
 import {msg, plural, Trans} from '@lingui/macro'
 import {useLingui} from '@lingui/react'
+import {useNavigation} from '@react-navigation/native'
 import {useQueryClient} from '@tanstack/react-query'
 
 import * as apilib from '#/lib/api/index'
@@ -64,13 +66,13 @@ import {
   SUPPORTED_MIME_TYPES,
   type SupportedMimeTypes,
 } from '#/lib/constants'
-import {useAnimatedScrollHandler} from '#/lib/hooks/useAnimatedScrollHandler_FIXED'
 import {useAppState} from '#/lib/hooks/useAppState'
 import {useIsKeyboardVisible} from '#/lib/hooks/useIsKeyboardVisible'
 import {useNonReactiveCallback} from '#/lib/hooks/useNonReactiveCallback'
 import {usePalette} from '#/lib/hooks/usePalette'
 import {useWebMediaQueries} from '#/lib/hooks/useWebMediaQueries'
 import {mimeToExt} from '#/lib/media/video/util'
+import {type NavigationProp} from '#/lib/routes/types'
 import {logEvent} from '#/lib/statsig/statsig'
 import {cleanError} from '#/lib/strings/errors'
 import {colors} from '#/lib/styles'
@@ -108,14 +110,10 @@ import {LabelsBtn} from '#/view/com/composer/labels/LabelsBtn'
 import {Gallery} from '#/view/com/composer/photos/Gallery'
 import {OpenCameraBtn} from '#/view/com/composer/photos/OpenCameraBtn'
 import {SelectGifBtn} from '#/view/com/composer/photos/SelectGifBtn'
-import {SelectLangBtn} from '#/view/com/composer/select-language/SelectLangBtn'
 import {SuggestedLanguage} from '#/view/com/composer/select-language/SuggestedLanguage'
 // TODO: Prevent naming components that coincide with RN primitives
 // due to linting false positives
-import {
-  TextInput,
-  type TextInputRef,
-} from '#/view/com/composer/text-input/TextInput'
+import {TextInput} from '#/view/com/composer/text-input/TextInput'
 import {ThreadgateBtn} from '#/view/com/composer/threadgate/ThreadgateBtn'
 import {SubtitleDialogBtn} from '#/view/com/composer/videos/SubtitleDialog'
 import {VideoPreview} from '#/view/com/composer/videos/VideoPreview'
@@ -124,14 +122,16 @@ import {Text} from '#/view/com/util/text/Text'
 import {UserAvatar} from '#/view/com/util/UserAvatar'
 import {atoms as a, native, useTheme, web} from '#/alf'
 import {Button, ButtonIcon, ButtonText} from '#/components/Button'
-import {CircleInfo_Stroke2_Corner0_Rounded as CircleInfo} from '#/components/icons/CircleInfo'
-import {EmojiArc_Stroke2_Corner0_Rounded as EmojiSmile} from '#/components/icons/Emoji'
-import {TimesLarge_Stroke2_Corner0_Rounded as X} from '#/components/icons/Times'
+import {CircleInfo_Stroke2_Corner0_Rounded as CircleInfoIcon} from '#/components/icons/CircleInfo'
+import {EmojiArc_Stroke2_Corner0_Rounded as EmojiSmileIcon} from '#/components/icons/Emoji'
+import {PlusLarge_Stroke2_Corner0_Rounded as PlusIcon} from '#/components/icons/Plus'
+import {TimesLarge_Stroke2_Corner0_Rounded as XIcon} from '#/components/icons/Times'
 import {LazyQuoteEmbed} from '#/components/Post/Embed/LazyQuoteEmbed'
 import * as Prompt from '#/components/Prompt'
-import * as toast from '#/components/Toast'
+import * as Toast from '#/components/Toast'
 import {Text as NewText} from '#/components/Typography'
 import {BottomSheetPortalProvider} from '../../../../modules/bottom-sheet'
+import {PostLanguageSelect} from './select-language/PostLanguageSelect'
 import {
   type AssetType,
   SelectMediaButton,
@@ -153,6 +153,7 @@ import {
   processVideo,
   type VideoState,
 } from './state/video'
+import {type TextInputRef} from './text-input/TextInput.types'
 import {getVideoMetadata} from './videos/pickVideo'
 import {clearThumbnailCache} from './videos/VideoTranscodeBackdrop'
 
@@ -173,7 +174,7 @@ export const ComposePost = ({
   videoUri: initVideoUri,
   cancelRef,
 }: Props & {
-  cancelRef?: React.RefObject<CancelRef>
+  cancelRef?: React.RefObject<CancelRef | null>
 }) => {
   const {currentAccount} = useSession()
   const agent = useAgent()
@@ -189,6 +190,7 @@ export const ComposePost = ({
   const {closeAllDialogs} = useDialogStateControlContext()
   const {closeAllModals} = useModalControls()
   const {data: preferences} = usePreferencesQuery()
+  const navigation = useNavigation<NavigationProp>()
 
   const [isKeyboardVisible] = useIsKeyboardVisible({iosUseWillEvents: true})
   const [isPublishing, setIsPublishing] = useState(false)
@@ -303,7 +305,9 @@ export const ComposePost = ({
   )
 
   const onPressCancel = useCallback(() => {
-    if (
+    if (textInput.current?.maybeClosePopup()) {
+      return
+    } else if (
       thread.posts.some(
         post =>
           post.shortenedGraphemeLength > 0 ||
@@ -522,12 +526,29 @@ export const ComposePost = ({
       onPostSuccess?.(postSuccessData)
     }
     onClose()
-    toast.show(
-      thread.posts.length > 1
-        ? _(msg`Your posts have been published`)
-        : replyTo
-          ? _(msg`Your reply has been published`)
-          : _(msg`Your post has been published`),
+    Toast.show(
+      <Toast.Outer>
+        <Toast.Icon />
+        <Toast.Text>
+          {thread.posts.length > 1
+            ? _(msg`Your posts were sent`)
+            : replyTo
+              ? _(msg`Your reply was sent`)
+              : _(msg`Your post was sent`)}
+        </Toast.Text>
+        {postUri && (
+          <Toast.Action
+            label={_(msg`View post`)}
+            onPress={() => {
+              const {host: name, rkey} = new AtUri(postUri)
+              navigation.navigate('PostThread', {name, rkey})
+            }}>
+            <Trans context="Action to view the post the user just created">
+              View
+            </Trans>
+          </Toast.Action>
+        )}
+      </Toast.Outer>,
       {type: 'success'},
     )
   }, [
@@ -544,6 +565,7 @@ export const ComposePost = ({
     replyTo,
     setLangPrefs,
     queryClient,
+    navigation,
   ])
 
   // Preserves the referential identity passed to each post item.
@@ -663,88 +685,84 @@ export const ComposePost = ({
   const isWebFooterSticky = !isNative && thread.posts.length > 1
   return (
     <BottomSheetPortalProvider>
-      <RootSiblingParent>
-        <KeyboardAvoidingView
-          testID="composePostView"
-          behavior={isIOS ? 'padding' : 'height'}
-          keyboardVerticalOffset={keyboardVerticalOffset}
-          style={a.flex_1}>
-          <View
-            style={[a.flex_1, viewStyles]}
-            aria-modal
-            accessibilityViewIsModal>
-            <RootSiblingParent>
-              <ComposerTopBar
-                canPost={canPost}
-                isReply={!!replyTo}
-                isPublishQueued={publishOnUpload}
-                isPublishing={isPublishing}
-                isThread={thread.posts.length > 1}
-                publishingStage={publishingStage}
-                topBarAnimatedStyle={topBarAnimatedStyle}
-                onCancel={onPressCancel}
-                onPublish={onPressPublish}>
-                {missingAltError && <AltTextReminder error={missingAltError} />}
-                <ErrorBanner
-                  error={error}
-                  videoState={erroredVideo}
-                  clearError={() => setError('')}
-                  clearVideo={
-                    erroredVideoPostId
-                      ? () => clearVideo(erroredVideoPostId)
-                      : () => {}
-                  }
+      <KeyboardAvoidingView
+        testID="composePostView"
+        behavior={isIOS ? 'padding' : 'height'}
+        keyboardVerticalOffset={keyboardVerticalOffset}
+        style={a.flex_1}>
+        <View
+          style={[a.flex_1, viewStyles]}
+          aria-modal
+          accessibilityViewIsModal>
+          <ComposerTopBar
+            canPost={canPost}
+            isReply={!!replyTo}
+            isPublishQueued={publishOnUpload}
+            isPublishing={isPublishing}
+            isThread={thread.posts.length > 1}
+            publishingStage={publishingStage}
+            topBarAnimatedStyle={topBarAnimatedStyle}
+            onCancel={onPressCancel}
+            onPublish={onPressPublish}>
+            {missingAltError && <AltTextReminder error={missingAltError} />}
+            <ErrorBanner
+              error={error}
+              videoState={erroredVideo}
+              clearError={() => setError('')}
+              clearVideo={
+                erroredVideoPostId
+                  ? () => clearVideo(erroredVideoPostId)
+                  : () => {}
+              }
+            />
+          </ComposerTopBar>
+
+          <Animated.ScrollView
+            ref={scrollViewRef}
+            layout={native(LinearTransition)}
+            onScroll={scrollHandler}
+            contentContainerStyle={a.flex_grow}
+            style={a.flex_1}
+            keyboardShouldPersistTaps="always"
+            onContentSizeChange={onScrollViewContentSizeChange}
+            onLayout={onScrollViewLayout}>
+            {replyTo ? <ComposerReplyTo replyTo={replyTo} /> : undefined}
+            {thread.posts.map((post, index) => (
+              <React.Fragment key={post.id}>
+                <ComposerPost
+                  post={post}
+                  dispatch={composerDispatch}
+                  textInput={post.id === activePost.id ? textInput : null}
+                  isFirstPost={index === 0}
+                  isLastPost={index === thread.posts.length - 1}
+                  isPartOfThread={thread.posts.length > 1}
+                  isReply={index > 0 || !!replyTo}
+                  isActive={post.id === activePost.id}
+                  canRemovePost={thread.posts.length > 1}
+                  canRemoveQuote={index > 0 || !initQuote}
+                  onSelectVideo={selectVideo}
+                  onClearVideo={clearVideo}
+                  onPublish={onComposerPostPublish}
+                  onError={setError}
                 />
-              </ComposerTopBar>
+                {isWebFooterSticky && post.id === activePost.id && (
+                  <View style={styles.stickyFooterWeb}>{footer}</View>
+                )}
+              </React.Fragment>
+            ))}
+          </Animated.ScrollView>
+          {!isWebFooterSticky && footer}
+        </View>
 
-              <Animated.ScrollView
-                ref={scrollViewRef}
-                layout={native(LinearTransition)}
-                onScroll={scrollHandler}
-                contentContainerStyle={a.flex_grow}
-                style={a.flex_1}
-                keyboardShouldPersistTaps="always"
-                onContentSizeChange={onScrollViewContentSizeChange}
-                onLayout={onScrollViewLayout}>
-                {replyTo ? <ComposerReplyTo replyTo={replyTo} /> : undefined}
-                {thread.posts.map((post, index) => (
-                  <React.Fragment key={post.id}>
-                    <ComposerPost
-                      post={post}
-                      dispatch={composerDispatch}
-                      textInput={post.id === activePost.id ? textInput : null}
-                      isFirstPost={index === 0}
-                      isLastPost={index === thread.posts.length - 1}
-                      isPartOfThread={thread.posts.length > 1}
-                      isReply={index > 0 || !!replyTo}
-                      isActive={post.id === activePost.id}
-                      canRemovePost={thread.posts.length > 1}
-                      canRemoveQuote={index > 0 || !initQuote}
-                      onSelectVideo={selectVideo}
-                      onClearVideo={clearVideo}
-                      onPublish={onComposerPostPublish}
-                      onError={setError}
-                    />
-                    {isWebFooterSticky && post.id === activePost.id && (
-                      <View style={styles.stickyFooterWeb}>{footer}</View>
-                    )}
-                  </React.Fragment>
-                ))}
-              </Animated.ScrollView>
-              {!isWebFooterSticky && footer}
-            </RootSiblingParent>
-          </View>
-
-          <Prompt.Basic
-            control={discardPromptControl}
-            title={_(msg`Discard draft?`)}
-            description={_(msg`Are you sure you'd like to discard this draft?`)}
-            onConfirm={onClose}
-            confirmButtonCta={_(msg`Discard`)}
-            confirmButtonColor="negative"
-          />
-        </KeyboardAvoidingView>
-      </RootSiblingParent>
+        <Prompt.Basic
+          control={discardPromptControl}
+          title={_(msg`Discard draft?`)}
+          description={_(msg`Are you sure you'd like to discard this draft?`)}
+          onConfirm={onClose}
+          confirmButtonCta={_(msg`Discard`)}
+          confirmButtonColor="negative"
+        />
+      </KeyboardAvoidingView>
     </BottomSheetPortalProvider>
   )
 }
@@ -831,7 +849,7 @@ let ComposerPost = React.memo(function ComposerPost({
         if (isNative) return // web only
         const [mimeType] = uri.slice('data:'.length).split(';')
         if (!SUPPORTED_MIME_TYPES.includes(mimeType as SupportedMimeTypes)) {
-          toast.show(_(msg`Unsupported video type: ${mimeType}`), {
+          Toast.show(_(msg`Unsupported video type: ${mimeType}`), {
             type: 'error',
           })
           return
@@ -924,7 +942,7 @@ let ComposerPost = React.memo(function ComposerPost({
                 })
               }
             }}>
-            <ButtonIcon icon={X} />
+            <ButtonIcon icon={XIcon} />
           </Button>
           <Prompt.Basic
             control={discardPromptControl}
@@ -1367,7 +1385,7 @@ function ComposerFooter({
       }
 
       errors.map(error => {
-        toast.show(error, {
+        Toast.show(error, {
           type: 'warning',
         })
       })
@@ -1413,7 +1431,7 @@ function ComposerFooter({
                   variant="ghost"
                   shape="round"
                   color="primary">
-                  <EmojiSmile size="lg" />
+                  <EmojiSmileIcon size="lg" />
                 </Button>
               ) : null}
             </ToolbarWrapper>
@@ -1423,20 +1441,16 @@ function ComposerFooter({
       <View style={[a.flex_row, a.align_center, a.justify_between]}>
         {showAddButton && (
           <Button
-            label={_(msg`Add new post`)}
+            label={_(msg`Add another post to thread`)}
             onPress={onAddPost}
-            style={[a.p_sm, a.m_2xs]}
+            style={[a.p_sm]}
             variant="ghost"
             shape="round"
             color="primary">
-            <FontAwesomeIcon
-              icon="add"
-              size={20}
-              color={t.palette.primary_500}
-            />
+            <PlusIcon size="lg" />
           </Button>
         )}
-        <SelectLangBtn />
+        <PostLanguageSelect />
         <CharProgress
           count={post.shortenedGraphemeLength}
           style={{width: 65}}
@@ -1736,7 +1750,7 @@ function ErrorBanner({
           t.atoms.bg_contrast_25,
         ]}>
         <View style={[a.relative, a.flex_row, a.gap_sm, {paddingRight: 48}]}>
-          <CircleInfo fill={t.palette.negative_400} />
+          <CircleInfoIcon fill={t.palette.negative_400} />
           <NewText style={[a.flex_1, a.leading_snug, {paddingTop: 1}]}>
             {error}
           </NewText>
@@ -1748,7 +1762,7 @@ function ErrorBanner({
             shape="round"
             style={[a.absolute, {top: 0, right: 0}]}
             onPress={onClearError}>
-            <ButtonIcon icon={X} />
+            <ButtonIcon icon={XIcon} />
           </Button>
         </View>
         {videoError && videoState.jobId && (
@@ -1756,7 +1770,7 @@ function ErrorBanner({
             style={[
               {paddingLeft: 28},
               a.text_xs,
-              a.font_bold,
+              a.font_semi_bold,
               a.leading_snug,
               t.atoms.text_contrast_low,
             ]}>
@@ -1849,7 +1863,7 @@ function VideoUploadToolbar({state}: {state: VideoState}) {
           progress={wheelProgress}
         />
       </Animated.View>
-      <NewText style={[a.font_bold, a.ml_sm]}>{text}</NewText>
+      <NewText style={[a.font_semi_bold, a.ml_sm]}>{text}</NewText>
     </ToolbarWrapper>
   )
 }

@@ -31,13 +31,12 @@ import {Provider as DialogStateProvider} from '#/state/dialogs'
 import {Provider as EmailVerificationProvider} from '#/state/email-verification'
 import {listenSessionDropped} from '#/state/events'
 import {
-  beginResolveGeolocation,
-  ensureGeolocationResolved,
+  beginResolveGeolocationConfig,
+  ensureGeolocationConfigIsResolved,
   Provider as GeolocationProvider,
 } from '#/state/geolocation'
 import {GlobalGestureEventsProvider} from '#/state/global-gesture-events'
 import {Provider as HomeBadgeProvider} from '#/state/home-badge'
-import {Provider as InvitesStateProvider} from '#/state/invites'
 import {Provider as LightboxStateProvider} from '#/state/lightbox'
 import {MessagesProvider} from '#/state/messages'
 import {Provider as ModalStateProvider} from '#/state/modals'
@@ -90,7 +89,7 @@ if (isAndroid) {
 /**
  * Begin geolocation ASAP
  */
-beginResolveGeolocation()
+beginResolveGeolocationConfig()
 
 function InnerApp() {
   const [isReady, setIsReady] = React.useState(false)
@@ -202,9 +201,10 @@ function App() {
   const [isReady, setReady] = useState(false)
 
   React.useEffect(() => {
-    Promise.all([initPersistedState(), ensureGeolocationResolved()]).then(() =>
-      setReady(true),
-    )
+    Promise.all([
+      initPersistedState(),
+      ensureGeolocationConfigIsResolved(),
+    ]).then(() => setReady(true))
   }, [])
 
   if (!isReady) {
@@ -223,24 +223,22 @@ function App() {
             <PrefsStateProvider>
               <I18nProvider>
                 <ShellStateProvider>
-                  <InvitesStateProvider>
-                    <ModalStateProvider>
-                      <DialogStateProvider>
-                        <LightboxStateProvider>
-                          <PortalProvider>
-                            <BottomSheetProvider>
-                              <StarterPackProvider>
-                                <SafeAreaProvider
-                                  initialMetrics={initialWindowMetrics}>
-                                  <InnerApp />
-                                </SafeAreaProvider>
-                              </StarterPackProvider>
-                            </BottomSheetProvider>
-                          </PortalProvider>
-                        </LightboxStateProvider>
-                      </DialogStateProvider>
-                    </ModalStateProvider>
-                  </InvitesStateProvider>
+                  <ModalStateProvider>
+                    <DialogStateProvider>
+                      <LightboxStateProvider>
+                        <PortalProvider>
+                          <BottomSheetProvider>
+                            <StarterPackProvider>
+                              <SafeAreaProvider
+                                initialMetrics={initialWindowMetrics}>
+                                <InnerApp />
+                              </SafeAreaProvider>
+                            </StarterPackProvider>
+                          </BottomSheetProvider>
+                        </PortalProvider>
+                      </LightboxStateProvider>
+                    </DialogStateProvider>
+                  </ModalStateProvider>
                 </ShellStateProvider>
               </I18nProvider>
             </PrefsStateProvider>

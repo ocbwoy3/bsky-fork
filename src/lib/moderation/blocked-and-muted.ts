@@ -1,4 +1,4 @@
-import * as bsky from '#/types/bsky'
+import type * as bsky from '#/types/bsky'
 import {getOCbwoy3Settings} from '../constants'
 
 export function canBypassBlocks() {
