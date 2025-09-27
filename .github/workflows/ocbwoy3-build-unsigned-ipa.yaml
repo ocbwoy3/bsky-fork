@@ -17,7 +17,7 @@ jobs:
     needs: build
     steps:
       - name: ⬇️ Download artifact
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v4
         with:
           name: unsigned-ipa
 
@@ -104,7 +104,7 @@ jobs:
             --non-interactive
 
       - name: 📦 Upload artifact
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: unsigned-ipa
           path: build.ipa
