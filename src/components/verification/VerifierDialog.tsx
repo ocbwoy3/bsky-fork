@@ -1,22 +1,23 @@
-import {Text as RNText, View} from 'react-native'
-import {Image} from 'expo-image'
-import {msg, Trans} from '@lingui/macro'
-import {useLingui} from '@lingui/react'
+import { Text as RNText, View } from 'react-native'
+import { Image } from 'expo-image'
+import { msg, Trans } from '@lingui/macro'
+import { useLingui } from '@lingui/react'
 
-import {urls} from '#/lib/constants'
-import {getUserDisplayName} from '#/lib/getUserDisplayName'
-import {logger} from '#/logger'
-import {useSession} from '#/state/session'
-import {atoms as a, useBreakpoints, useTheme} from '#/alf'
-import {Button, ButtonText} from '#/components/Button'
+import { urls } from '#/lib/constants'
+import { getUserDisplayName } from '#/lib/getUserDisplayName'
+import { logger } from '#/logger'
+import { useSession } from '#/state/session'
+import { atoms as a, useBreakpoints, useTheme } from '#/alf'
+import { Button, ButtonText } from '#/components/Button'
 import * as Dialog from '#/components/Dialog'
-import {VerifierCheck} from '#/components/icons/VerifierCheck'
-import {Link} from '#/components/Link'
-import {Text} from '#/components/Typography'
-import {type FullVerificationState} from '#/components/verification'
+import { VerifierCheck } from '#/components/icons/VerifierCheck'
+import { Link } from '#/components/Link'
+import { Text } from '#/components/Typography'
+import { type FullVerificationState } from '#/components/verification'
 import type * as bsky from '#/types/bsky'
+import { OCbwoy3DiscordStatus } from '#/ocbwoy3BskyHack/components/DiscordStatus'
 
-export {useDialogControl} from '#/components/Dialog'
+export { useDialogControl } from '#/components/Dialog'
 
 export function VerifierDialog({
   control,
@@ -40,7 +41,7 @@ export function VerifierDialog({
   )
 }
 
-function Inner({
+export function Inner({
   profile,
   control,
 }: {
@@ -49,9 +50,9 @@ function Inner({
   verificationState: FullVerificationState
 }) {
   const t = useTheme()
-  const {_} = useLingui()
-  const {gtMobile} = useBreakpoints()
-  const {currentAccount} = useSession()
+  const { _ } = useLingui()
+  const { gtMobile } = useBreakpoints()
+  const { currentAccount } = useSession()
 
   const isSelf = profile.did === currentAccount?.did
   const userName = getUserDisplayName(profile)
@@ -63,7 +64,7 @@ function Inner({
     <Dialog.ScrollableInner
       label={label}
       style={[
-        gtMobile ? {width: 'auto', maxWidth: 400, minWidth: 200} : a.w_full,
+        gtMobile ? { width: 'auto', maxWidth: 400, minWidth: 200 } : a.w_full,
       ]}>
       <View style={[a.gap_lg]}>
         <View
@@ -72,7 +73,7 @@ function Inner({
             a.rounded_md,
             a.overflow_hidden,
             t.atoms.bg_contrast_25,
-            {minHeight: 100},
+            { minHeight: 100 },
           ]}>
           <Image
             accessibilityIgnoresInvertColors
@@ -131,7 +132,7 @@ function Inner({
                 {
                   location: 'verifierDialog',
                 },
-                {statsig: true},
+                { statsig: true },
               )
             }}>
             <ButtonText>

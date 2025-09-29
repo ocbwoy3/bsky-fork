@@ -1,16 +1,17 @@
-import {Fragment} from 'react'
-import {View} from 'react-native'
+import { Fragment, JSX } from 'react'
+import { View } from 'react-native'
 
-import {CommonNavigatorParams, NativeStackScreenProps} from '#/lib/routes/types'
+import { CommonNavigatorParams, NativeStackScreenProps } from '#/lib/routes/types'
 import * as persisted from '#/state/persisted'
-import {atoms as a, useBreakpoints, useTheme} from '#/alf/index'
-import {Divider} from '#/components/Divider'
+import { atoms as a, useBreakpoints, useTheme } from '#/alf/index'
+import { Divider } from '#/components/Divider'
 import * as Layout from '#/components/Layout'
-import {InlineLinkText} from '#/components/Link'
-import {Text} from '#/components/Typography'
-import {device, DummyOCbwoy3SettingsSchema} from '#/storage/index'
-import {OCbwoy3BskyHackSettingToggle} from './BskyHackSettings/SettingToggle'
-import {useDevMode} from '#/storage/hooks/dev-mode'
+import { InlineLinkText } from '#/components/Link'
+import { Text } from '#/components/Typography'
+import { device, DummyOCbwoy3SettingsSchema } from '#/storage/index'
+import { OCbwoy3BskyHackSettingToggle } from './BskyHackSettings/SettingToggle'
+import { useDevMode } from '#/storage/hooks/dev-mode'
+import { WTF } from './ocbwoy3/wtf'
 
 enum SettingType {
   ON_OFF = 1,
@@ -29,11 +30,13 @@ type Setting = {
 
 enum SettingCategoryType {
   GROUP = 1,
+  COMPONENT = 2
 }
 
 type SettingCategory = {
   title: string
-  type: SettingCategoryType
+  type: SettingCategoryType,
+  com?: JSX.Element,
   settings: Setting[]
 }
 
@@ -160,16 +163,16 @@ const AllSettings: SettingCategory[] = [
     type: SettingCategoryType.GROUP,
     settings: [
       createToggleOption(
-          'Cancel NYT & The Guardian',
-          'unverifyNyt',
-          'They don\'t deserve the blue check',
-        ),
+        'Cancel NYT & The Guardian',
+        'unverifyNyt',
+        'They don\'t deserve the blue check',
+      ),
     ],
   },
 ]
 
 type Props = NativeStackScreenProps<CommonNavigatorParams, 'BskyHackSettings'>
-export function BskyHackSettingsScreen({}: Props) {
+export function BskyHackSettingsScreen({ }: Props) {
   const t = useTheme()
   const [devModeEnabled, setDevModeEnabled] = useDevMode()
 
@@ -208,11 +211,17 @@ export function BskyHackSettingsScreen({}: Props) {
         // createToggleOption('Force Age Verification', 'forceAgeVerification', 'Foces you to verify your ID'),
       ],
     },
+    {
+      title: 'OCbwoy3 Stuff',
+      type: SettingCategoryType.COMPONENT,
+      com: <WTF />,
+      settings: [],
+    }
   ]
 
   // console.log(AllSettings);
 
-  const {gtMobile} = useBreakpoints()
+  const { gtMobile } = useBreakpoints()
   return (
     <Layout.Screen>
       <Layout.Header.Outer>
@@ -249,31 +258,35 @@ export function BskyHackSettingsScreen({}: Props) {
                 ]}>
                 {item.title}
               </Text>
-              <View
-                style={[
-                  a.w_full,
-                  a.border,
-                  a.rounded_sm,
-                  t.atoms.bg_contrast_25,
-                  t.atoms.border_contrast_high,
-                ]}>
-                <View style={[a.rounded_sm, t.atoms.bg_contrast_25]}>
-                  {item.settings.map((s, idx2) => (
-                    <View key={idx2}>
-                      {idx2 !== 0 ? <Divider /> : <></>}
-                      <OCbwoy3BskyHackSettingToggle
-                        key={idx2}
-                        name={s.name}
-                        desc={s.desc}
-                        disabled={!!s.disabled}
-                        settingId={s.settingId}
-                        getState={s.getState}
-                        onUpdate={s.onUpdate}
-                      />
+              {
+                item.type === SettingCategoryType.COMPONENT && item.com
+                  ? <View style={[a.pt_md]}>{item.com}</View>
+                  : <View
+                    style={[
+                      a.w_full,
+                      a.border,
+                      a.rounded_sm,
+                      t.atoms.bg_contrast_25,
+                      t.atoms.border_contrast_high,
+                    ]}>
+                    <View style={[a.rounded_sm, t.atoms.bg_contrast_25]}>
+                      {item.settings.map((s, idx2) => (
+                        <View key={idx2}>
+                          {idx2 !== 0 ? <Divider /> : <></>}
+                          <OCbwoy3BskyHackSettingToggle
+                            key={idx2}
+                            name={s.name}
+                            desc={s.desc}
+                            disabled={!!s.disabled}
+                            settingId={s.settingId}
+                            getState={s.getState}
+                            onUpdate={s.onUpdate}
+                          />
+                        </View>
+                      ))}
                     </View>
-                  ))}
-                </View>
-              </View>
+                  </View>
+              }
             </Fragment>
           ))}
         </View>

@@ -73,6 +73,8 @@ export function InterestsSettingsScreen({}: Props) {
   )
 }
 
+export const InterestsInnerWhatever = Inner;
+
 function Inner({
   preferences,
   setIsSaving,

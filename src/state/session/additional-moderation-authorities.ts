@@ -3,6 +3,7 @@ import {BskyAgent} from '@atproto/api'
 import {logger} from '#/logger'
 import {device} from '#/storage'
 import { forceLabelerDidsWithOpt } from './ocbwoy3/modAuthoritiesLib'
+import { showTheToastWithTextDeffered } from '#/view/shell/ocbwoy3/loadHookWhatever'
 
 export const BR_LABELER = 'did:plc:ekitcvx7uwnauoqy5oest3hm' // Brazil
 export const DE_LABELER = 'did:plc:r55ow3tocux5kafs5dq445fy' // Germany
@@ -72,6 +73,8 @@ export function isNonConfigurableModerationAuthority(did: string) {
   return MODERATION_AUTHORITIES_DIDS.includes(did) || FORCED_MOD_AUTHORITIES.includes(did)
 }
 
+showTheToastWithTextDeffered("loaded")
+
 export function configureAdditionalModerationAuthorities() {
   const geolocation = device.get(['geolocation'])
   // default to all
@@ -87,16 +90,19 @@ export function configureAdditionalModerationAuthorities() {
   const ocbwoy3_settings = device.get(['ocbwoy3']) || {}
 
   if (ocbwoy3_settings.disableBlueskyLabelerAtproto) {
+    showTheToastWithTextDeffered("Disabled Bluesky Moderation")
     logger.info(`[ocbwoy3] Disabled BskyAgent.appLabelers`)
     BskyAgent.appLabelers = []
   }
 
   if (ocbwoy3_settings.disableAppLabelers) {
+    showTheToastWithTextDeffered("Disabled AppLabelers")
     logger.info(`[ocbwoy3] Disabled additional country-specific labelers`)
     additionalLabelers = []
   }
 
   if (ocbwoy3_settings.enableGoodAppLabelers) {
+    showTheToastWithTextDeffered("Applying proper mod authorities")
     additionalLabelers = [...additionalLabelers, ...forceLabelerDidsWithOpt]
   }
 

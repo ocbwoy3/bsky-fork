@@ -43,6 +43,7 @@ import {BottomSheetOutlet} from '../../../modules/bottom-sheet'
 import {updateActiveViewAsync} from '../../../modules/expo-bluesky-swiss-army/src/VisibilityView'
 import {Composer} from './Composer'
 import {DrawerContent} from './Drawer'
+import { onLoadFinalWhatever } from './ocbwoy3/loadHookWhatever'
 
 function ShellInner() {
   const winDim = useWindowDimensions()
@@ -86,6 +87,10 @@ function ShellInner() {
       navigation.removeListener('state', onFocusOrBlur)
     }
   }, [dedupe, navigation])
+
+  useEffect(()=>{
+    onLoadFinalWhatever();
+  },[])
 
   return (
     <>

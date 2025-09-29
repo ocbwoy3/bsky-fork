@@ -45,7 +45,7 @@ export function VerificationsDialog({
   )
 }
 
-function Inner({
+export function Inner({
   profile,
   control,
   verificationState: state,

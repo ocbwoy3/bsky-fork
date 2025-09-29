@@ -36,10 +36,10 @@ export function OCbwoy3DiscordStatus({
                 style={[
                   t.atoms.bg_contrast_25,
                   {
-                    paddingVertical: 13,
-                    paddingHorizontal: 20,
+                    paddingVertical: 2.5,
+                    paddingHorizontal: 5,
                     borderRadius: 8,
-                    gap: 8,
+                    gap: 4,
                   },
                 ]}>
                 <View style={styles.statusContainer}>

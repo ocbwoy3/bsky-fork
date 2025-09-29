@@ -23,7 +23,7 @@ export default function MyProps({
         { Object.entries(myProps).map(([k, v])=>{
             if (typeof k !== "string") return null
             if (typeof v !== "string") return null
-            return <CustomTextPill textToDisplay={`${k.startsWith("_") ? "" : `${k}: `}${v}`} size="lg"/>
+            return <CustomTextPill key={k} textToDisplay={`${k.startsWith("_") ? "" : `${k}: `}${v}`} size="lg"/>
         }) }
     </Pills.Row>
   )

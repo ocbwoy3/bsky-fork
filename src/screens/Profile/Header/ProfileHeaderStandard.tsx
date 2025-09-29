@@ -34,7 +34,6 @@ import {
 } from '#/components/KnownFollowers'
 import * as Prompt from '#/components/Prompt'
 import {RichText} from '#/components/RichText'
-import {OCbwoy3DiscordStatus} from '#/ocbwoy3BskyHack/components/DiscordStatus'
 import {Text} from '#/components/Typography'
 import {VerificationCheckButton} from '#/components/verification/VerificationCheckButton'
 import {EditProfileDialog} from './EditProfileDialog'
@@ -43,7 +42,6 @@ import {ProfileHeaderMetrics} from './Metrics'
 import {ProfileHeaderShell} from './Shell'
 import {AnimatedProfileHeaderSuggestedFollows} from './SuggestedFollows'
 import {useCustomProfileMetadataFromAtprotoRecord} from '#/lib/hooks/ocbwoy3/useCustomProfileMetadataFromAtprotoRecord'
-import {Admonition} from '#/components/Admonition'
 import MyProps from './ocbwoy3/MyProps'
 
 interface Props {
@@ -314,20 +312,6 @@ let ProfileHeaderStandard = ({
               ) : undefined}
 
               <MyProps md={profileCustom} />
-
-              {profile.did === 'did:plc:s7cesz7cr6ybltaryy4meb6y' ? (
-                <>
-                  <Text style={[t.atoms.text, a.text_md, a.font_medium]}>
-                    hi, if you see this, shit is working, no need to fork react native
-                  </Text>
-                  <OCbwoy3DiscordStatus
-                    allowedApplicationIds={['886578863147192350']}
-                    disallowNullApps
-                  />
-                </>
-              ) : (
-                <></>
-              )}
 
               {shouldShowKnownFollowers(profile.viewer?.knownFollowers) && (
                 <View style={[a.flex_row, a.align_center, a.gap_sm]}>

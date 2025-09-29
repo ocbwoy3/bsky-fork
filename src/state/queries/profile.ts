@@ -41,6 +41,7 @@ import {
 import { RQKEY_ROOT as RQKEY_LIST_CONVOS } from './messages/list-conversations'
 import { RQKEY as RQKEY_MY_BLOCKED } from './my-blocked-accounts'
 import { RQKEY as RQKEY_MY_MUTED } from './my-muted-accounts'
+import { showTheToastWithText } from '#/view/shell/ocbwoy3/loadHookWhatever'
 
 export * from '#/state/queries/unstable-profile-cache'
 /**
@@ -169,12 +170,24 @@ export function useProfileUpdateMutation() {
       }
       // Could not locate record: at://did:plc:s7cesz7cr6ybltaryy4meb6y/dev.ocbwoy3.sns.customMetadata/self
       try {
+        showTheToastWithText("getRecord dev.ocbwoy3.sns.customMetadata/self")
         const currentStuff = await agent.com.atproto.repo.getRecord({
           repo: agent.did!,
           collection: 'dev.ocbwoy3.sns.customMetadata',
           rkey: 'self',
         })
         if (!!currentStuff.success && currentStuff.data) {
+          showTheToastWithText(
+            "updating " +
+            Object.keys(currentStuff.data.value)
+              .filter(
+                key =>
+                  !!updates[key as keyof typeof updates] &&
+                  currentStuff.data.value[key] !==
+                  (updates as any)[key],
+              )
+              .join(", "),
+          )
           await agent.com.atproto.repo.putRecord(
             {
               repo: agent.did!,
@@ -189,6 +202,9 @@ export function useProfileUpdateMutation() {
         }
       } catch (e) {
         console.warn("[ocbwoy3] useProfileUpdateMutation: wtf?", e)
+        showTheToastWithText(
+          "creating record because it doesn't exist, wtf atproto?"
+        )
         await agent.com.atproto.repo.createRecord(
           {
             repo: agent.did!,
