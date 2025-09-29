@@ -79,11 +79,11 @@ function Inner({
             source={require('../../../assets/images/initial_verification_announcement_1.png')}
             style={[
               {
-                aspectRatio: 353 / 160,
+                aspectRatio: 601 / 627,
               },
             ]}
             alt={_(
-              msg`An illustration showing that Bluesky selects trusted verifiers, and trusted verifiers in turn verify individual user accounts.`,
+              msg`Queen's Battery Acid`,
             )}
           />
         </View>
